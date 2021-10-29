@@ -24,15 +24,9 @@ public class LoginServlet extends HttpServlet {
     private ModeloDatos modeloDatos;
     
     public void init(ServletConfig cfg) throws ServletException{
-        
+       
         modeloDatos = new ModeloDatos();
-        
-        try {
-            modeloDatos.abrirConexion();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        modeloDatos.abrirConexion();
     }
     
     public void service(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
@@ -44,5 +38,4 @@ public class LoginServlet extends HttpServlet {
         modeloDatos.cerrarConexion();
         super.destroy();
     }
-
 }

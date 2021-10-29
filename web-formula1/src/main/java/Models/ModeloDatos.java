@@ -7,7 +7,10 @@ package Models;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,14 +25,14 @@ public class ModeloDatos {
     
     protected Connection conection;
 
-    public void abrirConexion() throws ClassNotFoundException {
+    public void abrirConexion(){
         try {
             Class.forName(driver);
             conection = DriverManager.getConnection(url, user, password);
             if(conection != null){
                 System.out.println("Conexión establecida correctamente " + conection);
             }
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Error de SQL " + e.getMessage());
         }   
     }
@@ -43,4 +46,22 @@ public class ModeloDatos {
         }
     }
     
+    public ArrayList<News> getAllNews() {
+        
+        ArrayList<News> listaNews = new ArrayList<>();
+        Statement stmt;
+        
+        try {
+            stmt = conection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM news");
+            
+            while(rs.next()) {
+                listaNews.add(new News(rs.getString("permalink"), rs.getString("title"), rs.getBytes("image"), rs.getString("text")));
+            }
+        }catch (SQLException e){
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+        
+        return listaNews;
+    }
 }

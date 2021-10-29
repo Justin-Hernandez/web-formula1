@@ -4,16 +4,24 @@
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>Controllers.LoginServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NoticiasServlet</servlet-name>
+        <servlet-class>Controllers.NoticiasServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NoticiasServlet</servlet-name>
+        <url-pattern>/NoticiasServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-        <welcome-file-list>
+    <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 </web-app>
