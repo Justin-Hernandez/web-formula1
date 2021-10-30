@@ -36,6 +36,35 @@
             <label>Artículo</label>
             <textarea name="title" rows="20" cols="50">hola mundp</textarea>
         </div>
+        
+        <!--Edit/Delete-->
+        <table>
+            <tr>
+                <td class="td-noticias">N01</td>
+                <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
+                <td class="td-icons"><button class="trash-button"><i class="fas fa-trash"></i></button></td>
+            </tr>
+            <tr>
+                <td class="td-noticias">N02</td>
+                <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
+                <td class="td-icons"><button class="trash-button"><i class="fas fa-trash"></i></button></td>
+            </tr>
+            <tr>
+                <td class="td-noticias">N03</td>
+                <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
+                <td class="td-icons"><button class="trash-button"><i class="fas fa-trash"></i></button></td>
+            </tr>
+            <tr>
+                <td class="td-noticias">N04</td>
+                <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
+                <td class="td-icons"><button class="trash-button"><i class="fas fa-trash"></i></button></td>
+            </tr>
+            <tr>
+                <td class="td-noticias">N05</td>
+                <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
+                <td class="td-icons"><button class="trash-button"><i class="fas fa-trash"></i></button></td>
+            </tr>
+        </table>
 
         <footer class="footer">
             <br>
