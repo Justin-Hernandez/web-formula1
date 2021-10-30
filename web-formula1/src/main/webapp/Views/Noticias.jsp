@@ -31,7 +31,11 @@
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link">Equipos</a></li>
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link">Votaciones</a></li>
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link">Calendario</a></li>
-                </ul>                
+                </ul>   
+                <ul class="nav-menu">
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="InicioSesion.jsp">Iniciar sesión</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="CrearCuenta.jsp">Crear cuenta</a></li>    
+                </u>
             </nav>
         </header>
         
