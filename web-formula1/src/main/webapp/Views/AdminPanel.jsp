@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Panel de Administración</title>
         <link rel="stylesheet" href="../css/custom.css">
         <link rel="stylesheet" href="../css/all.min.css">
         
@@ -28,7 +28,7 @@
               
                 
                
-                <img class="avatar rounded-corners" src="../img/Diez.png" alt="User Image">
+                <img class="avatar" src="../img/Diez.png" alt="Avatar">
                 
                 <a class="nav-menu-item">Juan Gómez</a>
                 
@@ -37,7 +37,7 @@
         
         <section class="section">
             <ul>
-                <li class="section-item"><i class="fas fa-newspaper"></i> Gestión de noticias</li>
+                <li class="section-item"><a href="GestionNoticias.jsp"><i class="fas fa-newspaper"></i> Gestión de noticias</a></li>
                 <li class="section-item"><i class="fas fa-road"></i> Gestión de circuitos</li>
                 <li class="section-item"><i class="fas fa-vote-yea"></i> Gestión de votaciones</li>
                 <li class="section-item"><i class="fas fa-users"></i> Gestión de equipos</li>
