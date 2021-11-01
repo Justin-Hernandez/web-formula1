@@ -5,10 +5,9 @@
  */
 package Controllers;
 import Models.ModeloDatos;
+import Models.User;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,17 +22,41 @@ public class LoginServlet extends HttpServlet {
 
     private ModeloDatos modeloDatos;
     
+    @Override
     public void init(ServletConfig cfg) throws ServletException{
        
         modeloDatos = new ModeloDatos();
         modeloDatos.abrirConexion();
     }
     
+    @Override
     public void service(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
-        //terminar de implementar acorde a la peticion que se reciba
-        res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/AdminPanel.jsp"));
+        
+        String user = req.getParameter("user");
+        String password = req.getParameter("password");
+        
+        User usuario = modeloDatos.userExists(user, password);
+        
+        if(usuario != null) {
+            
+            String rol = usuario.getRol();
+            
+            //si admin, redirecciona a la página del adimn
+            if(rol.equals("admin")) {
+                res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/AdminPanel.jsp"));
+            
+            //si gestor, redirecciona a la página de gestor
+            }else if(rol.equals("gestor")) {
+                
+                res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestorPanel.jsp"));
+            }            
+        }else {
+            //usuario no existe, enviar a página de error o algo
+            //res.sendRedirect(user);
+        }
     }
     
+    @Override
     public void destroy(){
         modeloDatos.cerrarConexion();
         super.destroy();
