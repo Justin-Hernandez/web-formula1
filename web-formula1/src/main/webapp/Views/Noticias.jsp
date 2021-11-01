@@ -16,13 +16,12 @@
     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <title>Noticias</title>
         <link rel="stylesheet" href="../css/custom.css">
         <link rel="stylesheet" href="../css/all.min.css">
-        
     </head>
-    <body>
-        
+    <body>    
         <header class="header">
             <nav class="nav">
                 <img class="image" src="../img/f1_logo.png">
@@ -39,18 +38,28 @@
             </nav>
         </header>
         
-        <% for(News n: news) {%>
-        <h1><%=n.getTitulo()%></h1>
-        <textarea name="textarea" rows="20" cols="50" readonly="true"><%=n.getTexto()%></textarea>
-        <img src="data:image/jpeg;base64,<%=Base64.getEncoder().encodeToString(n.getImg())%>" />
-        <%}%>
-        
-        
+        <!--News Section-->
+        <div class="section_title">Noticias</div>
+        <hr> 
+        <section class="cards">
+            <% for(News n: news) {%>
+            <a href="" class="card">
+                <!--<div class="card_image" style="background-image: url('data:image/jpeg;base64,<%=Base64.getEncoder().encodeToString(n.getImg())%>')"></div>-->
+                <div class="card_image" style="background-image: url('../img/img2.jpg')"></div>
+                <div class="card_content">
+                    <div class="card_title"><%=n.getTitulo()%></div>
+                    <div class="card_article">
+                        <%=n.getTexto()%>
+                    </div>
+                </div>
+            </a>
+            <%}%>
+        </section>
+
         <footer class="footer">
             <br>
             Encuentra nuestro proyecto en <a  href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i>
-            <p>2021 ©</p>
-            
+            <p>2021 ©</p>          
         </footer>
         
     </body>
