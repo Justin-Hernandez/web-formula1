@@ -163,6 +163,11 @@ input[type="password"]::placeholder
     text-align: center;
 }
 
+#titulo_noticia{
+    width: 604px;
+    height: 25px;
+}
+
 .article{
     width: 50%;
     height: 100%;

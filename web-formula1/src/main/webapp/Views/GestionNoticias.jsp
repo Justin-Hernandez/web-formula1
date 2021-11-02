@@ -31,18 +31,18 @@
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link">Votaciones</a></li>
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link">Calendario</a></li>
                 </ul>
-                
-                
+
+
                 <img class="avatar" src="../img/Diez.png" alt="Avatar">
-                <% String nombre = (String) session.getAttribute("name"); %>
+                <% String nombre = (String) session.getAttribute("name");%>
                 <a class="nav-menu-item"><%=nombre%></a>
-                
+
 
             </nav>
         </header>
 
-        <table>
-            <form action="/web-formula1/NoticiasServlet?accion=insertar" method="post" enctype="multipart/form-data" onsubmit="return validarNoticias();"></form>
+        <form action="/web-formula1/NoticiasServlet?accion=insertar" method="post" enctype="multipart/form-data" onsubmit="return validarNoticias();"></form>
+            <table>
                 <tr><td><label>Título:</label></td></tr>
                 <tr><td><input type="text" name="title" id="titulo_noticia" maxlength="100" width="400px"></td></tr>
                 <tr><td><label>Artículo</label></td></tr>
@@ -53,19 +53,21 @@
                 <tr>
                     <td><input type="submit" id="adicionar_noticia" value="Adicionar"></td>
                 </tr>
-            <form>
-        </table>
 
-        <!--Edit/Delete-->
+            </table>
+        </form>
+    <!--Edit/Delete-->
         <table>
             <% for (News n : news) {%>
             <tr>
                 <td class="td-noticias"><%=n.getTitulo()%></td>
                 <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
-                <td class="td-icons"><a href="#"><button class="trash-button"><i class="fas fa-trash"></i></button></a></td>
+                <td class="td-icons"><button class="trash-button"><a href="/web-formula1/NoticiasServlet?accion=eliminar&titulo=<%=n.getTitulo()%>"><i class="fas fa-trash"></i></a></button></td>
             </tr>
             <%}%>
         </table>
+
+
 
         <footer class="footer">
             <br>
@@ -73,5 +75,5 @@
             <p>2021 ©</p>
 
         </footer>
-    </body>
+</body>
 </html>

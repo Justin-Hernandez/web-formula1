@@ -20,7 +20,7 @@
             <nav class="nav">
                 <img class="image" src="../img/f1_logo.png">
                 <ul class="nav-menu">
-                    <li class="nav-menu-item"><a class="nav-menu-link nav-link">Noticias</a></li>
+                    <li class="nav-menu-item"><a href="/web-formula1/NoticiasServlet?accion=listar" class="nav-menu-link nav-link">Noticias</a></li>
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link">Equipos</a></li>
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link">Votaciones</a></li>
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link">Calendario</a></li>

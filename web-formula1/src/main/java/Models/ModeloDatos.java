@@ -76,7 +76,8 @@ public class ModeloDatos {
         
         try {
             stmt = conection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE user='" + user + "' and password='" + password + "'");
+            String query = "SELECT * FROM users WHERE user='" + user + "' and password='" + password + "'";
+            ResultSet rs = stmt.executeQuery(query);
             
             //si existe crea instancia de User
             while(rs.next()) {
@@ -121,7 +122,7 @@ public class ModeloDatos {
         PreparedStatement pstmt;
         
         try {
-            pstmt = conection.prepareStatement("DELETE FROM news WHERE titulo = ?");
+            pstmt = conection.prepareStatement("DELETE FROM news WHERE title = ?");
             
             pstmt.setString(1, titulo);
             
