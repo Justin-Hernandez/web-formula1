@@ -46,9 +46,9 @@ public class LoginServlet extends HttpServlet {
         
         User usuario = modeloDatos.userExists(user, hashAString(password));
 
-        session.setAttribute("name", usuario.getName());
-
         if (usuario != null) {
+            
+            session.setAttribute("name", usuario.getName());
 
             String rol = usuario.getRol();
 
