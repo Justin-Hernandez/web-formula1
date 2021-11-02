@@ -80,7 +80,7 @@ public class ModeloDatos {
             
             //si existe crea instancia de User
             while(rs.next()) {
-                u = new User(rs.getString("name"), rs.getString(user), rs.getString("email"), rs.getString("password"), rs.getString("role"));
+                u = new User(rs.getString("name"), rs.getString("user"), rs.getString("email"), rs.getString("password"), rs.getString("role"));
             }
             
         }catch (SQLException e){

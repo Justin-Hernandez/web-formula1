@@ -26,11 +26,9 @@
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link">Calendario</a></li>
                 </ul>
               
-                
-               
                 <img class="avatar" src="../img/Diez.png" alt="Avatar">
-                
-                <a class="nav-menu-item">Juan Gómez</a>
+                <% String nombre = (String) session.getAttribute("name"); %>
+                <a class="nav-menu-item"><%=nombre%></a>
                 
             </nav>
         </header>

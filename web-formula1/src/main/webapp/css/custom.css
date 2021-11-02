@@ -97,6 +97,10 @@ section{
     margin-top: 10%;
 }
 
+textarea {
+    resize: none;
+}
+
 ul{
     list-style: none;
 }
@@ -143,7 +147,7 @@ ul{
     margin-bottom: 10px;
 }
 
-.login-box input[type="email"],
+.login-box input[type="text"],
 .login-box input[type="password"],
 .login-box input[type="submit"]{
     border-radius: 5px;
@@ -153,15 +157,15 @@ ul{
     font-size: 16px;
 }
 
-input[type="email"]::placeholder,
+input[type="text"]::placeholder,
 input[type="password"]::placeholder
 {
     text-align: center;
 }
 
 .article{
-	width: 50%;
-	height: 100%;
+    width: 50%;
+    height: 100%;
 }
 
 tr {

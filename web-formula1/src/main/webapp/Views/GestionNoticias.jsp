@@ -19,6 +19,7 @@
         <title>Gestion de Noticias</title>
         <link rel="stylesheet" href="../css/custom.css">
         <link rel="stylesheet" href="../css/all.min.css">
+        <script src="../js/validaciones.js"></script>
     </head>
     <body>
         <header class="header">
@@ -30,27 +31,38 @@
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link">Votaciones</a></li>
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link">Calendario</a></li>
                 </ul>
-
-                <img class="avatar rounded-corners" src="../img/Diez.png" alt="User Image">
-                <a class="nav-menu-item">Juan Gómez</a>
+                
+                
+                <img class="avatar" src="../img/Diez.png" alt="Avatar">
+                <% String nombre = (String) session.getAttribute("name"); %>
+                <a class="nav-menu-item"><%=nombre%></a>
+                
 
             </nav>
         </header>
 
-        <div class="article">
-            <label>Título:</label>
-            <input type="text" name="title">
-            <label>Artículo</label>
-            <textarea name="title" rows="20" cols="50">hola mundo</textarea>
-        </div>
-        
+        <table>
+            <form action="/web-formula1/NoticiasServlet?accion=insertar" method="post" enctype="multipart/form-data" onsubmit="return validarNoticias();"></form>
+                <tr><td><label>Título:</label></td></tr>
+                <tr><td><input type="text" name="title" id="titulo_noticia" maxlength="100" width="400px"></td></tr>
+                <tr><td><label>Artículo</label></td></tr>
+                <tr><td><textarea name="textarea" rows="10" cols="79" id="noticia" maxlength="2000"></textarea></td></tr>
+                <tr>
+                    <td><input type="file" id="imagen_noticia" name="file" onchange="validarImagen(this)"></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" id="adicionar_noticia" value="Adicionar"></td>
+                </tr>
+            <form>
+        </table>
+
         <!--Edit/Delete-->
         <table>
-            <% for(News n: news) {%>
+            <% for (News n : news) {%>
             <tr>
                 <td class="td-noticias"><%=n.getTitulo()%></td>
                 <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
-                <td class="td-icons"><button class="trash-button"><i class="fas fa-trash"></i></button></td>
+                <td class="td-icons"><a href="#"><button class="trash-button"><i class="fas fa-trash"></i></button></a></td>
             </tr>
             <%}%>
         </table>

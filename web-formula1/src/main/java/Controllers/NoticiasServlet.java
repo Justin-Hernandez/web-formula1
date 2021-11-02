@@ -18,6 +18,9 @@ public class NoticiasServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         
+        
+        
+        
         HttpSession s = req.getSession(true);       
         
         s.setAttribute("news", modelo.getAllNews());

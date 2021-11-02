@@ -18,8 +18,8 @@
 
         <div class="login-box">
             <h1>Inicio de sesión</h1>
-            <form action="" method="">
-                <input type="email" placeholder="Corre electrónico" name="email" >
+            <form action="/web-formula1/LoginServlet" method="post">
+                <input type="text" placeholder="Nombre de usuario" name="user" >
                 <input type="password" placeholder="Contraseña" name="password">
                 <input type="submit" value="Entrar">
                 
