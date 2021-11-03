@@ -59,7 +59,7 @@ public class ModeloDatos {
             ResultSet rs = stmt.executeQuery("SELECT * FROM news");
             
             while(rs.next()) {
-                listaNews.add(new News(rs.getString("permalink"), rs.getString("title"), rs.getBytes("image"), rs.getString("text")));
+                listaNews.add(new News(rs.getInt("id"), rs.getString("permalink"), rs.getString("title"), rs.getBytes("image"), rs.getString("text")));
             }
         }catch (SQLException e){
             System.out.println("SQL ERROR: " + e.toString());

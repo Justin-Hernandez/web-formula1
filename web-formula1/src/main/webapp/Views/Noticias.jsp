@@ -43,14 +43,11 @@
         <hr> 
         <section class="cards">
             <% for(News n: news) {%>
-            <a href="" class="card">
-                <!--<div class="card_image" style="background-image: url('data:image/jpeg;base64,<%=Base64.getEncoder().encodeToString(n.getImg())%>')"></div>-->
+            <a href=<%=n.getPermalink()%> class="card">
                 <div class="card_image" style="background-image: url('../img/img2.jpg')"></div>
                 <div class="card_content">
                     <div class="card_title"><%=n.getTitulo()%></div>
-                    <div class="card_article">
-                        <%=n.getTexto()%>
-                    </div>
+                    <div class="card_article"><%=n.getTexto()%></div>
                 </div>
             </a>
             <%}%>

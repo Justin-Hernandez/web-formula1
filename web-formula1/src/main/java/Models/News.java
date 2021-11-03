@@ -6,12 +6,14 @@ package Models;
  */
 public class News {
     
+    private int id;
     private String permalink;
     private String titulo;
     private byte[] img;
     private String texto;
 
-    public News(String permalink, String titulo, byte[] img, String texto) {
+    public News(int id, String permalink, String titulo, byte[] img, String texto) {
+        this.id = id;
         this.permalink = permalink;
         this.titulo = titulo;
         this.img = img;
@@ -33,6 +35,10 @@ public class News {
     public String getTexto() {
         return texto;
     }
+    
+    public int getId() {
+        return id;
+    }
 
     public void setPermalink(String permalink) {
         this.permalink = permalink;
@@ -48,5 +54,9 @@ public class News {
 
     public void setTexto(String texto) {
         this.texto = texto;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
     }
 }

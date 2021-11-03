@@ -8,6 +8,10 @@
         <servlet-name>NoticiasServlet</servlet-name>
         <servlet-class>Controllers.NoticiasServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NoticiaServlet</servlet-name>
+        <servlet-class>Controllers.NoticiaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>NoticiasServlet</servlet-name>
         <url-pattern>/NoticiasServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NoticiaServlet</servlet-name>
+        <url-pattern>/Noticia</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
