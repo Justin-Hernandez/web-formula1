@@ -2,11 +2,19 @@ package Controllers;
 
 import Models.ModeloDatos;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import org.apache.commons.io.FilenameUtils;
 import javax.servlet.*;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
+@MultipartConfig
 public class NoticiasServlet extends HttpServlet {
 
+    private String pathFiles = "C:\\Users\\DELL\\Documents\\NetBeansProjects\\web-formula1\\web-formula1\\src\\main\\webapp\\store\\img\\";
+    private File uploads = new File(pathFiles);
     private ModeloDatos modelo;
 
     @Override
@@ -25,18 +33,60 @@ public class NoticiasServlet extends HttpServlet {
                 case "listar":
                     s.setAttribute("news", modelo.getAllNews());
                     // Llamada a la página jsp 
-                    
+
                     res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/Noticias.jsp"));
+                    break;
+                case "insertar":
+                    agregarNoticia(req, res);
                     break;
                 case "eliminar":
                     eliminarNoticia(req, res);
                     break;
                 default:
-                    
+
                     break;
             }
         }
 
+    }
+
+    private void agregarNoticia(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+
+        String noticia = req.getParameter("textarea");
+        String titulo = req.getParameter("title");
+        Part part = req.getPart("file");
+
+        /*/////NO BORRAAAAAAR
+        String camino = getServletContext().getRealPath("/" + "file" + File.separator + part.getSubmittedFileName());
+        System.out.println(camino);
+        */
+
+        String foto = guardarFoto(part, uploads);
+        modelo.insertNews("permalink ejemplo", titulo, foto, noticia);
+        res.sendRedirect("/web-formula1/Views/GestionNoticias.jsp");
+    }
+
+    private String guardarFoto(Part part, File pathUploads) throws IOException {
+        String absolutePath = "";
+
+        Path path = Paths.get(part.getSubmittedFileName());
+        String fileName = path.getFileName().toString();
+        InputStream inputStream = part.getInputStream();
+        if (inputStream != null) {
+            File file = new File(pathUploads, fileName);
+            if (!file.exists()) {
+                Files.copy(inputStream, file.toPath());
+                absolutePath = file.getAbsolutePath();
+            } else {
+                String nombreSolamente = FilenameUtils.removeExtension(fileName);
+                String extension = FilenameUtils.getExtension(fileName);
+                String fileNameModificado = nombreSolamente + "-" + Math.random() + "." + extension;
+                File tmp = new File(pathUploads, fileNameModificado);
+                Files.copy(inputStream, tmp.toPath());
+                absolutePath = tmp.getAbsolutePath();
+            }
+        }
+        return absolutePath;
     }
 
     private void eliminarNoticia(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -44,7 +94,7 @@ public class NoticiasServlet extends HttpServlet {
         modelo.deleteNews(titulo);
         res.sendRedirect("/web-formula1/NoticiasServlet?accion=listar");
     }
-    
+
     @Override
     public void destroy() {
         modelo.cerrarConexion();

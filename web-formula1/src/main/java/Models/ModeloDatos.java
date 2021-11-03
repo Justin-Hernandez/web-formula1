@@ -59,7 +59,7 @@ public class ModeloDatos {
             ResultSet rs = stmt.executeQuery("SELECT * FROM news");
             
             while(rs.next()) {
-                listaNews.add(new News(rs.getString("permalink"), rs.getString("title"), rs.getBytes("image"), rs.getString("text")));
+                listaNews.add(new News(rs.getString("permalink"), rs.getString("title"), rs.getString("image"), rs.getString("text")));
             }
         }catch (SQLException e){
             System.out.println("SQL ERROR: " + e.toString());
@@ -92,7 +92,7 @@ public class ModeloDatos {
     }
     
     //inserta nueva noticia
-    public boolean insertNews(String permalink, String titulo, Blob imagen, String texto) {
+    public boolean insertNews(String permalink, String titulo, String imagen, String texto) {
         
         boolean insertado = true;
         PreparedStatement pstmt;
@@ -102,7 +102,7 @@ public class ModeloDatos {
             
             pstmt.setString(1, permalink);
             pstmt.setString(2, titulo);
-            pstmt.setBlob(3, imagen);
+            pstmt.setString(3, imagen);
             pstmt.setString(4, texto);
             
             //true si se ha insertado correctamente, de lo contrario false

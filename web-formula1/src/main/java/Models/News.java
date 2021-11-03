@@ -8,10 +8,10 @@ public class News {
     
     private String permalink;
     private String titulo;
-    private byte[] img;
+    private String img;
     private String texto;
 
-    public News(String permalink, String titulo, byte[] img, String texto) {
+    public News(String permalink, String titulo, String img, String texto) {
         this.permalink = permalink;
         this.titulo = titulo;
         this.img = img;
@@ -26,7 +26,7 @@ public class News {
         return titulo;
     }
 
-    public byte[] getImg() {
+    public String getImg() {
         return img;
     }
 
@@ -42,7 +42,7 @@ public class News {
         this.titulo = titulo;
     }
 
-    public void setImg(byte [] img) {
+    public void setImg(String img) {
         this.img = img;
     }
 
