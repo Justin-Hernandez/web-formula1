@@ -43,16 +43,19 @@ public class LoginServlet extends HttpServlet {
 
         String user = req.getParameter("user");
         String password = req.getParameter("password");
-        
+
         User usuario = modeloDatos.userExists(user, hashAString(password));
 
         if (usuario != null) {
             
             session.setAttribute("name", usuario.getName());
-            String rol = usuario.getRol();
 
+            String rol = usuario.getRol();
+            session.setAttribute("name", usuario.getName());
+            
             //si admin, redirecciona a la página del adimn
             if (rol.equals("Administrador")) {
+                
                 res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/AdminPanel.jsp"));
 
                 //si gestor, redirecciona a la página de gestor

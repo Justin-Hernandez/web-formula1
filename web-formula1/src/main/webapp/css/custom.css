@@ -89,7 +89,12 @@ body {
 
 }
 
-a {text-decoration: none;}
+a {
+    text-decoration: none;
+}
+a.down{
+    line-height: 80px;
+}
 a:hover {color: #002FA7;}
 a:active {color: #0000FF;}
 
@@ -163,6 +168,11 @@ input[type="password"]::placeholder
     text-align: center;
 }
 
+#titulo_noticia{
+    width: 604px;
+    height: 25px;
+}
+
 .article{
     width: 50%;
     height: 100%;
@@ -192,13 +202,13 @@ tr {
 
 .edit-button {
     border-style: none;
-    background-color: white;
+    background-color: rgb(236, 235, 235);
 }
 
 .trash-button {
     border-style: none;
     color: #FF2E2E;
-    background-color: white;
+    background-color: rgb(236, 235, 235);
 }
 
 .cards {

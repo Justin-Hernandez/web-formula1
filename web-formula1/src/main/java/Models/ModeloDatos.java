@@ -5,7 +5,6 @@
  */
 package Models;
 
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -59,7 +58,7 @@ public class ModeloDatos {
             ResultSet rs = stmt.executeQuery("SELECT * FROM news");
             
             while(rs.next()) {
-                listaNews.add(new News(rs.getInt("id"), rs.getString("permalink"), rs.getString("title"), rs.getBytes("image"), rs.getString("text")));
+                listaNews.add(new News(rs.getInt("id"), rs.getString("permalink"), rs.getString("title"), rs.getString("image"), rs.getString("text")));
             }
         }catch (SQLException e){
             System.out.println("SQL ERROR: " + e.toString());
@@ -76,7 +75,8 @@ public class ModeloDatos {
         
         try {
             stmt = conection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE user='" + user + "' and password='" + password + "'");
+            String query = "SELECT * FROM users WHERE user='" + user + "' and password='" + password + "'";
+            ResultSet rs = stmt.executeQuery(query);
             
             //si existe crea instancia de User
             while(rs.next()) {
@@ -91,7 +91,7 @@ public class ModeloDatos {
     }
     
     //inserta nueva noticia
-    public boolean insertNews(String permalink, String titulo, Blob imagen, String texto) {
+    public boolean insertNews(String permalink, String titulo, String imagen, String texto) {
         
         boolean insertado = true;
         PreparedStatement pstmt;
@@ -101,7 +101,7 @@ public class ModeloDatos {
             
             pstmt.setString(1, permalink);
             pstmt.setString(2, titulo);
-            pstmt.setBlob(3, imagen);
+            pstmt.setString(3, imagen);
             pstmt.setString(4, texto);
             
             //true si se ha insertado correctamente, de lo contrario false
@@ -121,7 +121,7 @@ public class ModeloDatos {
         PreparedStatement pstmt;
         
         try {
-            pstmt = conection.prepareStatement("DELETE FROM news WHERE titulo = ?");
+            pstmt = conection.prepareStatement("DELETE FROM news WHERE title = ?");
             
             pstmt.setString(1, titulo);
             
