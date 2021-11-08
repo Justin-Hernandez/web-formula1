@@ -134,4 +134,65 @@ public class ModeloDatos {
         
         return eliminado;
     }
+    
+    //recupera todos los usuarios de la base de datos
+    public ArrayList<User> getAllUsers() {
+        
+        ArrayList<User> listaUsers = new ArrayList<>();
+        Statement stmt;
+        
+        try {
+            stmt = conection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM users");
+            
+            while(rs.next()) {
+                listaUsers.add(new User(rs.getString("name"), rs.getString("user"), rs.getString("email"), rs.getString("password"), rs.getString("role")));
+            }
+        }catch (SQLException e){
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+        
+        return listaUsers;
+    }
+    
+    public boolean deleteUser(String user) {
+        
+        boolean eliminado = true;
+        PreparedStatement pstmt;
+        
+        try {
+            pstmt = conection.prepareStatement("DELETE FROM users WHERE user = ?");
+            
+            pstmt.setString(1, user);
+            
+            //true si se ha eliminado correctamente, de lo contrario false
+            eliminado = pstmt.execute();
+            
+        }catch (SQLException e){
+            System.out.println("SQL ERROR: " + e.toString());
+        }    
+        
+        return eliminado;
+    }
+    
+    public boolean updateUserRol(String user, String rol) {
+        
+        boolean actualizado = true;
+        PreparedStatement pstmt;
+        
+        try {
+            pstmt = conection.prepareStatement("UPDATE users SET role=? WHERE user=?");
+            
+            pstmt.setString(1, rol);
+            pstmt.setString(2, user);
+            
+            //true si se ha actualizado correctamente, de lo contrario false
+            actualizado = pstmt.execute();
+            
+        }catch (SQLException e){
+            System.out.println("SQL ERROR: " + e.toString());
+        }    
+        
+        return actualizado;
+    }
 }

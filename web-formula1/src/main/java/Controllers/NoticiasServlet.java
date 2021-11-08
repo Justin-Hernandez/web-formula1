@@ -47,7 +47,6 @@ public class NoticiasServlet extends HttpServlet {
                     break;
             }
         }
-
     }
 
     private void agregarNoticia(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
