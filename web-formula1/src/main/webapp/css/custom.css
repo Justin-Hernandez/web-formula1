@@ -153,7 +153,8 @@ ul{
 
 .login-box input[type="text"],
 .login-box input[type="password"],
-.login-box input[type="submit"]{
+.login-box input[type="submit"],
+.login-box input[type="email"]{
     border-radius: 5px;
     border: 2px solid #D3D3D3;
     outline: none;
@@ -162,7 +163,8 @@ ul{
 }
 
 input[type="text"]::placeholder,
-input[type="password"]::placeholder
+input[type="password"]::placeholder,
+input[type="email"]::placeholder
 {
     text-align: center;
 }
@@ -301,4 +303,29 @@ hr {
     width: 60%; 
     margin-left: auto; 
     margin-right: auto;
+
+}
+/* mensaje  */
+.alert {
+  padding: 20px;
+  background-color: #f44336; /* Red */
+  color: white;
+  margin-bottom: 15px;
+}
+
+/* boton de cerrado */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* hover */
+.closebtn:hover {
+  color: black;
 }

@@ -58,7 +58,7 @@
                 <tr><td><label>Título:</label></td></tr>
                 <tr><td><input type="text" name="title" id="titulo_noticia" maxlength="100" width="400px"></td></tr>
                 <tr><td><label>Artículo</label></td></tr>
-                <tr><td><textarea name="textarea" rows="10" cols="79" id="noticia" maxlength="2000"></textarea></td></tr>
+                <tr><td><textarea name="textarea" rows="10" cols="79" id="noticia" minlength="500" maxlength="2000"></textarea></td></tr>
                 <tr>
                     <td><input type="file" id="imagen_noticia" name="file" onchange="validarImagen(this)"></td>
                 </tr>
