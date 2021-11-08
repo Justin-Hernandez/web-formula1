@@ -60,3 +60,19 @@ function validarImagen(obj) {
  }
  
  submitBtn.addEventListener('click', validate);*/
+
+function validarCircuitos() {
+    var nombre = document.getElementById('nombre').value;
+    var ciudad = document.getElementById('ciudad').value;
+
+    if (nombre === "" || nombre === null) {
+        alert("Ingrese el título del circuito");
+        return false;
+    } else {
+        if (ciudad === "" || ciudad === null) {
+            alert("Ingrese la ciudad del circuito");
+            return false;
+        }
+    }
+
+}

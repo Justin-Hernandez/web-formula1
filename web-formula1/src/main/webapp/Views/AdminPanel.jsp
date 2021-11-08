@@ -50,7 +50,7 @@
         <section class="section">
             <ul>
                 <li class="section-item"><a href="GestionNoticias.jsp"><i class="fas fa-newspaper"></i> Gestión de noticias</a></li>
-                <li class="section-item"><i class="fas fa-road"></i> Gestión de circuitos</li>
+                <li class="section-item"><a href="/web-formula1/RegistroCircuito?accion=listar"><i class="fas fa-road"></i> Gestión de circuitos</a></li>
                 <li class="section-item"><i class="fas fa-vote-yea"></i> Gestión de votaciones</li>
                 <li class="section-item"><i class="fas fa-users"></i> Gestión de equipos</li>
                 <li class="section-item"><i class="fas fa-user"></i> Gestión de usuarios</li>

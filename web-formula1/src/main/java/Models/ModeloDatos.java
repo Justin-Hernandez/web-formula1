@@ -17,6 +17,7 @@ import java.util.ArrayList;
  *
  * @author DELL
  */
+
 public class ModeloDatos {
     
     static String driver = "com.mysql.jdbc.Driver";
@@ -124,6 +125,87 @@ public class ModeloDatos {
             pstmt = conection.prepareStatement("DELETE FROM news WHERE title = ?");
             
             pstmt.setString(1, titulo);
+            
+            //true si se ha eliminado correctamente, de lo contrario false
+            eliminado = pstmt.execute();
+            
+        }catch (SQLException e){
+            System.out.println("SQL ERROR: " + e.toString());
+        }        
+        
+        return eliminado;
+    }
+    
+    //devuelve todas los circuitos de la base de datos en un ArrayList
+    public ArrayList<Circuitos> getAllCircuitos() {
+        
+        ArrayList<Circuitos> listaCircuitos = new ArrayList<>();
+        Statement stmt;
+        
+        try {
+            stmt = conection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM circuitos");
+            
+            while(rs.next()) {
+                listaCircuitos.add(new Circuitos(rs.getInt("id"), rs.getString("nombre"), rs.getString("ciudad"), rs.getString("pais"), rs.getString("trazado"), rs.getInt("numeroDeVueltas"), rs.getInt("longitud"), rs.getInt("curvasLentas"), rs.getInt("curvasMedia"), rs.getInt("curvasRapidas")));
+            }
+        }catch (SQLException e){
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+        
+        return listaCircuitos;
+    }
+    
+    
+    //inserta nuevo circuito
+    public boolean insertCircuito(
+        String nombre, 
+        String ciudad, 
+        String pais, 
+        String trazado,
+        int numeroDeVueltas,
+        int longitud,
+        int curvasLentas,
+        int curvasMedia,
+        int curvasRapidas
+    ) {
+        
+        boolean insertado = true;
+        PreparedStatement pstmt;
+        
+        try {
+            pstmt = conection.prepareStatement("INSERT INTO circuitos (nombre, ciudad, pais, trazado, numeroDeVueltas, longitud, curvasLentas, curvasMedia, curvasRapidas) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            
+            pstmt.setString(1, nombre);
+            pstmt.setString(2, ciudad);
+            pstmt.setString(3, pais);
+            pstmt.setString(4, trazado);
+            pstmt.setInt(5, numeroDeVueltas);
+            pstmt.setInt(6, longitud);
+            pstmt.setInt(7, curvasLentas);
+            pstmt.setInt(8, curvasMedia);
+            pstmt.setInt(9, curvasRapidas);
+            
+            //true si se ha insertado correctamente, de lo contrario false
+            insertado = pstmt.execute();
+            
+        }catch (SQLException e){
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+        
+        return insertado;
+    }
+    
+    //eliminar circuito existente
+    public boolean deleteCircuito(String nombre) {
+        
+        boolean eliminado = true;
+        PreparedStatement pstmt;
+        
+        try {
+            pstmt = conection.prepareStatement("DELETE FROM circuitos WHERE nombre = ?");
+            
+            pstmt.setString(1, nombre);
             
             //true si se ha eliminado correctamente, de lo contrario false
             eliminado = pstmt.execute();
