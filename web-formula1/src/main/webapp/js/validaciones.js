@@ -6,12 +6,49 @@ function validarNoticias() {
         alert("Ingrese el título de la noticia");
         return false;
     } else {
-        if (noticia === "" || noticia === null) {
-            alert("Ingrese la noticia");
+        if (titulo_noticia.length > 100) {
+            alert("El título de la noticia debe contener menos de 100 caracteres");
             return false;
         }
     }
+    if (noticia === "" || noticia === null) {
+        alert("Ingrese la noticia");
+        return false;
+    } else {
+        if (noticia.length < 500 || noticia.length > 2000) {
+            alert("El contenido de la noticia debe estar entre 500 y 2000 caracteres");
+            return false;
+        }
+    }
+}
 
+function validarFormularioCrearCuenta() {
+    var name = document.getElementById("name").value;
+    var user = document.getElementById("user").value;
+    var email = document.getElementById("email").value;
+    var contrsenha = document.getElementById("password").value;
+    
+    if (name === "" || name === null) {
+        alert("Ingrese el nombre completo");
+        return false;
+    }
+    if (user === "" || user === null) {
+        alert("Ingrese el nombre de usuario");
+        return false;
+    }
+    if (email === "" || email === null) {
+        alert("Ingrese el correo electrónico");
+        return false;
+    }
+    if (contrsenha === "" || contrsenha === null) {
+        alert("Ingrese la contraseña");
+        return false;
+    } else {
+        if (contrsenha.length < 5) {
+            alert("La contraseña debe tener mínimo 5 caracteres");
+            return false;
+        }
+    }
 }
 
 function validarImagen(obj) {

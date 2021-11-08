@@ -22,7 +22,7 @@
                 <input type="text" placeholder="Nombre de usuario" name="user" >
                 <input type="password" placeholder="Contraseña" name="password">
                 <input type="submit" value="Entrar">
-                
+                <p>¿Eres de nuestros usuarios? <a href="CrearCuenta.jsp">Crear cuenta</a></p>
             </form>
         </div>
         

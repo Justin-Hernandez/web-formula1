@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
                 res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/AdminPanel.jsp"));
 
                 //si gestor, redirecciona a la página de gestor
-            } else if (rol.equals("gestor")) {
+            } else if (rol.equals("Responsable de equipo")) {
 
                 res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestorPanel.jsp"));
             }

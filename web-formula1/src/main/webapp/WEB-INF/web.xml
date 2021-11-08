@@ -13,8 +13,15 @@
         <servlet-class>Controllers.NoticiaServlet</servlet-class>
     </servlet>
     <servlet>
+
         <servlet-name>RegistroCircuito</servlet-name>
         <servlet-class>Controllers.RegistroCircuito</servlet-class>
+
+        <servlet-name>GestionUsuarios</servlet-name>
+        <servlet-class>Controllers.GestionUsuarios</servlet-class>
+        <servlet-name>RegistroUsuarioServlet</servlet-name>
+        <servlet-class>Controllers.RegistroUsuarioServlet</servlet-class>
+
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -29,8 +36,15 @@
         <url-pattern>/Noticia</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+
         <servlet-name>RegistroCircuito</servlet-name>
         <url-pattern>/RegistroCircuito</url-pattern>
+
+        <servlet-name>GestionUsuarios</servlet-name>
+        <url-pattern>/GestionUsuarios</url-pattern>
+        <servlet-name>RegistroUsuarioServlet</servlet-name>
+        <url-pattern>/RegistroUsuarioServlet</url-pattern>
+
     </servlet-mapping>
     <session-config>
         <session-timeout>
