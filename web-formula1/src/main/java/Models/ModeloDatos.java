@@ -318,6 +318,8 @@ public class ModeloDatos {
         }        
         
         return eliminado;
+    }
+    
     public boolean updateUserRol(String user, String rol) {
         
         boolean actualizado = true;
