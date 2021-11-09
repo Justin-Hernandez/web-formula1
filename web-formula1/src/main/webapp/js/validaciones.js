@@ -23,11 +23,11 @@ function validarNoticias() {
 }
 
 function validarFormularioCrearCuenta() {
-    var name = document.getElementById("name").value;
-    var user = document.getElementById("user").value;
-    var email = document.getElementById("email").value;
-    var contrsenha = document.getElementById("password").value;
-    
+    var name = document.getElementById('name').value;
+    var user = document.getElementById('user').value;
+    var email = document.getElementById('email').value;
+    var contrsenha = document.getElementById('password').value;
+
     if (name === "" || name === null) {
         alert("Ingrese el nombre completo");
         return false;

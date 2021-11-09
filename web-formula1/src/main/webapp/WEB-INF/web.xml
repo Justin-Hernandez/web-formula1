@@ -3,7 +3,7 @@
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
    version="4.0">
-    
+
     <session-config>
         <session-timeout>
             30
@@ -12,7 +12,7 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
-    
+
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>Controllers.LoginServlet</servlet-class>
@@ -32,7 +32,7 @@
 
         <servlet-name>GestionUsuarios</servlet-name>
         <servlet-class>Controllers.GestionUsuarios</servlet-class>
-        
+
         <servlet-name>RegistroUsuarioServlet</servlet-name>
         <servlet-class>Controllers.RegistroUsuarioServlet</servlet-class>
 
@@ -50,16 +50,17 @@
         <url-pattern>/Noticia</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<servlet-mapping>
 
         <servlet-name>RegistroCircuito</servlet-name>
         <url-pattern>/RegistroCircuito</url-pattern>
 
         <servlet-name>GestionUsuarios</servlet-name>
         <url-pattern>/GestionUsuarios</url-pattern>
-        
+
         <servlet-name>RegistroUsuarioServlet</servlet-name>
         <url-pattern>/RegistroUsuarioServlet</url-pattern>
 
     </servlet-mapping>
-    
+
 </web-app>
