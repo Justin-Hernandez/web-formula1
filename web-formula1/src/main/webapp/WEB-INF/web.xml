@@ -29,34 +29,36 @@
     </servlet>
     
     <servlet>
-
         <servlet-name>RegistroCircuito</servlet-name>
         <servlet-class>Controllers.RegistroCircuito</servlet-class>
     </servlet>
+    
     <servlet>
         <servlet-name>GestionUsuarios</servlet-name>
         <servlet-class>Controllers.GestionUsuarios</servlet-class>
     </servlet>
+    
     <servlet>
         <servlet-name>RegistroUsuarioServlet</servlet-name>
         <servlet-class>Controllers.RegistroUsuarioServlet</servlet-class>
-
     </servlet>
     
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>NoticiasServlet</servlet-name>
         <url-pattern>/NoticiasServlet</url-pattern>
     </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>NoticiaServlet</servlet-name>
         <url-pattern>/Noticia</url-pattern>
     </servlet-mapping>
+    
     <servlet-mapping>
-
         <servlet-name>RegistroCircuito</servlet-name>
         <url-pattern>/RegistroCircuito</url-pattern>
     </servlet-mapping>
@@ -65,7 +67,6 @@
         <servlet-name>GestionUsuarios</servlet-name>
         <url-pattern>/GestionUsuarios</url-pattern>
     </servlet-mapping>
-        
         
     <servlet-mapping>
         <servlet-name>RegistroUsuarioServlet</servlet-name>
