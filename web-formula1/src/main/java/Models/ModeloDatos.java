@@ -239,26 +239,6 @@ public class ModeloDatos {
         return eliminado;
     }
     
-    //devuelve todas los circuitos de la base de datos en un ArrayList
-    public ArrayList<Circuitos> getAllCircuitos() {
-        
-        ArrayList<Circuitos> listaCircuitos = new ArrayList<>();
-        Statement stmt;
-        
-        try {
-            stmt = conection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM circuitos");
-            
-            while(rs.next()) {
-                listaCircuitos.add(new Circuitos(rs.getInt("id"), rs.getString("nombre"), rs.getString("ciudad"), rs.getString("pais"), rs.getString("trazado"), rs.getInt("numeroDeVueltas"), rs.getInt("longitud"), rs.getInt("curvasLentas"), rs.getInt("curvasMedia"), rs.getInt("curvasRapidas")));
-            }
-        }catch (SQLException e){
-            System.out.println("SQL ERROR: " + e.toString());
-        }
-        
-        return listaCircuitos;
-    }
-    
     
     //inserta nuevo circuito
     public boolean insertCircuito(
