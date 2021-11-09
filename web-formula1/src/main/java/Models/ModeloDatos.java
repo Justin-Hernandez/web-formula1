@@ -58,7 +58,7 @@ public class ModeloDatos {
 
         try {
             stmt = conection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM news");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM news ORDER BY id DESC");
 
             while (rs.next()) {
                 listaNews.add(new News(rs.getInt("id"), rs.getString("permalink"), rs.getString("title"), rs.getString("image"), rs.getString("text")));
