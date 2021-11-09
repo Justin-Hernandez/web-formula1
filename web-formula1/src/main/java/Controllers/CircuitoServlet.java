@@ -41,10 +41,10 @@ public class CircuitoServlet extends HttpServlet {
             
             s.setAttribute("circuito", circuito);
             
-            //Llamada a noticia.jsp con la noticia correspondiente
+            //Llamada a Circuito.jsp con el circuito correspondiente
             res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/Circuito.jsp"));
         }else {
-            //Página de error esa noticia no existe
+            //Página de error si el circuito no existe
         }
     }
 

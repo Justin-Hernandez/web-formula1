@@ -20,7 +20,7 @@ import org.apache.commons.io.FilenameUtils;
 @MultipartConfig(maxFileSize = 16177216)
 public class RegistroCircuito extends HttpServlet {
     
-    private String pathFiles = "C:\\Users\\DELL\\Documents\\NetBeansProjects\\web-formula1\\web-formula1\\src\\main\\webapp\\store\\img\\";
+    private String pathFiles = "";
     private File uploads = new File(pathFiles);
     private ModeloDatos modelo;
 
