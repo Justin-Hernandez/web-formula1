@@ -239,6 +239,36 @@ public class ModeloDatos {
         return eliminado;
     }
     
+    //<<<<<<<<<<<<<<Circuitos part>>>>>>>>>>>>>>
+    
+    //devuelve todas los circuitos de la base de datos en un ArrayList
+    public ArrayList<Circuito> getAllCircuitos() {
+        
+        ArrayList<Circuito> listaCircuitos = new ArrayList<>();
+        Statement stmt;
+        
+        try {
+            stmt = conection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM circuitos");
+            while(rs.next()) {
+                listaCircuitos.add(new Circuito(
+                        rs.getInt("id"), 
+                        rs.getString("nombre"), 
+                        rs.getString("ciudad"), 
+                        rs.getString("pais"), 
+                        rs.getString("trazado"), 
+                        rs.getInt("numeroDeVueltas"), 
+                        rs.getInt("longitud"), 
+                        rs.getInt("curvasLentas"), 
+                        rs.getInt("curvasMedia"), 
+                        rs.getInt("curvasRapidas")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+        return listaCircuitos;
+    }
     
     //inserta nuevo circuito
     public boolean insertCircuito(
@@ -251,11 +281,9 @@ public class ModeloDatos {
         int curvasLentas,
         int curvasMedia,
         int curvasRapidas
-    ) {
-        
+    ) {       
         boolean insertado = true;
-        PreparedStatement pstmt;
-        
+        PreparedStatement pstmt; 
         try {
             pstmt = conection.prepareStatement("INSERT INTO circuitos (nombre, ciudad, pais, trazado, numeroDeVueltas, longitud, curvasLentas, curvasMedia, curvasRapidas) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             
@@ -271,14 +299,13 @@ public class ModeloDatos {
             
             //true si se ha insertado correctamente, de lo contrario false
             insertado = pstmt.execute();
-            
-        }catch (SQLException e){
+          
+        } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
-        }
-        
+        }    
         return insertado;
     }
-    
+  
     //eliminar circuito existente
     public boolean deleteCircuito(String nombre) {
         
@@ -293,12 +320,13 @@ public class ModeloDatos {
             //true si se ha eliminado correctamente, de lo contrario false
             eliminado = pstmt.execute();
             
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
-        }        
-        
+        }               
         return eliminado;
     }
+    
+    //<<<<<<<<<<<<<<End Circuitos part>>>>>>>>>>>>>>
     
     public boolean updateUserRol(String user, String rol) {
         

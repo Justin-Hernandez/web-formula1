@@ -8,12 +8,19 @@ import java.nio.file.Paths;
 import org.apache.commons.io.FilenameUtils;
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-@MultipartConfig
-public class NoticiasServlet extends HttpServlet {
+/**
+ *
+ * @author Nasr
+ */
 
-    private String pathFiles = "/Users/macbook/Documents/GitHub/web-formula1/web-formula1/src/main/webapp/img";
+@MultipartConfig
+@WebServlet(name = "CircuitosServlet", urlPatterns = {"/CircuitosServlet"})
+public class CircuitosServlet extends HttpServlet {
+
+  private String pathFiles = "/Users/macbook/Documents/GitHub/web-formula1/web-formula1/src/main/webapp/img";
     private File uploads = new File(pathFiles);
     private ModeloDatos modelo;
 
@@ -31,42 +38,48 @@ public class NoticiasServlet extends HttpServlet {
         if (accion != null) {
             switch (accion) {
                 case "listar":
-                    s.setAttribute("news", modelo.getAllNews());
-                    // Llamada a la página jsp 
-
-                    res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/Noticias.jsp"));
+                    s.setAttribute("circuitos", modelo.getAllCircuitos());
+                    res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionCircuitos.jsp"));
                     break;
                 case "insertar":
-                    agregarNoticia(req, res);
+                    agregarCircuito(req, res);
                     break;
                 case "eliminar":
-                    eliminarNoticia(req, res);
-                  
-                    res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionNoticias.jsp"));
+                    eliminarCircuito(req, res);
+                    //res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionCircuitos.jsp"));
                     break;
                 default:
-
                     break;
             }
         }
     }
 
-    private void agregarNoticia(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+    //agregar circuito
+    private void agregarCircuito(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 
-        String noticia = req.getParameter("textarea");
-        String titulo = req.getParameter("title");
+        String nombre = req.getParameter("nombre");
+        String ciudad = req.getParameter("ciudad");
+        String pais = req.getParameter("pais");
         Part part = req.getPart("file");
-
-        /*/////NO BORRAAAAAAR
-        String camino = getServletContext().getRealPath("/" + "file" + File.separator + part.getSubmittedFileName());
-        System.out.println(camino);
-        */
-
-        String foto = guardarFoto(part, uploads);
-        modelo.insertNews("permalink ejemplo", titulo, foto, noticia);
-        res.sendRedirect("/web-formula1/Views/GestionNoticias.jsp");
+        String trazado = guardarFoto(part, uploads);
+        int numeroDeVueltas = Integer.parseInt(req.getParameter("numeroDeVueltas"));
+        int longitud = Integer.parseInt(req.getParameter("longitud"));
+        int curvasLentas = Integer.parseInt(req.getParameter("curvasLentas"));
+        int curvasMedia = Integer.parseInt(req.getParameter("curvasMedia"));
+        int curvasRapidas = Integer.parseInt(req.getParameter("curvasRapidas"));
+        
+        modelo.insertCircuito(nombre, ciudad, pais, trazado, numeroDeVueltas, longitud, curvasLentas, curvasMedia, curvasRapidas);
+        res.sendRedirect("/web-formula1/CircuitosServlet?accion=listar");
+    }
+    
+    //eliminar circuito
+    private void eliminarCircuito(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        String nombre = req.getParameter("nombre");
+        modelo.deleteCircuito(nombre);
+        res.sendRedirect("/web-formula1/CircuitosServlet?accion=listar");
     }
 
+    //guardar fotos
     private String guardarFoto(Part part, File pathUploads) throws IOException {
         String absolutePath = "";
 
@@ -90,15 +103,10 @@ public class NoticiasServlet extends HttpServlet {
         return absolutePath;
     }
 
-    private void eliminarNoticia(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        String titulo = req.getParameter("titulo");
-        modelo.deleteNews(titulo);
-        res.sendRedirect("/web-formula1/NoticiasServlet?accion=listar");
-    }
-
     @Override
     public void destroy() {
         modelo.cerrarConexion();
         super.destroy();
     }
+    
 }

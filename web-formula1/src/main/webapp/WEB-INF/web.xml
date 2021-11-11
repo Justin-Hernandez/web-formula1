@@ -29,8 +29,13 @@
     </servlet>
     
     <servlet>
-        <servlet-name>RegistroCircuito</servlet-name>
-        <servlet-class>Controllers.RegistroCircuito</servlet-class>
+        <servlet-name>CircuitosServlet</servlet-name>
+        <servlet-class>Controllers.CircuitosServlet</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>CircuitoServlet</servlet-name>
+        <servlet-class>Controllers.CircuitoServlet</servlet-class>
     </servlet>
     
     <servlet>
@@ -59,10 +64,10 @@
     </servlet-mapping>
     
     <servlet-mapping>
-        <servlet-name>RegistroCircuito</servlet-name>
-        <url-pattern>/RegistroCircuito</url-pattern>
+        <servlet-name>CircuitosServlet</servlet-name>
+        <url-pattern>/CircuitosServlet</url-pattern>
     </servlet-mapping>
-
+    
     <servlet-mapping>
         <servlet-name>GestionUsuarios</servlet-name>
         <url-pattern>/GestionUsuarios</url-pattern>
@@ -73,4 +78,9 @@
         <url-pattern>/RegistroUsuarioServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>CircuitoServlet</servlet-name>
+        <url-pattern>/CircuitoServlet</url-pattern>
+    </servlet-mapping>
+    
 </web-app>
