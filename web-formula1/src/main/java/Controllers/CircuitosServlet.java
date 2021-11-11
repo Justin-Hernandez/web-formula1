@@ -20,7 +20,8 @@ import javax.servlet.http.*;
 @WebServlet(name = "CircuitosServlet", urlPatterns = {"/CircuitosServlet"})
 public class CircuitosServlet extends HttpServlet {
 
-  private String pathFiles = "/Users/macbook/Documents/GitHub/web-formula1/web-formula1/src/main/webapp/img";
+    //private String pathFiles = "/Users/macbook/Documents/GitHub/web-formula1/web-formula1/src/main/webapp/img";
+    private String pathFiles = "";
     private File uploads = new File(pathFiles);
     private ModeloDatos modelo;
 
