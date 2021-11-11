@@ -26,6 +26,7 @@ public class NoticiasServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
+        
         String accion = req.getParameter("accion");
         HttpSession s = req.getSession(true);
         if (accion != null) {
@@ -38,11 +39,13 @@ public class NoticiasServlet extends HttpServlet {
                     break;
                 case "insertar":
                     agregarNoticia(req, res);
+                    s.setAttribute("news", modelo.getAllNews());
+                    res.sendRedirect("/web-formula1/Views/GestionNoticias.jsp");
                     break;
                 case "eliminar":
                     eliminarNoticia(req, res);
-                  
-                    res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionNoticias.jsp"));
+                    s.setAttribute("news", modelo.getAllNews());
+                    res.sendRedirect("/web-formula1/Views/GestionNoticias.jsp");
                     break;
                 default:
 
@@ -53,6 +56,11 @@ public class NoticiasServlet extends HttpServlet {
 
     private void agregarNoticia(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 
+        String pathFiles = req.getServletContext().getRealPath("/store/img");
+
+        File uploads = new File(pathFiles);
+        
+        
         String noticia = req.getParameter("textarea");
         String titulo = req.getParameter("title");
         Part part = req.getPart("file");
@@ -64,7 +72,7 @@ public class NoticiasServlet extends HttpServlet {
 
         String foto = guardarFoto(part, uploads);
         modelo.insertNews("permalink ejemplo", titulo, foto, noticia);
-        res.sendRedirect("/web-formula1/Views/GestionNoticias.jsp");
+        
     }
 
     private String guardarFoto(Part part, File pathUploads) throws IOException {
@@ -93,7 +101,6 @@ public class NoticiasServlet extends HttpServlet {
     private void eliminarNoticia(HttpServletRequest req, HttpServletResponse res) throws IOException {
         String titulo = req.getParameter("titulo");
         modelo.deleteNews(titulo);
-        res.sendRedirect("/web-formula1/NoticiasServlet?accion=listar");
     }
 
     @Override
