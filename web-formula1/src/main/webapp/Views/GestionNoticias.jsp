@@ -22,69 +22,72 @@
         <script src="../js/validaciones.js"></script>
     </head>
     <body>
-        <header class="header">
-            <nav class="nav">
-                <img class="image" src="../img/f1_logo.png">
-                <ul class="nav-menu">
-                    <li class="nav-menu-item"><a href="/web-formula1/NoticiasServlet?accion=listar" class="nav-menu-link nav-link">Noticias</a></li>
-                    <li class="nav-menu-item"><a class="nav-menu-link nav-link">Equipos</a></li>
-                    <li class="nav-menu-item"><a class="nav-menu-link nav-link">Votaciones</a></li>
-                    <li class="nav-menu-item"><a class="nav-menu-link nav-link">Calendario</a></li>
-                </ul>
-
-
-                <%
-                if(session.getAttribute("name") != null){%>
+        <div class="page-container">
+            <header>
+                <nav class="nav">
+                    <div class="logo">
+                        <a href="/web-formula1/Noticias.jsp">
+                            <img class="image" src="../img/f1_logo.png">
+                        </a>
+                    </div>
+                    <ul class="nav-menu">
+                        <li class="nav-menu-item active" ><a class="nav-menu-link nav-link">Noticias</a></li>
+                        <li class="nav-menu-item"><a class="nav-menu-link nav-link">Equipos</a></li>
+                        <li class="nav-menu-item"><a class="nav-menu-link nav-link">Votaciones</a></li>
+                        <li class="nav-menu-item"><a class="nav-menu-link nav-link">Calendario</a></li>
+                    </ul>  
+                    <%
+                    if (session.getAttribute("name") != null) {%>
                     <img class="avatar" src="../img/Diez.png" alt="Avatar">
-                    <% String nombre = (String) session.getAttribute("name"); %>
+                    <% String nombre = (String) session.getAttribute("name");%>
                     <a href="AdminPanel.jsp" class="nav-menu-item"><%=nombre%></a><a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
-                    <%if(request.getParameter("logout")!= null){
-                        session.removeAttribute("name");
-                        response.sendRedirect("Noticias.jsp");
-                    }
-                }else{%>
+                        <%if (request.getParameter("logout") != null) {
+                                session.removeAttribute("name");
+                                response.sendRedirect("Noticias.jsp");
+                            }
+                        } else {%>
 
-                   <ul class="nav-menu">
-                    <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="InicioSesion.jsp">Iniciar sesión</a></li>
-                    <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="CrearCuenta.jsp">Crear cuenta</a></li>    
-                   </ul> 
-                <%}%>  
+                    <ul class="nav-menu">
+                        <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="InicioSesion.jsp">Iniciar sesión</a></li>
+                        <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="CrearCuenta.jsp">Crear cuenta</a></li>    
+                    </ul> 
+                    <%}%>     
+                </nav>
+            </header>
 
-            </nav>
-        </header>
-
-        <form action="/web-formula1/NoticiasServlet?accion=insertar" method="post" enctype="multipart/form-data" onsubmit="return validarNoticias();">
+            <form action="/web-formula1/NoticiasServlet?accion=insertar" method="post" enctype="multipart/form-data" onsubmit="return validarNoticias();">
+                <table>
+                    <tr><td><label>Título:</label></td></tr>
+                    <tr><td><input type="text" name="title" id="titulo_noticia" maxlength="100" width="400px"></td></tr>
+                    <tr><td><label>Artículo</label></td></tr>
+                    <tr><td><textarea name="textarea" rows="10" cols="79" id="noticia" minlength="500" maxlength="2000"></textarea></td></tr>
+                    <tr>
+                        <td><input type="file" id="imagen_noticia" name="file" onchange="validarImagen(this)"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" id="adicionar_noticia" value="Adicionar"></td>
+                    </tr>
+                </table>
+            </form>
+            <!--Edit/Delete-->
             <table>
-                <tr><td><label>Título:</label></td></tr>
-                <tr><td><input type="text" name="title" id="titulo_noticia" maxlength="100" width="400px"></td></tr>
-                <tr><td><label>Artículo</label></td></tr>
-                <tr><td><textarea name="textarea" rows="10" cols="79" id="noticia" minlength="500" maxlength="2000"></textarea></td></tr>
+                <% for (News n : news) {%>
                 <tr>
-                    <td><input type="file" id="imagen_noticia" name="file" onchange="validarImagen(this)"></td>
+                    <td class="td-noticias"><%=n.getTitulo()%></td>
+                    <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
+                    <td class="td-icons"><button class="trash-button"><a href="/web-formula1/NoticiasServlet?accion=eliminar&titulo=<%=n.getTitulo()%>"><i class="fas fa-trash"></i></a></button></td>
                 </tr>
-                <tr>
-                    <td><input type="submit" id="adicionar_noticia" value="Adicionar"></td>
-                </tr>
+                <%}%>
             </table>
-        </form>
-    <!--Edit/Delete-->
-        <table>
-            <% for (News n : news) {%>
-            <tr>
-                <td class="td-noticias"><%=n.getTitulo()%></td>
-                <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
-                <td class="td-icons"><button class="trash-button"><a href="/web-formula1/NoticiasServlet?accion=eliminar&titulo=<%=n.getTitulo()%>"><i class="fas fa-trash"></i></a></button></td>
-            </tr>
-            <%}%>
-        </table>
 
-
-
-        <footer class="footer">
-            <br>
-            Encuentra nuestro proyecto en <a  href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i>
-            <p>2021 ©</p>
-
-        </footer>
-</body>
+            <footer class="footer">
+                <div class="footer_div">
+                    <div>
+                        Encuentra nuestro proyecto en <a href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i><br>
+                    </div>
+                    <p>2021 &copy</p>
+                </div>
+            </footer>
+        </div>
+    </body>
 </html>
