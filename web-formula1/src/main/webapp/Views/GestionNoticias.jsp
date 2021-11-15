@@ -26,7 +26,7 @@
             <header>
                 <nav class="nav">
                     <div class="logo">
-                        <a href="/web-formula1/Noticias.jsp">
+                        <a href="/web-formula1/Views/Noticias.jsp"> 
                             <img class="image" src="../img/f1_logo.png">
                         </a>
                     </div>
@@ -38,9 +38,12 @@
                     </ul>  
                     <%
                     if (session.getAttribute("name") != null) {%>
-                    <img class="avatar" src="../img/Diez.png" alt="Avatar">
-                    <% String nombre = (String) session.getAttribute("name");%>
-                    <a href="AdminPanel.jsp" class="nav-menu-item"><%=nombre%></a><a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
+                    <div class="admin">
+                        <img class="avatar" src="../img/Diez.png" alt="Avatar">
+                        <% String nombre = (String) session.getAttribute("name");%>
+                        <a href="AdminPanel.jsp" class="nav-menu-item"><%=nombre%></a>
+                    </div>
+                    <a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
                         <%if (request.getParameter("logout") != null) {
                                 session.removeAttribute("name");
                                 response.sendRedirect("Noticias.jsp");

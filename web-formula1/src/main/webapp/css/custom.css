@@ -3,17 +3,13 @@
     box-sizing: border-box;
 }
 
-html {
-    height: 100%
-}
-
 body {
     background-color: #ecebeb;
     font-family: sans-serif;
 }
 
 .page-container {
-    /*position: relative;*/
+    position: relative;
     min-height: 100vw;
 }
 

@@ -19,7 +19,7 @@
             <header>
                 <nav class="nav">
                     <div class="logo">
-                        <a href="/web-formula1/Noticias.jsp">
+                        <a href="/web-formula1/Views/Noticias.jsp"> 
                             <img class="image" src="../img/f1_logo.png">
                         </a>
                     </div>
@@ -52,12 +52,14 @@
             </header>
 
             <section class="section">
-                <ul>
-                    <li class="section-item"><a href="GestionNoticias.jsp"><i class="fas fa-newspaper"></i>Gestión de noticias</a></li>
+                <ul>                   
+                    <li class="section-item"><a href="GestionNoticias.jsp"><i class="fas fa-newspaper"></i> Gestión de noticias</a></li>
                     <li class="section-item"><a href="/web-formula1/CircuitosServlet?accion=listar"><i class="fas fa-road"></i> Gestión de circuitos</a></li>
-                    <li class="section-item"><i class="fas fa-vote-yea"></i>Gestión de votaciones</li>
-                    <li class="section-item"><i class="fas fa-users"></i>Gestión de equipos</li>
-                    <li class="section-item"><a href="/web-formula1/GestionUsuarios"><i class="fas fa-user"></i>Gestión de usuarios</li>
+                    <li class="section-item"><i class="fas fa-vote-yea"></i> Gestión de votaciones</li>
+                    <li class="section-item"><i class="fas fa-users"></i> Gestión de equipos</li>
+                    <li class="section-item"><a href="/web-formula1/GestionUsuarios"><i class="fas fa-user"></i> Gestión de usuarios</li>
+                    <%--This will be placed later!--%>
+                    <li class="section-item"><a href="/web-formula1/CochesServlet?accion=listar"><i class="fas fa-car"></i> Gestión de coches (temporary)</li>
                 </ul>
             </section>
 

@@ -12,8 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -241,7 +239,7 @@ public class ModeloDatos {
     
     //<<<<<<<<<<<<<<Circuitos part>>>>>>>>>>>>>>
     
-    //devuelve todas los circuitos de la base de datos en un ArrayList
+    //devuelve todos los circuitos de la base de datos en un ArrayList
     public ArrayList<Circuito> getAllCircuitos() {
         
         ArrayList<Circuito> listaCircuitos = new ArrayList<>();
@@ -327,6 +325,69 @@ public class ModeloDatos {
     }
     
     //<<<<<<<<<<<<<<End Circuitos part>>>>>>>>>>>>>>
+    
+    //<<<<<<<<<<<<<<Coches part>>>>>>>>>>>>>>
+    
+    //devuelve todos los coches de la base de datos en un ArrayList
+    public ArrayList<Coche> getAllCoches() {
+        
+        ArrayList<Coche> listaCoches = new ArrayList<>();
+        Statement stmt;
+        
+        try {
+            stmt = conection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM coches");
+            while(rs.next()) {
+                listaCoches.add(new Coche(
+                        rs.getInt("id"), 
+                        rs.getString("nombre"), 
+                        rs.getString("codigo"), 
+                        rs.getFloat("ers_CL"),
+                        rs.getFloat("ers_CM"),
+                        rs.getFloat("ers_CR"),
+                        rs.getFloat("consumo")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+        return listaCoches;
+    }
+    
+    //inserta nuevo coche
+    public boolean insertCoche(
+        String nombre, 
+        String codigo,         
+        float ers_CL,
+        float ers_CM,
+        float ers_CR,
+        float consumo
+    ) {       
+        boolean insertado = true;
+        PreparedStatement pstmt; 
+        try {
+            pstmt = conection.prepareStatement("INSERT INTO coches (nombre, codigo, ers_CL, ers_CM, ers_CR, consumo) VALUES (?, ?, ?, ?, ?, ?)");
+            
+            pstmt.setString(1, nombre);
+            pstmt.setString(2, codigo);
+            pstmt.setFloat(3, ers_CL);
+            pstmt.setFloat(4, ers_CM);
+            pstmt.setFloat(5, ers_CR);
+            pstmt.setFloat(6, consumo);
+            
+            //true si se ha insertado correctamente, de lo contrario false
+            insertado = pstmt.execute();
+          
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }    
+        return insertado;
+    }
+  
+    //eliminar coche existente
+    //--method here--
+    
+    //<<<<<<<<<<<<<<End Coches part>>>>>>>>>>>>>>
     
     public boolean updateUserRol(String user, String rol) {
         

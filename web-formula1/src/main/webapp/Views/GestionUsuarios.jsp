@@ -70,7 +70,7 @@
             <header>
                 <nav class="nav">
                     <div class="logo">
-                        <a href="/web-formula1/Noticias.jsp">
+                        <a href="/web-formula1/Views/Noticias.jsp"> 
                             <img class="image" src="../img/f1_logo.png">
                         </a>
                     </div>

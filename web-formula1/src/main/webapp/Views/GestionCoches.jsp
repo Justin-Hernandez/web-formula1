@@ -1,28 +1,25 @@
 <%-- 
-    Document   : index
-    Created on : Oct 28, 2021, 6:37:14 PM
-    Author     : Justin Hernández
+    Document   : GestionCoches
+    Created on : 15 nov. 2021, 15:05:32
+    Author     : Nasr
 --%>
 
-<%@page import="java.util.Base64"%>
+<%@page import="Models.Coche"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="Models.News"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="Models.ModeloDatos"%>
 <%@page session="true" %>
 <!DOCTYPE html>
 <html>
     <%
-        ArrayList<News> news = (ArrayList<News>) request.getSession().getAttribute("news");
+        ArrayList<Coche> coches = (ArrayList<Coche>) request.getSession().getAttribute("coches");
     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <title>Noticias</title>
+        <title>Gestion de coches</title>
         <link rel="stylesheet" href="../css/custom.css">
         <link rel="stylesheet" href="../css/all.min.css">
     </head>
-    <body>   
+    <body>
         <div class="page-container">
             <header>
                 <nav class="nav">
@@ -50,7 +47,6 @@
                                 response.sendRedirect("Noticias.jsp");
                             }
                         } else {%>
-
                     <ul class="nav-menu">
                         <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="InicioSesion.jsp">Iniciar sesión</a></li>
                         <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="CrearCuenta.jsp">Crear cuenta</a></li>    
@@ -58,22 +54,44 @@
                     <%}%>     
                 </nav>
             </header>
-
-            <!--News Section-->
-            <div class="section_title">Noticias</div>
-            <hr> 
-            <section class="cards">
-                <% for (News n : news) {%>
-                <a href="<%=n.getPermalink()%>" target="_blank" class="card">
-                    <div class="card_image" style='background-image: url("../img/img2.jpg")'></div>
-                    <div class="card_content">
-                        <div class="card_title"><%=n.getTitulo()%></div>
-                        <div class="card_article"><%=n.getTexto()%></div>
-                    </div>
-                </a>
+            
+            <!--Añadir coches-->
+            <form action="/web-formula1/CochesServlet?accion=insertar" method="post" enctype="multipart/form-data" ">
+                <table>
+                    <tr><td><label>Nombre</label></td></tr>
+                    <tr><td><input type="text" name="nombre" id="nombre" maxlength="100" width="400px"></td></tr>
+                    <tr><td><label>Código</label></td></tr>
+                    <tr><td><input type="text" name="codigo" id="codigo" maxlength="100" width="400px"></td></tr>          
+                    <tr><td><label>ERS-Curva Lenta</label></td></tr>
+                    <tr><td><input type="number" step="0.1" name="ersCL" id="ersCL" maxlength="100" width="400px"></td></tr>
+                    <tr><td><label>ERS-Curva Media</label></td></tr>
+                    <tr><td><input type="number" step="0.1" name="ersCM" id="ersCM" maxlength="100" width="400px"></td></tr>
+                    <tr><td><label>ERS-Curva Rápida</label></td></tr>
+                    <tr><td><input type="number" step="0.1" name="ersCR" id="ersCR" maxlength="100" width="400px"></td></tr>
+                    <tr><td><label>Consumo</label></td></tr>
+                    <tr><td><input type="number" step="0.1" name="consumo" id="consumo" maxlength="100" width="400px"></td></tr>
+                    <tr>
+                        <td><input type="submit" id="adicionar_coche" value="Adicionar"></td>
+                    </tr>
+                </table>
+            </form>
+            <!--Edit/Delete-->
+            <table>
+                <% for (Coche c : coches) {%>
+                <tr>
+                    <td class="td-noticias"><%=c.getNombre()%></td>
+                    <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
+                    <td class="td-icons">
+                        <button class="trash-button">
+                            <a href="">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </button>
+                    </td>
+                </tr>
                 <%}%>
-            </section>
-
+            </table>
+            
             <footer class="footer">
                 <div class="footer_div">
                     <div>
@@ -85,4 +103,3 @@
         </div>
     </body>
 </html>
-
