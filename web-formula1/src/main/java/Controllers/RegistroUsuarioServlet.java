@@ -71,7 +71,7 @@ public class RegistroUsuarioServlet extends HttpServlet {
        
        
        String prueba = hashAString(request.getParameter("password"));
-       User user = new User(request.getParameter("name"), request.getParameter("user"), request.getParameter("email"), prueba, "null");
+       User user = new User(request.getParameter("name"), request.getParameter("user"), request.getParameter("email"), prueba, "null", "null");
        modeloDatos.addUser(user);
    }
    

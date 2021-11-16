@@ -16,13 +16,15 @@ public class User {
     private String email;
     private String password;
     private String rol;
+    private String equipo;
 
-    public User(String name, String user, String email, String password, String rol) {
+    public User(String name, String user, String email, String password, String rol, String equipo) {
         this.name = name;
         this.user = user;
         this.email = email;
         this.password = password;
         this.rol = rol;
+        this.equipo = equipo;
     }
 
     public String getName() {
@@ -43,6 +45,10 @@ public class User {
 
     public String getRol() {
         return rol;
+    }
+    
+    public String getEquipo() {
+        return equipo;
     }
 
     public void setName(String name) {
@@ -65,5 +71,7 @@ public class User {
         this.rol = role;
     }
     
-    
+    public void setEquipo(String equipo) {
+        this.equipo = equipo;
+    }    
 }
