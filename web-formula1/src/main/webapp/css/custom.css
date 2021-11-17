@@ -329,3 +329,8 @@ hr {
 .closebtn:hover {
   color: black;
 }
+
+.info-button {
+    border-style: none;
+    background-color: rgb(236, 235, 235);
+}

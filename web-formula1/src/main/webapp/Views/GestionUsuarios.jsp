@@ -109,7 +109,7 @@
                     <form action="/web-formula1/GestionUsuarios">
                         <select name="rol" style="font-size: 1em; background-color: #ecebeb; box-sizing: border-box">
                             <option value="Administrador">Administrador</option>
-                            <option value="Gestor">Gestor</option>
+                            <option value="Gestor">Responsable de Equipo</option>
                         </select>
                         <button class="buttonAprobar" type="submit" name="accion" value="aprobar;<%=user.getUser()%>">✔</button>
                         <button class="buttonDenegar" type="submit" name="accion" value="denegar;<%=user.getUser()%>">✘</button>

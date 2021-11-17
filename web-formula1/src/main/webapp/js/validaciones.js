@@ -113,3 +113,26 @@ function validarCircuitos() {
     }
 
 }
+
+
+function validarEquipos() {
+    var nombre = document.getElementById('nombre').value;
+    var twitter = document.getElementById('twitter').value;
+    var valid = true;
+
+    if (nombre===null || nombre===""|| "".equals(nombre)) {
+        alert("Ingrese el nombre del equipo");
+        valid= false;
+    } else if (nombre.length > 100) {
+            alert("El nombre debe contener menos de 100 caracteres");
+            valid= false;
+    }
+    if (twitter===null || "".equals(twitter)) {
+        alert("Ingrese el nombre de usuario de Twitter");
+        valid= false;
+    } else if (noticia.length > 50) {
+            alert("El contenido nombre de usuario de Twitter debe contener menos de 50 caracteres");
+            valid= false;
+    }
+    return valid;
+}

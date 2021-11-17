@@ -51,10 +51,10 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("name", usuario.getName());
 
             String rol = usuario.getRol();
-            session.setAttribute("name", usuario.getName());
+            session.setAttribute("rol", rol);
             
             //si admin, redirecciona a la página del adimn
-            if (rol.equals("Administrador")) {
+            if (rol.equals("Administrador") || rol.equals("Responsable de Equipo")) {
                 
                 res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/AdminPanel.jsp"));
 

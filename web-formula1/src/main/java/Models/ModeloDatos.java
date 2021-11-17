@@ -348,4 +348,43 @@ public class ModeloDatos {
         
         return actualizado;
     }
+    
+    
+    //recupera todos los equipos de la base de datos
+    public ArrayList<Equipo> getAllEquipos() {
+        
+        ArrayList<Equipo> listaEquipos = new ArrayList<>();
+        Statement stmt;
+        
+        try {
+            stmt = conection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM equipos");
+            
+            while(rs.next()) {
+                listaEquipos.add(new Equipo(rs.getString("nombre"), rs.getString("logo"), rs.getString("twitter")));
+            }
+        }catch (SQLException e){
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+        
+        return listaEquipos;
+    }
+    
+    public void addEquipo(Equipo equipo) {
+        PreparedStatement preparedStatement;
+        
+        try {
+            String query = "INSERT INTO equipos (nombre, logo, twitter) VALUES (?, ?, ?)";
+            preparedStatement = conection.prepareStatement(query);
+            preparedStatement.setString(1, equipo.getNombre());
+            preparedStatement.setString(2, equipo.getLogo());
+            preparedStatement.setString(3, equipo.getTwitter());
+
+            preparedStatement.execute();
+
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+    }
+    
 }
