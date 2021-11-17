@@ -47,10 +47,10 @@ public class LoginServlet extends HttpServlet {
         User usuario = modeloDatos.userExists(user, hashAString(password));
 
         if (usuario != null) {
-            
-            session.setAttribute("name", usuario.getName());
 
+            session.setAttribute("usuario", usuario);
             String rol = usuario.getRol();
+            
             session.setAttribute("rol", rol);
             
             //si admin, redirecciona a la página del adimn
@@ -59,9 +59,10 @@ public class LoginServlet extends HttpServlet {
                 res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/AdminPanel.jsp"));
 
                 //si gestor, redirecciona a la página de gestor
-            } else if (rol.equals("Gestor")) {
-
-                res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestorPanel.jsp"));
+            } else if (rol.equals("Responsable de Equipo")) {
+                
+                session.setAttribute("equipo", usuario.getEquipo());
+                res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/ResponsableEquipoPanel.jsp"));
             }
         } else {
             //usuario no existe, enviar a página de error o algo

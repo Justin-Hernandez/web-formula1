@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
-         version="4.0">
-
+<web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
     <session-config>
         <session-timeout>
             30
@@ -12,75 +8,80 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
-
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>Controllers.LoginServlet</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>NoticiasServlet</servlet-name>
         <servlet-class>Controllers.NoticiasServlet</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>NoticiaServlet</servlet-name>
         <servlet-class>Controllers.NoticiaServlet</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>CircuitosServlet</servlet-name>
         <servlet-class>Controllers.CircuitosServlet</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>CircuitoServlet</servlet-name>
         <servlet-class>Controllers.CircuitoServlet</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>GestionUsuarios</servlet-name>
         <servlet-class>Controllers.GestionUsuarios</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>RegistroUsuarioServlet</servlet-name>
         <servlet-class>Controllers.RegistroUsuarioServlet</servlet-class>
     </servlet>
-    
+    <servlet>
+        <servlet-name>CochesServlet</servlet-name>
+        <servlet-class>Controllers.CochesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GestionResponsablesServlet</servlet-name>
+        <servlet-class>Controllers.GestionResponsablesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>CochesServlet</servlet-name>
+        <url-pattern>/CochesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GestionResponsablesServlet</servlet-name>
+        <url-pattern>/GestionResponsables</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>NoticiasServlet</servlet-name>
         <url-pattern>/NoticiasServlet</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>NoticiaServlet</servlet-name>
         <url-pattern>/Noticia</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>CircuitosServlet</servlet-name>
         <url-pattern>/CircuitosServlet</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>GestionUsuarios</servlet-name>
         <url-pattern>/GestionUsuarios</url-pattern>
     </servlet-mapping>
-        
     <servlet-mapping>
         <servlet-name>RegistroUsuarioServlet</servlet-name>
         <url-pattern>/RegistroUsuarioServlet</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>CircuitoServlet</servlet-name>
         <url-pattern>/CircuitoServlet</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>CochesServlet</servlet-name>
+        <url-pattern>/CochesServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

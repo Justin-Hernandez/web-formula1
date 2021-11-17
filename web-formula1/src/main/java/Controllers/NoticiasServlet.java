@@ -13,8 +13,7 @@ import javax.servlet.http.*;
 @MultipartConfig
 public class NoticiasServlet extends HttpServlet {
 
-    //private String pathFiles = "/Users/macbook/Documents/GitHub/web-formula1/web-formula1/src/main/webapp/img";
-    private String pathFiles = "";
+    private String pathFiles = "/Users/macbook/Documents/GitHub/web-formula1/web-formula1/src/main/webapp/img";
     private File uploads = new File(pathFiles);
     private ModeloDatos modelo;
 
@@ -72,7 +71,7 @@ public class NoticiasServlet extends HttpServlet {
         */
 
         String foto = guardarFoto(part, uploads);
-        modelo.insertNews("permalink ejemplo", titulo, foto, noticia);
+        modelo.insertNews("http://localhost:8080/web-formula1/Noticia?id=", titulo, foto, noticia);
         
     }
 

@@ -1,27 +1,25 @@
 <%-- 
-    Document   : GestionCircuitos
-    Created on : 10 nov. 2021, 00:58:05
+    Document   : GestionCoches
+    Created on : 15 nov. 2021, 15:05:32
     Author     : Nasr
 --%>
 
 <%@page import="Models.User"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.Base64"%>
+<%@page import="Models.Coche"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="Models.Circuito"%>
-<%@page import="Models.ModeloDatos"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page session="true" %>
 <!DOCTYPE html>
 <html>
     <%
-        ArrayList<Circuito> circuitos = (ArrayList<Circuito>) request.getSession().getAttribute("circuitos");
+        ArrayList<Coche> coches = (ArrayList<Coche>) request.getSession().getAttribute("coches");
         User usuario = (User) session.getAttribute("usuario");
     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Gestion de circuitos</title>
+        <title>Gestion de coches</title>
         <link rel="stylesheet" href="../css/custom.css">
         <link rel="stylesheet" href="../css/all.min.css">
-        <script src="../js/validaciones.js"></script>
     </head>
     <body>
         <header class="header">
@@ -49,42 +47,36 @@
                 <%}%>
             </nav>
         </header>
-        <!--Añadir circuitos-->
-        <form action="/web-formula1/CircuitosServlet?accion=insertar" method="post" enctype="multipart/form-data" ">
+
+        <!--Añadir coches-->
+        <form action="/web-formula1/CochesServlet?accion=insertar" method="post" enctype="multipart/form-data" ">
             <table>
                 <tr><td><label>Nombre</label></td></tr>
                 <tr><td><input type="text" name="nombre" id="nombre" maxlength="100" width="400px"></td></tr>
-                <tr><td><label>Ciudad</label></td></tr>
-                <tr><td><input type="text" name="ciudad" id="ciudad" maxlength="100" width="400px"></td></tr>
-                <tr><td><label>País</label></td></tr>
-                <tr><td><input type="text" name="pais" id="pais" maxlength="100" width="400px"></td></tr>
-                <tr><td><label>Numero de vueltas</label></td></tr>
-                <tr><td><input type="number" name="numeroDeVueltas" id="numeroDeVueltas" maxlength="100" width="400px"></td></tr>
-                <tr><td><label>Longitud</label></td></tr>
-                <tr><td><input type="number" name="longitud" id="longitud" maxlength="100" width="400px"></td></tr>
-                <tr><td><label>Curvas Lentas</label></td></tr>
-                <tr><td><input type="number" name="curvasLentas" id="curvasLentas" maxlength="100" width="400px"></td></tr>
-                <tr><td><label>Curvas Media</label></td></tr>
-                <tr><td><input type="number" name="curvasMedia" id="curvasMedia" maxlength="100" width="400px"></td></tr>
-                <tr><td><label>Curvas Rápidas</label></td></tr>
-                <tr><td><input type="number" name="curvasRapidas" id="curvasRapidas" maxlength="100" width="400px"></td></tr>
+                <tr><td><label>Código</label></td></tr>
+                <tr><td><input type="text" name="codigo" id="codigo" maxlength="100" width="400px"></td></tr>          
+                <tr><td><label>ERS-Curva Lenta</label></td></tr>
+                <tr><td><input type="number" step="0.1" name="ersCL" id="ersCL" maxlength="100" width="400px"></td></tr>
+                <tr><td><label>ERS-Curva Media</label></td></tr>
+                <tr><td><input type="number" step="0.1" name="ersCM" id="ersCM" maxlength="100" width="400px"></td></tr>
+                <tr><td><label>ERS-Curva Rápida</label></td></tr>
+                <tr><td><input type="number" step="0.1" name="ersCR" id="ersCR" maxlength="100" width="400px"></td></tr>
+                <tr><td><label>Consumo</label></td></tr>
+                <tr><td><input type="number" step="0.1" name="consumo" id="consumo" maxlength="100" width="400px"></td></tr>
                 <tr>
-                    <td><input type="file" id="trazado" name="file" onchange="validarImagen(this)"></td>
-                </tr>
-                <tr>
-                    <td><input type="submit" id="adicionar_circuito" value="Adicionar"></td>
+                    <td><input type="submit" id="adicionar_coche" value="Adicionar"></td>
                 </tr>
             </table>
         </form>
         <!--Edit/Delete-->
         <table>
-            <% for (Circuito c : circuitos) {%>
+            <% for (Coche c : coches) {%>
             <tr>
                 <td class="td-noticias"><%=c.getNombre()%></td>
                 <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
                 <td class="td-icons">
                     <button class="trash-button">
-                        <a href="/web-formula1/CircuitosServlet?accion=eliminar&nombre=<%=c.getNombre()%>">
+                        <a href="">
                             <i class="fas fa-trash"></i>
                         </a>
                     </button>
@@ -101,6 +93,5 @@
                 <p>2021 &copy</p>
             </div>
         </footer>
-    </div>
-</body>
+    </body>
 </html>
