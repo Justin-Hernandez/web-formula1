@@ -52,7 +52,7 @@
                     <%}%>        
                 <li class="section-item"><a href=""><i class="fas fa-vote-yea"></i> Gestión de Equipo</a></li>
                 <li class="section-item"><a href="/web-formula1/CochesServlet?accion=listar"><i class="fas fa-car"></i> Gestión de coches</li>
-                <li class="section-item"><i class="fas fa-vote-yea"></i>Gestión de Pilotos</li>
+                <li class="section-item"><a href="/web-formula1/PilotosServlet?accion=listar"><i class="fas fa-vote-yea"></i>Gestión de Pilotos</li></a>
             </ul>
         </section>
 

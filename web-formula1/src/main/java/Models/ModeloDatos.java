@@ -439,4 +439,71 @@ public class ModeloDatos {
         }    
         return insertado;
     }
+    
+    //eliminar coche existente
+    //--method goes here--
+    
+    //<<<<<Pilotos>>>>>>
+    //devuelve todos los pilotos de la base de datos en un ArrayList
+    public ArrayList<Piloto> getAllPilotos() {
+        
+        ArrayList<Piloto> listaPilotos = new ArrayList<>();
+        Statement stmt;
+        
+        try {
+            stmt = conection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM pilotos");
+            while(rs.next()) {
+                listaPilotos.add(new Piloto(
+                        rs.getInt("id"), 
+                        rs.getString("nombre"), 
+                        rs.getString("apellidos"), 
+                        rs.getString("siglas"),
+                        rs.getInt("dorsal"),
+                        rs.getString("foto"),
+                        rs.getString("pais"),
+                        rs.getString("twitter")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+        return listaPilotos;
+    }
+    
+    //inserta nuevo piloto
+    public boolean insertPiloto(
+        String nombre, 
+        String apellidos,         
+        String siglas,
+        int dorsal,
+        String foto,
+        String pais,
+        String twitter
+    ) {       
+        boolean insertado = true;
+        PreparedStatement pstmt; 
+        try {
+            pstmt = conection.prepareStatement("INSERT INTO pilotos (nombre, apellidos, siglas, dorsal, foto, pais, twitter) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            
+            pstmt.setString(1, nombre);
+            pstmt.setString(2, apellidos);
+            pstmt.setString(3, siglas);
+            pstmt.setInt(4, dorsal);
+            pstmt.setString(5, foto);
+            pstmt.setString(6, pais);
+            pstmt.setString(7, twitter);
+            
+            //true si se ha insertado correctamente, de lo contrario false
+            insertado = pstmt.execute();
+          
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }    
+        return insertado;
+    }
+    
+    //eliminar piloto existente
+    //--method goes here--
+    
 }
