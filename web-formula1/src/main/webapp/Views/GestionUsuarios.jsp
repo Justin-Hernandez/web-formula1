@@ -12,6 +12,8 @@
     <%
         ArrayList<User> sinRol = (ArrayList<User>) request.getSession().getAttribute("sinRol");
         ArrayList<User> conRol = (ArrayList<User>) request.getSession().getAttribute("conRol");
+        
+        User usuario = (User) session.getAttribute("usuario");
     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -66,68 +68,58 @@
         </style>
     </head>
     <body>
-        <div class="page-container">
-            <header>
-                <nav class="nav">
-                    <div class="logo">
-                        <a href="/web-formula1/Views/Noticias.jsp"> 
-                            <img class="image" src="../img/f1_logo.png">
-                        </a>
-                    </div>
-                    <ul class="nav-menu">
-                        <li class="nav-menu-item active" ><a class="nav-menu-link nav-link">Noticias</a></li>
-                        <li class="nav-menu-item"><a class="nav-menu-link nav-link">Equipos</a></li>
-                        <li class="nav-menu-item"><a class="nav-menu-link nav-link">Votaciones</a></li>
-                        <li class="nav-menu-item"><a class="nav-menu-link nav-link">Calendario</a></li>
-                    </ul>  
-                    <%
-                    if (session.getAttribute("name") != null) {%>
-                    <div class="admin">
-                        <img class="avatar" src="../img/Diez.png" alt="Avatar">
-                        <% String nombre = (String) session.getAttribute("name");%>
-                        <a href="AdminPanel.jsp" class="nav-menu-item"><%=nombre%></a>
-                    </div>
-                    <a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
-                        <%if (request.getParameter("logout") != null) {
-                                session.removeAttribute("name");
-                                response.sendRedirect("Noticias.jsp");
-                            }
-                        } else {%>
-
-                    <ul class="nav-menu">
-                        <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="InicioSesion.jsp">Iniciar sesión</a></li>
-                        <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="CrearCuenta.jsp">Crear cuenta</a></li>    
-                    </ul> 
-                    <%}%>     
-                </nav>
-            </header>
-
-            <h1 class="h1">Solicitudes</h1>
-            <table class="table">
-                <tr>
-                    <th class="th">Nombre</th>
-                    <th class="th">Nombre de usuario</th>
-                    <th class="th">Correo</th>
-                    <th class="th">Aprobar/Denegar</th>
-                </tr>
-                <% for (User user : sinRol) {%>
-                <tr>
-                    <td class="td"><%=user.getName()%></td>
-                    <td class="td"><%=user.getUser()%></td>
-                    <td class="td"><%=user.getEmail()%></td>
-                    <td class="td">
-                        <form action="/web-formula1/GestionUsuarios">
-                            <select name="rol" style="font-size: 1em; background-color: #ecebeb; box-sizing: border-box">
-                                <option value="Administrador">Administrador</option>
-                                <option value="Gestor">Gestor</option>
-                            </select>
-                            <button class="buttonAprobar" type="submit" name="accion" value="aprobar;<%=user.getUser()%>">✔</button>
-                            <button class="buttonDenegar" type="submit" name="accion" value="denegar;<%=user.getUser()%>">✘</button>
-                        </form>
-                    </td>
-                </tr>
+        <header class="header">
+            <nav class="nav">
+                <img class="image" src="../img/f1_logo.png">
+                <ul class="nav-menu">
+                    <li class="nav-menu-item"><a href="/web-formula1/NoticiasServlet?accion=listar" class="nav-menu-link nav-link">Noticias</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link">Equipos</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link">Votaciones</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link">Calendario</a></li>
+                </ul>
+                
+                <%if(usuario != null){%>
+                    <img class="avatar" src="../img/Diez.png" alt="Avatar">
+                    <a class="nav-menu-item"><%=usuario.getName()%></a><a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
+                    <%if(request.getParameter("logout")!= null){
+                        session.removeAttribute("usuario");
+                        response.sendRedirect("Noticias.jsp");
+                    }
+                }else{%>
+                   <ul class="nav-menu">
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="InicioSesion.jsp">Iniciar sesión</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="CrearCuenta.jsp">Crear cuenta</a></li>    
+                   </ul> 
                 <%}%>
-            </table>
+            </nav>
+        </header>
+
+        <h1 class="h1">Solicitudes</h1>
+        <table class="table">
+            <tr>
+                <th class="th">Nombre</th>
+                <th class="th">Nombre de usuario</th>
+                <th class="th">Correo</th>
+                <th class="th">Aprobar/Denegar</th>
+            </tr>
+            <% for (User user : sinRol) {%>
+            <tr>
+                <td class="td"><%=user.getName()%></td>
+                <td class="td"><%=user.getUser()%></td>
+                <td class="td"><%=user.getEmail()%></td>
+                <td class="td">
+                    <form action="/web-formula1/GestionUsuarios">
+                        <select name="rol" style="font-size: 1em; background-color: #ecebeb; box-sizing: border-box">
+                            <option value="Administrador">Administrador</option>
+                            <option value="Gestor">Responsable</option>
+                        </select>
+                        <button class="buttonAprobar" type="submit" name="accion" value="aprobar;<%=user.getUser()%>">✔</button>
+                        <button class="buttonDenegar" type="submit" name="accion" value="denegar;<%=user.getUser()%>">✘</button>
+                    </form>
+                </td>
+            </tr>
+            <%}%>
+        </table>
 
             <hr style="border: 1px solid #dddddd; width: 60%; margin-left: auto; margin-right: auto; margin-top: 50px; margin-bottom: 30px">
 

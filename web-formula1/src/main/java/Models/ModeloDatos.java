@@ -82,7 +82,7 @@ public class ModeloDatos {
 
             //si existe crea instancia de User
             while (rs.next()) {
-                u = new User(rs.getString("name"), rs.getString("user"), rs.getString("email"), rs.getString("password"), rs.getString("role"));
+                u = new User(rs.getString("name"), rs.getString("user"), rs.getString("email"), rs.getString("password"), rs.getString("role"), rs.getString("equipo"));
             }
 
         } catch (SQLException e) {
@@ -155,7 +155,28 @@ public class ModeloDatos {
 
     //inserta nueva noticia
     public boolean insertNews(String permalink, String titulo, String imagen, String texto) {
-
+        
+        String nextId = "";
+        
+        //recupera la ultima noticia y obtén su id
+        try {
+            Statement stmt;
+            
+            stmt = conection.createStatement();
+            String query = "SELECT * FROM news ORDER BY ID DESC LIMIT 1";
+            ResultSet rs = stmt.executeQuery(query);
+            
+            while(rs.next()){
+                nextId = String.valueOf(rs.getInt("id") + 1);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+        
+        //id de la nueva noticia a insertar
+        permalink = permalink + nextId;
+        
         boolean insertado = true;
         PreparedStatement pstmt;
 
@@ -209,7 +230,7 @@ public class ModeloDatos {
             ResultSet rs = stmt.executeQuery("SELECT * FROM users");
 
             while (rs.next()) {
-                listaUsers.add(new User(rs.getString("name"), rs.getString("user"), rs.getString("email"), rs.getString("password"), rs.getString("role")));
+                listaUsers.add(new User(rs.getString("name"), rs.getString("user"), rs.getString("email"), rs.getString("password"), rs.getString("role"), rs.getString("equipo")));
             }
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
@@ -238,7 +259,48 @@ public class ModeloDatos {
         return eliminado;
     }
 
-    //<<<<<<<<<<<<<<Circuitos part>>>>>>>>>>>>>>
+    public boolean updateUserRol(String user, String rol) {
+
+        boolean actualizado = true;
+        PreparedStatement pstmt;
+
+        try {
+            pstmt = conection.prepareStatement("UPDATE users SET role=? WHERE user=?");
+
+            pstmt.setString(1, rol);
+            pstmt.setString(2, user);
+
+            //true si se ha actualizado correctamente, de lo contrario false
+            actualizado = pstmt.execute();
+
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+
+        return actualizado;
+    }
+    
+    public boolean updateUserEquipo(String user, String equipo) {
+        
+        boolean actualizado = true;
+        PreparedStatement pstmt;
+
+        try {
+            pstmt = conection.prepareStatement("UPDATE users SET equipo=? WHERE user=?");
+
+            pstmt.setString(1, equipo);
+            pstmt.setString(2, user);
+
+            //true si se ha actualizado correctamente, de lo contrario false
+            actualizado = pstmt.execute();
+
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+
+        return actualizado;
+    }
+    
     //devuelve todos los circuitos de la base de datos en un ArrayList
     public ArrayList<Circuito> getAllCircuitos() {
 
@@ -504,4 +566,71 @@ public class ModeloDatos {
 
         return listaEventos;
     }
+    
+    //eliminar coche existente
+    //--method goes here--
+    
+    //<<<<<Pilotos>>>>>>
+    //devuelve todos los pilotos de la base de datos en un ArrayList
+    public ArrayList<Piloto> getAllPilotos() {
+        
+        ArrayList<Piloto> listaPilotos = new ArrayList<>();
+        Statement stmt;
+        
+        try {
+            stmt = conection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM pilotos");
+            while(rs.next()) {
+                listaPilotos.add(new Piloto(
+                        rs.getInt("id"), 
+                        rs.getString("nombre"), 
+                        rs.getString("apellidos"), 
+                        rs.getString("siglas"),
+                        rs.getInt("dorsal"),
+                        rs.getString("foto"),
+                        rs.getString("pais"),
+                        rs.getString("twitter")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+        return listaPilotos;
+    }
+    
+    //inserta nuevo piloto
+    public boolean insertPiloto(
+        String nombre, 
+        String apellidos,         
+        String siglas,
+        int dorsal,
+        String foto,
+        String pais,
+        String twitter
+    ) {       
+        boolean insertado = true;
+        PreparedStatement pstmt; 
+        try {
+            pstmt = conection.prepareStatement("INSERT INTO pilotos (nombre, apellidos, siglas, dorsal, foto, pais, twitter) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            
+            pstmt.setString(1, nombre);
+            pstmt.setString(2, apellidos);
+            pstmt.setString(3, siglas);
+            pstmt.setInt(4, dorsal);
+            pstmt.setString(5, foto);
+            pstmt.setString(6, pais);
+            pstmt.setString(7, twitter);
+            
+            //true si se ha insertado correctamente, de lo contrario false
+            insertado = pstmt.execute();
+          
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }    
+        return insertado;
+    }
+    
+    //eliminar piloto existente
+    //--method goes here--
+    
 }

@@ -1,39 +1,34 @@
 <%-- 
-    Document   : index
-    Created on : Oct 28, 2021, 6:37:14 PM
-    Author     : Justin Hernández
+    Document   : AdminPanel
+    Created on : 28/10/2021, 08:16:07 PM
+    Author     : DELL
 --%>
 
 <%@page import="Models.User"%>
-<%@page import="java.util.Base64"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="Models.News"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="Models.ModeloDatos"%>
 <%@page session="true" %>
 <!DOCTYPE html>
 <html>
     <%
-        ArrayList<News> news = (ArrayList<News>) request.getSession().getAttribute("news");
         User usuario = (User) session.getAttribute("usuario");
-    %>
+    %>    
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <title>Noticias</title>
+        <title>Panel de Administración</title>
         <link rel="stylesheet" href="../css/custom.css">
         <link rel="stylesheet" href="../css/all.min.css">
     </head>
-    <body>    
+    <body>
         <header class="header">
             <nav class="nav">
                 <img class="image" src="../img/f1_logo.png">
                 <ul class="nav-menu">
-                    <li class="nav-menu-item active" ><a class="nav-menu-link nav-link">Noticias</a></li>
+                    <li class="nav-menu-item"><a href="/web-formula1/NoticiasServlet?accion=listar" class="nav-menu-link nav-link">Noticias</a></li>
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link">Equipos</a></li>
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link">Votaciones</a></li>
-                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/web-formula1/CalendarioServlet?accion=listar_eventos">Calendario</a></li>
-                </ul>  
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link">Calendario</a></li>
+                </ul>
+
                 <%if (usuario != null) {%>
                 <img class="avatar" src="../img/Diez.png" alt="Avatar">
                 <a class="nav-menu-item"><%=usuario.getName()%></a><a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
@@ -46,34 +41,27 @@
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="InicioSesion.jsp">Iniciar sesión</a></li>
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="CrearCuenta.jsp">Crear cuenta</a></li>    
                 </ul> 
-                <%}%>     
+                <%}%>  
             </nav>
         </header>
 
-        <!--News Section-->
-        <div class="section_title">Noticias</div>
-        <hr> 
-        <section class="cards">
-            <% for (News n : news) {%>
-            <a href="<%=n.getPermalink()%>" target="_blank" class="card">
-                <div class="card_image" style='background-image: url("../img/img2.jpg")'></div>
-                <div class="card_content">
-                    <div class="card_title"><%=n.getTitulo()%></div>
-                    <div class="card_article"><%=n.getTexto()%></div>
-                </div>
-            </a>
-            <%}%>
+        <section class="section">
+            <ul>
+                <%if (!usuario.getEquipo().equals("null")) {%>
+                    <li class="section-item"><a href="/web-formula1/GestionResponsables"><i class="fas fa-vote-yea"></i>Gestión de Responsables</a></li>
+                    <%}%>        
+                <li class="section-item"><a href=""><i class="fas fa-vote-yea"></i> Gestión de Equipo</a></li>
+                <li class="section-item"><a href="/web-formula1/CochesServlet?accion=listar"><i class="fas fa-car"></i> Gestión de coches</li>
+                <li class="section-item"><a href="/web-formula1/PilotosServlet?accion=listar"><i class="fas fa-vote-yea"></i>Gestión de Pilotos</li></a>
+            </ul>
         </section>
 
         <footer class="footer">
-            <div class="footer_div">
-                <div>
-                    Encuentra nuestro proyecto en <a href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i><br>
-                </div>
-                <p>2021 &copy</p>
-            </div>
-        </footer>
-    </div>
-</body>
-</html>
+            <br>
+            Encuentra nuestro proyecto en <a  href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i>
+            <p>2021 ©</p>
 
+        </footer>
+
+    </body>
+</html>

@@ -5,14 +5,20 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.apache.commons.io.FilenameUtils;
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
+import org.apache.commons.io.FilenameUtils;
+
+
+/**
+ *
+ * @author Nasr
+ */
 
 @MultipartConfig
-public class NoticiasServlet extends HttpServlet {
-
+public class PilotosServlet extends HttpServlet {
+    
     private String pathFiles = "/Users/macbook/Documents/GitHub/web-formula1/web-formula1/src/main/webapp/img";
     private File uploads = new File(pathFiles);
     private ModeloDatos modelo;
@@ -26,55 +32,44 @@ public class NoticiasServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-        
         String accion = req.getParameter("accion");
         HttpSession s = req.getSession(true);
         if (accion != null) {
             switch (accion) {
                 case "listar":
-                    s.setAttribute("news", modelo.getAllNews());
-                    // Llamada a la página jsp 
-
-                    res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/Noticias.jsp"));
+                    s.setAttribute("pilotos", modelo.getAllPilotos());
+                    res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionPilotos.jsp"));
                     break;
                 case "insertar":
-                    agregarNoticia(req, res);
-                    s.setAttribute("news", modelo.getAllNews());
-                    res.sendRedirect("/web-formula1/Views/GestionNoticias.jsp");
+                    agregarPiloto(req, res);
                     break;
                 case "eliminar":
-                    eliminarNoticia(req, res);
-                    s.setAttribute("news", modelo.getAllNews());
-                    res.sendRedirect("/web-formula1/Views/GestionNoticias.jsp");
+                    //eliminarPiloto(req, res);
+                    //res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionPilotos.jsp"));
                     break;
                 default:
-
                     break;
             }
         }
     }
 
-    private void agregarNoticia(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+    //agregar coche
+    private void agregarPiloto(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 
-        String pathFiles = req.getServletContext().getRealPath("/store/img");
-
-        File uploads = new File(pathFiles);
-        
-        
-        String noticia = req.getParameter("textarea");
-        String titulo = req.getParameter("title");
+        String nombre = req.getParameter("nombre");
+        String apellidos = req.getParameter("apellidos");
+        String siglas = req.getParameter("siglas");
+        int dorsal = Integer.parseInt(req.getParameter("dorsal"));
         Part part = req.getPart("file");
-
-        /*/////NO BORRAAAAAAR
-        String camino = getServletContext().getRealPath("/" + "file" + File.separator + part.getSubmittedFileName());
-        System.out.println(camino);
-        */
-
         String foto = guardarFoto(part, uploads);
-        modelo.insertNews("http://localhost:8080/web-formula1/Noticia?id=", titulo, foto, noticia);
+        String pais = req.getParameter("pais");
+        String twitter = req.getParameter("twitter");
         
+        modelo.insertPiloto(nombre, apellidos, siglas, dorsal, foto, pais, twitter);
+        res.sendRedirect("/web-formula1/PilotosServlet?accion=listar");
     }
-
+    
+    //guardar fotos
     private String guardarFoto(Part part, File pathUploads) throws IOException {
         String absolutePath = "";
 
@@ -97,11 +92,9 @@ public class NoticiasServlet extends HttpServlet {
         }
         return absolutePath;
     }
-
-    private void eliminarNoticia(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        String titulo = req.getParameter("titulo");
-        modelo.deleteNews(titulo);
-    }
+    
+    //eliminar piloto
+    //method goes here
 
     @Override
     public void destroy() {
