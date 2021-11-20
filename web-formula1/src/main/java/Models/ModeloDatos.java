@@ -482,26 +482,7 @@ public class ModeloDatos {
         return eliminado;
     }
 
-    public boolean updateUserRol(String user, String rol) {
 
-        boolean actualizado = true;
-        PreparedStatement pstmt;
-
-        try {
-            pstmt = conection.prepareStatement("UPDATE users SET role=? WHERE user=?");
-
-            pstmt.setString(1, rol);
-            pstmt.setString(2, user);
-
-            //true si se ha actualizado correctamente, de lo contrario false
-            actualizado = pstmt.execute();
-
-        } catch (SQLException e) {
-            System.out.println("SQL ERROR: " + e.toString());
-        }
-
-        return actualizado;
-    }
 
     public boolean addEvent(String nombre_circuito, Timestamp timestamp) {
         boolean evento = false;

@@ -4,6 +4,7 @@
     Author     : Nasr
 --%>
 
+<%@page import="Models.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.Base64"%>
 <%@page import="java.util.ArrayList"%>
@@ -13,6 +14,7 @@
 <html>
     <%
         ArrayList<Circuito> circuitos = (ArrayList<Circuito>) request.getSession().getAttribute("circuitos");
+        User usuario = (User) session.getAttribute("usuario");
     %>
     <head>
         <%
@@ -42,12 +44,18 @@
                         <li class="nav-menu-item"><a class="nav-menu-link nav-link">Votaciones</a></li>
                         <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/web-formula1/CalendarioServlet?accion=listar_eventos">Calendario</a></li>
                     </ul>  
+
+
+
+
+
+
+
                     <%
-                        if (session.getAttribute("name") != null) {%>
+                        if (usuario != null) {%>
                     <div class="admin">
                         <img class="avatar" src="<%= path%>/img/Diez.png" alt="Avatar">
-                        <% String nombre = (String) session.getAttribute("name");%>
-                        <a href="<%= path%>/Views/AdminPanel.jsp" class="nav-menu-item"><%=nombre%></a>
+                        <a href="<%= path%>/Views/AdminPanel.jsp" class="nav-menu-item"><%=usuario.getName()%></a>
                     </div>
                     <a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
                         <%if (request.getParameter("logout") != null) {
@@ -99,13 +107,13 @@
                     <td colspan="2"><strong>Añadir el circuito como evento en el calendario</strong></td>
                     <td>
                         <%
-                        String evento_adicionado = (String) request.getAttribute("adicionado");
-                        String evento_existe = (String) request.getAttribute("existe");
-                        if (evento_adicionado != null) {%>
+                            String evento_adicionado = (String) request.getAttribute("adicionado");
+                            String evento_existe = (String) request.getAttribute("existe");
+                            if (evento_adicionado != null) {%>
                         <h3 style="color: green">  ===> El evento fue adicionado al calendario correctamente</h3>
                         <%}
-                        if (evento_existe != null) {%>
-                            <h3 style="color: red">  ===> Ya este evento existe para ese día</h3>
+                            if (evento_existe != null) {%>
+                        <h3 style="color: red">  ===> Ya este evento existe para ese día</h3>
                         <%}%>
                     </td>
                 </tr>

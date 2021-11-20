@@ -64,6 +64,15 @@
                 <tr><td><label>Consumo</label></td></tr>
                 <tr><td><input type="number" step="0.1" name="consumo" id="consumo" maxlength="100" width="400px"></td></tr>
                 <tr>
+
+                    <td><input type="submit" id="adicionar_coche" value="Adicionar"></td>
+                </tr>
+            </table>
+        </form>
+        <!--Edit/Delete-->
+        <table>
+            <% for (Coche c : coches) {%>
+            <tr>
                     <td class="td-noticias"><%=c.getNombre()%></td>
                     <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
                     <td class="td-icons">
@@ -73,23 +82,6 @@
                             </a>
                         </button>
                     </td>
-                    <td><input type="submit" id="adicionar_coche" value="Adicionar"></td>
-                </tr>
-            </table>
-        </form>
-        <!--Edit/Delete-->
-        <table>
-            <% for (Coche c : coches) {%>
-            <tr>
-                <td class="td-noticias"><%=c.getNombre()%></td>
-                <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
-                <td class="td-icons">
-                    <button class="trash-button">
-                        <a href="">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    </button>
-                </td>
             </tr>
             <%}%>
         </table>
