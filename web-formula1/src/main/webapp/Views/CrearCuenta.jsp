@@ -15,18 +15,16 @@
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Crear cuenta de usuario</title>
-
+        <link rel="stylesheet" href="<%= path%>/css/bootstrap.min.css">
         <link rel="stylesheet" href="<%= path%>/css/custom.css">
         <link rel="stylesheet" href="<%= path%>/css/all.min.css">
-        <link rel="stylesheet" href="<%= path%>/css/bootstrap.min.css">
+        
         <script src="<%= path%>/js/jquery-3.6.0.min.js"></script>
         <script src="<%= path%>/js/bootstrap.min.js"></script>
         <script src="<%= path%>/js/validaciones.js"></script>
     </head>
     <body>
         <div class="page-container">
-
-
             <div class="login-box">
                 <h1>Crear una cuenta</h1>
                 <%
@@ -34,7 +32,7 @@
                     String existe_usuario = (String) request.getAttribute("existe_usuario");
                     String conformacion = (String) request.getAttribute("confirmacion");
 
-                    if (existe_correo != null) {%>
+                if (existe_correo != null) {%>
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     <%=existe_correo%>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

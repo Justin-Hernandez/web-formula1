@@ -83,7 +83,7 @@
                     <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
                     <td class="td-icons">
                         <button class="trash-button">
-                            <a href="">
+                            <a href="/web-formula1/CochesServlet?accion=eliminar&codigo=<%=c.getCodigo()%>">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </button>

@@ -33,6 +33,10 @@
         <servlet-class>Controllers.CircuitoServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CalendarioServlet</servlet-name>
+        <servlet-class>Controllers.CalendarioServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>GestionUsuarios</servlet-name>
         <servlet-class>Controllers.GestionUsuarios</servlet-class>
     </servlet>
@@ -51,6 +55,10 @@
     <servlet-mapping>
         <servlet-name>NoticiasServlet</servlet-name>
         <url-pattern>/NoticiasServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CalendarioServlet</servlet-name>
+        <url-pattern>/CalendarioServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>NoticiaServlet</servlet-name>
