@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="Models.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.Base64"%>
 <%@page import="java.util.ArrayList"%>
@@ -14,6 +15,7 @@
 <html>
     <%
         ArrayList<Equipo> equipos = (ArrayList<Equipo>) request.getSession().getAttribute("equipos");
+        User usuario = (User) session.getAttribute("usuario");
     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -24,7 +26,34 @@
         <style>
             .info-button {
                     border-style: none;
-                    background-color: rgb(236, 235, 235);
+                    align-items: center;
+            }
+            .h1 {
+                text-align: center; 
+                margin-bottom: 10px;
+            }
+            .td-nombre{
+                text-align: center; 
+                border: 1px solid black;
+                border-collapse: separate;
+            }
+            .table{
+                border-spacing: 25px; 
+                border-collapse: collapse;
+                width: 30%; 
+                margin-left: auto; 
+                margin-right: auto;
+            }
+            .th{
+                border: 2px solid black;
+            }
+            .td-info{
+                text-align: center; 
+            }
+            .fila{
+                margin-top: 5px; 
+                margin-bottom:  5px;
+                
             }
         </style>
     </head>
@@ -39,51 +68,32 @@
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link">Calendario</a></li>
                 </ul>
 
-
-                <%
-                if(session.getAttribute("name") != null){%>
-                    <img class="avatar" src="../img/Diez.png" alt="Avatar">
-                    <% String nombre = (String) session.getAttribute("name"); %>
-                    <a href="AdminPanel.jsp" class="nav-menu-item"><%=nombre%></a><a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
-                    <%if(request.getParameter("logout")!= null){
-                        session.removeAttribute("name");
-                        response.sendRedirect("Noticias.jsp");
-                    }
-                }else{%>
-
-                   <ul class="nav-menu">
+                <%if (usuario != null) {%>
+                <img class="avatar" src="../img/Diez.png" alt="Avatar">
+                <a class="nav-menu-item"><%=usuario.getName()%></a><a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
+                    <%if (request.getParameter("logout") != null) {
+                            session.removeAttribute("usuario");
+                            response.sendRedirect("Noticias.jsp");
+                        }
+                    } else {%>
+                <ul class="nav-menu">
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="InicioSesion.jsp">Iniciar sesión</a></li>
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="CrearCuenta.jsp">Crear cuenta</a></li>    
-                   </ul> 
-                <%}%>  
-
+                </ul> 
+                <%}%>
             </nav>
         </header>
-                <%
-                    if (session.getAttribute("rol") != null && ("Responsable de Equipo").equals((String) session.getAttribute("rol"))) {%>
-                        <form action="/web-formula1/EquiposServlet?accion=insertar" method="post" enctype="multipart/form-data" onsubmit="return validarEquipos();">
-                            <table>
-                                <tr><td><label>Nombre</label></td></tr>
-                                <tr><td><input type="text" name="nombre" id="nombre" maxlength="100" width="400px"></td></tr>
-                                <tr><td><label>Twitter</label></td></tr>
-                                <tr><td><input type="text" name="twitter" id="twitter" maxlength="50" width="400px"></td></tr>
-                                <tr>
-                                    <td><input type="file" id="logo" name="logo" onchange="validarImagen(this)"></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="submit" id="add_equipo" value="Añadir"></td>
-                                </tr>
-                            </table>
-                        </form>
-
-                <%}%> 
         <!--View/Delete-->
-        <table>
-            <% for (Equipo e : equipos) {%>
+        <h1 class="h1">Equipos</h1>
+        <table class="table">
             <tr>
-                <td class="td-noticias"><%=e.getNombre()%></td>
-                <td class="td-icons"><button class="info-button"><i class="fas fa-info-circle"></i></button></td>
-                <td class="td-icons"><button class="trash-button"><i class="fas fa-trash"></i></a></button></td>
+                <th class="th">Nombre</th>
+                <th class="th"></th>
+            </tr>
+            <% for (Equipo e : equipos) {%>
+            <tr class="fila">
+                <td class="td-nombre"><%=e.getNombre()%></td>
+                <td class="td-info"><a href="/web-formula1/EquipoServlet?accion=view&id=<%=e.getId()%>"><button class="info-button"><i class="fas fa-info-circle"></i></button></td>
             </tr>
             <%}%>
         </table>

@@ -39,11 +39,6 @@ public class EquiposServelt extends HttpServlet {
                     // Llamada a la página jsp 
                     res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionEquipos.jsp"));
                     break;
-                case "insertar":
-                    addEquipo(req, res);
-                    s.setAttribute("equipos", modelo.getAllEquipos());
-                    res.sendRedirect("/web-formula1/Views/GestionEquipos.jsp");
-                    break;
                 case "eliminar":
                     //TODO PENDIENTE IMPLEMENTACION
                     break;
@@ -54,27 +49,6 @@ public class EquiposServelt extends HttpServlet {
         s.setAttribute("equipos", modelo.getAllEquipos());
     }
 
-    private void addEquipo(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-
-        String pathFiles = req.getServletContext().getRealPath("/store/img");
-
-        File uploads = new File(pathFiles);
-        
-        
-        String nombre = req.getParameter("nombre");
-        String twitter = req.getParameter("twitter");
-        Part part = req.getPart("logo");
-
-        /*/////NO BORRAAAAAAR
-        String camino = getServletContext().getRealPath("/" + "file" + File.separator + part.getSubmittedFileName());
-        System.out.println(camino);
-        */
-
-        String foto = guardarFoto(part, uploads);
-        Equipo equipo = new Equipo(nombre,foto,twitter);
-        modelo.addEquipo(equipo);
-        
-    }
 
     private String guardarFoto(Part part, File pathUploads) throws IOException {
         String absolutePath = "";
