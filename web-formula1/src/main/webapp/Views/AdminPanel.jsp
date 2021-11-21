@@ -49,8 +49,8 @@
             <ul>
                 <li class="section-item"><a href="GestionNoticias.jsp"><i class="fas fa-newspaper"></i>Gestión de noticias</a></li>
                     <li class="section-item"><a href="/web-formula1/CircuitosServlet?accion=listar"><i class="fas fa-road"></i> Gestión de circuitos</a></li>
-                    <li class="section-item"><i class="fas fa-vote-yea"></i> Gestión de votaciones</li>
-                    <li class="section-item"><i class="fas fa-users"></i> Gestión de equipos</li>
+                     <li class="section-item"><i class="fas fa-vote-yea"></i> Gestión de votaciones</li>
+                    <li class="section-item"><a href="/web-formula1/EquiposServlet?accion=listar"><i class="fas fa-users"></i>Gestión de equipos</li>
                     <li class="section-item"><a href="/web-formula1/GestionUsuarios"><i class="fas fa-user"></i> Gestión de usuarios</li>
                 </ul>
             </section>

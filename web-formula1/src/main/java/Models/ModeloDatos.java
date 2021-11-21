@@ -138,13 +138,14 @@ public class ModeloDatos {
         PreparedStatement preparedStatement;
 
         try {
-            String query = "INSERT INTO users (name, user, email, password, role) VALUES (?, ?, ?, ?, ?)";
+            String query = "INSERT INTO users (name, user, email, password, role, equipo) VALUES (?, ?, ?, ?, ?, ?)";
             preparedStatement = conection.prepareStatement(query);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getUser());
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setString(4, user.getPassword());
             preparedStatement.setString(5, user.getRol());
+            preparedStatement.setString(6, user.getEquipo());
 
             preparedStatement.execute();
 
@@ -610,8 +611,147 @@ public class ModeloDatos {
         }    
         return insertado;
     }
+      
+    //recupera todos los equipos de la base de datos
+    public ArrayList<Equipo> getAllEquipos() {
+        
+        ArrayList<Equipo> listaEquipos = new ArrayList<>();
+        Statement stmt;
+        
+        try {
+            stmt = conection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM equipos");
+            
+            while(rs.next()) {
+                listaEquipos.add(new Equipo(rs.getInt("id"),rs.getString("nombre"), rs.getString("logo"), rs.getString("twitter")));
+            }
+        }catch (SQLException e){
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+        
+        return listaEquipos;
+    }
     
-    //eliminar piloto existente
-    //--method goes here--
+    public void addEquipo(Equipo equipo, User user) {
+        PreparedStatement preparedStatement;
+        
+        try {
+            String query = "INSERT INTO equipos (nombre, logo, twitter) VALUES (?, ?, ?)";
+            preparedStatement = conection.prepareStatement(query);
+            preparedStatement.setString(1, equipo.getNombre());
+            preparedStatement.setString(2, equipo.getLogo());
+            preparedStatement.setString(3, equipo.getTwitter());
+
+            preparedStatement.execute();
+            updateUserEquipo(user.getUser(), equipo.getNombre());
+
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+    }
+    
+    public Equipo findEquipoByIdEquipo(String equipo) {
+
+        Equipo u = null;
+        Statement stmt;
+
+        try {
+            stmt = conection.createStatement();
+            String query = "SELECT * FROM equipos WHERE nombre='" + equipo + "'";
+            ResultSet rs = stmt.executeQuery(query);
+
+            //si existe crea instancia de User
+            while (rs.next()) {
+                String ruta = rs.getString("logo");
+                String ultima = null;
+                if (ruta != null && !ruta.isEmpty()) {
+                    String sustituir = ruta.replace('\\', '/');
+                    //Separo la ruta en partes delimitadas por el caracter /
+                    String[] parts = sustituir.split("/");
+                    //Obtengo lo que quiero mostrar en el textview
+                    ultima = "../img/"+parts[parts.length - 1];
+                }
+
+                u = new Equipo(rs.getString("nombre"), ultima, rs.getString("twitter"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+
+        return u;
+    }
+    
+    public Equipo findEquipoById(int id) {
+
+        Equipo u = null;
+        Statement stmt;
+
+        try {
+            stmt = conection.createStatement();
+            String query = "SELECT * FROM equipos WHERE id='" + id + "'";
+            ResultSet rs = stmt.executeQuery(query);
+
+            //si existe crea instancia de User
+            while (rs.next()) {
+                String ruta1 = rs.getString("logo");
+                String sustituir = ruta1.replace('\\', '/');
+                //Separo la ruta en partes delimitadas por el caracter /
+                String[] parts = sustituir.split("/");
+                //Obtengo lo que quiero mostrar en el textview
+                String ultima = parts[parts.length - 1];
+                u = new Equipo(rs.getString("nombre"), "../img/"+ultima, rs.getString("twitter"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+
+        return u;
+    }
+    
+    //si el usuario existe devuelve una instancia de User con sus datos, si no existe devuelve null
+    public User findUser(String user) {
+
+        User u = null;
+        Statement stmt;
+
+        try {
+            stmt = conection.createStatement();
+            String query = "SELECT * FROM users WHERE user='" + user + "' ";
+            ResultSet rs = stmt.executeQuery(query);
+
+            //si existe crea instancia de User
+            while (rs.next()) {
+                u = new User(rs.getString("name"), rs.getString("user"), rs.getString("email"), rs.getString("password"), rs.getString("role"), rs.getString("equipo"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+
+        return u;
+    }
+    
+    public boolean existsEquipoNombre(String nombre) {
+        boolean existe = false;
+        PreparedStatement preparedStatement;
+
+        try {
+            String query = "SELECT * FROM equipos WHERE nombre = ?";
+            preparedStatement = conection.prepareStatement(query);
+            preparedStatement.setString(1, nombre);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet != null) {
+                if (resultSet.next()) {
+                    existe = true;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+
+        return existe;
+    }
     
 }

@@ -122,23 +122,22 @@ function validarFormularioCrearCuenta() {
 }
 
 function validarImagen(obj) {
-
     var uploadFile = obj.files[0];
 
     if (!window.FileReader) {
-        alert('El navegador no soporta la lectura de archivos');
+        alert("El navegador no soporta la lectura de archivos");
         return false;
     }
-
+    
     if (!(/\.(jpg|jpeg|png|gif)$/i).test(uploadFile.name)) {
+        alert("El archivo a seleccionado no es una imagen");
         document.getElementById('imagen_noticia').value = null;
-        alert('El archivo a seleccionado no es una imagen');
     } else {
         var img = new Image();
         img.onload = function () {
             if (uploadFile.size > 3145728)
             {
-                alert('El peso de la imagen no puede exceder los 3MB')
+                alert("El peso de la imagen no puede exceder los 3MB");
             }
         };
         img.src = URL.createObjectURL(uploadFile);
@@ -182,4 +181,25 @@ function validarCircuitos() {
         }
     }
 
+}
+
+
+function validarEquipo() {
+    var nombre = document.getElementById('nombre').value;
+    var twitter = document.getElementById('twitter').value;
+    
+    if (nombre===null || nombre==="") {
+        alert("Ingrese el nombre del equipo");
+        return false;
+    } else if (nombre.length > 100) {
+            alert("El nombre debe contener menos de 100 caracteres");
+            return false;
+    }
+    if (twitter===null || twitter==="") {
+        alert("Ingrese el nombre de usuario de Twitter");
+        return false;
+    } else if (twitter.length > 50) {
+            alert("El contenido nombre de usuario de Twitter debe contener menos de 50 caracteres");
+            return false;
+    }
 }

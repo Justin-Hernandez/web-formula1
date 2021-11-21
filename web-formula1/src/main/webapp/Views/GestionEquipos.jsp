@@ -1,22 +1,61 @@
 <%-- 
-    Document   : AdminPanel
-    Created on : 28/10/2021, 08:16:07 PM
-    Author     : DELL
+    Document   : GestionEquipos
+    Created on : 14-nov-2021, 18:20:14
+    Author     : laura
 --%>
+
 
 <%@page import="Models.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page session="true" %>
+<%@page import="java.util.Base64"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Models.ModeloDatos"%>
+<%@page import="Models.Equipo"%>
 <!DOCTYPE html>
 <html>
     <%
+        ArrayList<Equipo> equipos = (ArrayList<Equipo>) request.getSession().getAttribute("equipos");
         User usuario = (User) session.getAttribute("usuario");
-    %>    
+    %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Panel de Administración</title>
+        <title>Gestion de Equipos</title>
         <link rel="stylesheet" href="../css/custom.css">
         <link rel="stylesheet" href="../css/all.min.css">
+        <script src="../js/validaciones.js"></script>
+        <style>
+            .info-button {
+                    border-style: none;
+                    align-items: center;
+            }
+            .h1 {
+                text-align: center; 
+                margin-bottom: 10px;
+            }
+            .td-nombre{
+                text-align: center; 
+                border: 1px solid black;
+                border-collapse: separate;
+            }
+            .table{
+                border-spacing: 25px; 
+                border-collapse: collapse;
+                width: 30%; 
+                margin-left: auto; 
+                margin-right: auto;
+            }
+            .th{
+                border: 2px solid black;
+            }
+            .td-info{
+                text-align: center; 
+            }
+            .fila{
+                margin-top: 5px; 
+                margin-bottom:  5px;
+                
+            }
+        </style>
     </head>
     <body>
         <header class="header">
@@ -41,20 +80,23 @@
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="InicioSesion.jsp">Iniciar sesión</a></li>
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="CrearCuenta.jsp">Crear cuenta</a></li>    
                 </ul> 
-                <%}%>  
+                <%}%>
             </nav>
         </header>
-
-        <section class="section">
-            <ul>
-                <%if (!usuario.getEquipo().equals("null")) {%>
-                    <li class="section-item"><a href="/web-formula1/GestionResponsables"><i class="fas fa-vote-yea"></i>Gestión de Responsables</a></li>
-                    <%}%>        
-                <li class="section-item"><a href="/web-formula1/EquipoServlet"><i class="fas fa-vote-yea"></i> Gestión de Equipo</a></li>
-                <li class="section-item"><a href="/web-formula1/CochesServlet?accion=listar"><i class="fas fa-car"></i> Gestión de coches</li>
-                <li class="section-item"><a href="/web-formula1/PilotosServlet?accion=listar"><i class="fas fa-vote-yea"></i>Gestión de Pilotos</li></a>
-            </ul>
-        </section>
+        <!--View/Delete-->
+        <h1 class="h1">Equipos</h1>
+        <table class="table">
+            <tr>
+                <th class="th">Nombre</th>
+                <th class="th"></th>
+            </tr>
+            <% for (Equipo e : equipos) {%>
+            <tr class="fila">
+                <td class="td-nombre"><%=e.getNombre()%></td>
+                <td class="td-info"><a href="/web-formula1/EquipoServlet?accion=view&id=<%=e.getId()%>"><button class="info-button"><i class="fas fa-info-circle"></i></button></td>
+            </tr>
+            <%}%>
+        </table>
 
         <footer class="footer">
             <br>
@@ -62,6 +104,5 @@
             <p>2021 ©</p>
 
         </footer>
-
-    </body>
+</body>
 </html>

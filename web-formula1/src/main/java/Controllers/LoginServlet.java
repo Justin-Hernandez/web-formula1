@@ -51,6 +51,9 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("usuario", usuario);
             String rol = usuario.getRol();
             
+            session.setAttribute("rol", rol);
+            session.setAttribute("equipoUser", usuario.getEquipo());
+            
             //si admin, redirecciona a la página del adimn
             if (rol.equals("Administrador")) {
                 
