@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.sql.Timestamp;
+import java.util.LinkedList;
 
 /**
  *
@@ -384,21 +386,23 @@ public class ModeloDatos {
         }
         return eliminado;
     }
-    
+
+    //<<<<<<<<<<<<<<End Circuitos part>>>>>>>>>>>>>>
+    //<<<<<<<<<<<<<<Coches part>>>>>>>>>>>>>>
     //devuelve todos los coches de la base de datos en un ArrayList
     public ArrayList<Coche> getAllCoches() {
-        
+
         ArrayList<Coche> listaCoches = new ArrayList<>();
         Statement stmt;
-        
+
         try {
             stmt = conection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM coches");
-            while(rs.next()) {
+            while (rs.next()) {
                 listaCoches.add(new Coche(
-                        rs.getInt("id"), 
-                        rs.getString("nombre"), 
-                        rs.getString("codigo"), 
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("codigo"),
                         rs.getFloat("ers_CL"),
                         rs.getFloat("ers_CM"),
                         rs.getFloat("ers_CR"),
@@ -410,27 +414,194 @@ public class ModeloDatos {
         }
         return listaCoches;
     }
-    
+
     //inserta nuevo coche
     public boolean insertCoche(
-        String nombre, 
-        String codigo,         
-        float ers_CL,
-        float ers_CM,
-        float ers_CR,
-        float consumo
-    ) {       
+            String nombre,
+            String codigo,
+            float ers_CL,
+            float ers_CM,
+            float ers_CR,
+            float consumo
+    ) {
         boolean insertado = true;
-        PreparedStatement pstmt; 
+        PreparedStatement pstmt;
         try {
             pstmt = conection.prepareStatement("INSERT INTO coches (nombre, codigo, ers_CL, ers_CM, ers_CR, consumo) VALUES (?, ?, ?, ?, ?, ?)");
-            
+
             pstmt.setString(1, nombre);
             pstmt.setString(2, codigo);
             pstmt.setFloat(3, ers_CL);
             pstmt.setFloat(4, ers_CM);
             pstmt.setFloat(5, ers_CR);
             pstmt.setFloat(6, consumo);
+
+            //true si se ha insertado correctamente, de lo contrario false
+            insertado = pstmt.execute();
+
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+        return insertado;
+    }
+
+    //eliminar coche existente
+    public boolean deleteCar(String codigo) {
+        boolean eliminado = true;
+        PreparedStatement pstmt;
+
+        try {
+            pstmt = conection.prepareStatement("DELETE FROM coches WHERE codigo = ?");
+
+            pstmt.setString(1, codigo);
+
+            //true si se ha eliminado correctamente, de lo contrario false
+            eliminado = pstmt.execute();
+
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+        return eliminado;
+    }
+
+    //<<<<<<<<<<<<<<End Coches part>>>>>>>>>>>>>>
+    public boolean deletePilot(String siglas) {
+        boolean eliminado = true;
+        PreparedStatement pstmt;
+
+        try {
+            pstmt = conection.prepareStatement("DELETE FROM pilotos WHERE siglas = ?");
+
+            pstmt.setString(1, siglas);
+
+            //true si se ha eliminado correctamente, de lo contrario false
+            eliminado = pstmt.execute();
+
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+        return eliminado;
+    }
+
+
+
+    public boolean addEvent(String nombre_circuito, Timestamp timestamp) {
+        boolean evento = false;
+        PreparedStatement preparedStatement, preparedStatement2;
+        String sql1 = "SELECT id from circuitos where nombre = ?";
+        String sql2 = "INSERT INTO eventos (id_circuito, fecha_evento) VALUES (?, ?)";
+        try {
+            preparedStatement = conection.prepareStatement(sql1);
+            preparedStatement.setString(1, nombre_circuito);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                preparedStatement2 = conection.prepareStatement(sql2);
+                preparedStatement2.setInt(1, resultSet.getInt("id"));
+                preparedStatement2.setTimestamp(2, timestamp);
+                evento = preparedStatement2.execute();
+            }
+        } catch (Exception e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+        return evento;
+    }
+
+    public boolean checkIfExistEventOnDate(String nombre_circuito, Timestamp timestamp) {
+        boolean exist = false;
+
+        PreparedStatement preparedStatement;
+        String sql = "select * from circuitos inner join "
+                + "eventos on circuitos.id = eventos.id_circuito where nombre = ? and date(fecha_evento) = date(?)";
+        try {
+            preparedStatement = conection.prepareStatement(sql);
+            preparedStatement.setString(1, nombre_circuito);
+            preparedStatement.setTimestamp(2, timestamp);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                System.out.println("Existe ese evento");
+                exist = true;
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+
+        return exist;
+    }
+
+    public LinkedList<Evento> getAllEvents() {
+        LinkedList<Evento> listaEventos = new LinkedList<>();
+
+        Statement stmt;
+
+        try {
+            stmt = conection.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from circuitos inner join eventos on circuitos.id = eventos.id_circuito");
+
+            while (rs.next()) {
+                listaEventos.add(new Evento(rs.getString("nombre"), rs.getString("ciudad"), rs.getString("pais"), 
+                        rs.getInt("numeroDevueltas"), rs.getInt("longitud"), rs.getInt("curvasLentas"), 
+                        rs.getInt("curvasMedia"), rs.getInt("curvasRapidas"), rs.getTimestamp("fecha_evento")));
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+
+        return listaEventos;
+    }
+    
+    //eliminar coche existente
+    //--method goes here--
+    
+    //<<<<<Pilotos>>>>>>
+    //devuelve todos los pilotos de la base de datos en un ArrayList
+    public ArrayList<Piloto> getAllPilotos() {
+        
+        ArrayList<Piloto> listaPilotos = new ArrayList<>();
+        Statement stmt;
+        
+        try {
+            stmt = conection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM pilotos");
+            while(rs.next()) {
+                listaPilotos.add(new Piloto(
+                        rs.getInt("id"), 
+                        rs.getString("nombre"), 
+                        rs.getString("apellidos"), 
+                        rs.getString("siglas"),
+                        rs.getInt("dorsal"),
+                        rs.getString("foto"),
+                        rs.getString("pais"),
+                        rs.getString("twitter")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+        return listaPilotos;
+    }
+    
+    //inserta nuevo piloto
+    public boolean insertPiloto(
+        String nombre, 
+        String apellidos,         
+        String siglas,
+        int dorsal,
+        String foto,
+        String pais,
+        String twitter
+    ) {       
+        boolean insertado = true;
+        PreparedStatement pstmt; 
+        try {
+            pstmt = conection.prepareStatement("INSERT INTO pilotos (nombre, apellidos, siglas, dorsal, foto, pais, twitter) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            
+            pstmt.setString(1, nombre);
+            pstmt.setString(2, apellidos);
+            pstmt.setString(3, siglas);
+            pstmt.setInt(4, dorsal);
+            pstmt.setString(5, foto);
+            pstmt.setString(6, pais);
+            pstmt.setString(7, twitter);
             
             //true si se ha insertado correctamente, de lo contrario false
             insertado = pstmt.execute();
@@ -440,8 +611,7 @@ public class ModeloDatos {
         }    
         return insertado;
     }
-    
-    
+      
     //recupera todos los equipos de la base de datos
     public ArrayList<Equipo> getAllEquipos() {
         

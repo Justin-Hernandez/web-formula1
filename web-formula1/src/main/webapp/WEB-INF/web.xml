@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+    <servlet-mapping>
+        <servlet-name>PilotosServlet</servlet-name>
+        <url-pattern>/PilotosServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -29,6 +33,10 @@
         <servlet-class>Controllers.CircuitoServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CalendarioServlet</servlet-name>
+        <servlet-class>Controllers.CalendarioServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>GestionUsuarios</servlet-name>
         <servlet-class>Controllers.GestionUsuarios</servlet-class>
     </servlet>
@@ -43,6 +51,10 @@
     <servlet>
         <servlet-name>GestionResponsablesServlet</servlet-name>
         <servlet-class>Controllers.GestionResponsablesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PilotosServlet</servlet-name>
+        <servlet-class>Controllers.PilotosServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -59,6 +71,10 @@
     <servlet-mapping>
         <servlet-name>NoticiasServlet</servlet-name>
         <url-pattern>/NoticiasServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CalendarioServlet</servlet-name>
+        <url-pattern>/CalendarioServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>NoticiaServlet</servlet-name>

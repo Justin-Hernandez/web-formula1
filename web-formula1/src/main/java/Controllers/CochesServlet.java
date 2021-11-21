@@ -6,12 +6,10 @@ import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
-
 /**
  *
  * @author Nasr
  */
-
 @MultipartConfig
 public class CochesServlet extends HttpServlet {
 
@@ -38,8 +36,9 @@ public class CochesServlet extends HttpServlet {
                     agregarCoche(req, res);
                     break;
                 case "eliminar":
-                    //eliminarCoche(req, res);
-                    //res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionCoches.jsp"));
+                    eliminarCoche(req, res);
+                    s.setAttribute("coches", modelo.getAllCoches());
+                    res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionCoches.jsp"));
                     break;
                 default:
                     break;
@@ -56,14 +55,16 @@ public class CochesServlet extends HttpServlet {
         float ersCM = Float.parseFloat(req.getParameter("ersCM"));
         float ersCR = Float.parseFloat(req.getParameter("ersCR"));
         float consumo = Float.parseFloat(req.getParameter("consumo"));
-        
+
         modelo.insertCoche(nombre, codigo, ersCL, ersCM, ersCR, consumo);
         res.sendRedirect("/web-formula1/CochesServlet?accion=listar");
     }
-    
-    //eliminar coche
-    //method here
 
+    //eliminar coche
+    private void eliminarCoche(HttpServletRequest req, HttpServletResponse res) {
+           String codigo = req.getParameter("codigo");
+           modelo.deleteCar(codigo);
+    }
 
     @Override
     public void destroy() {

@@ -1,3 +1,7 @@
+/*window.onload = function () {
+    validateDateEvent();
+};*/
+
 function validarNoticias() {
     var titulo_noticia = document.getElementById('titulo_noticia').value;
     var noticia = document.getElementById('noticia').value;
@@ -20,6 +24,72 @@ function validarNoticias() {
             return false;
         }
     }
+}
+
+function validarFechaVacia(){
+    if(fecha === ""){
+        alert("Debe seleccionar una fecha para crear el evento en el calendario");
+        return false;
+    }
+    /*else{
+       if(){
+            alert("La fecha seleccionada no puede ser inferior a la fecha de HOY");
+            return false;
+       } 
+    }*/
+}
+
+
+function addDate() {
+    date = new Date();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var year = date.getFullYear();
+    var fecha = document.getElementById('date').value;
+    if (fecha === "") {
+        document.getElementById('date').value = day + '/' + month + '/' + year;
+    }
+}
+
+function validateDateEvent() {
+    var dateInput = document.getElementById('date');
+    if(dateInput === ""){
+        
+    }
+    var str = new Date().toISOString();
+    str = str.substring(0, str.length - 1);
+    dateInput.setAttribute('min', str);
+}
+
+function getDate() {
+
+    /*    var today = new Date();
+     var dd = today.getDate();
+     var mm = today.getMonth() + 1; //January is 0!
+     var yyyy = today.getFullYear();
+     
+     if (dd < 10) {
+     dd = '0' + dd;
+     }
+     
+     if (mm < 10) {
+     mm = '0' + mm;
+     }
+     
+     today = dd + '/' + mm + '/' + yyyy;
+     document.getElementById("date").value = today;*/
+    const timeElapsed = Date.now();
+    const today = new Date(timeElapsed);
+    var dateControl = document.querySelector('input[type="datetime-local"]');
+
+    dateControl.value = '2017-06-01T08:30';
+    //today.toISOString()
+
+}
+
+
+function addDate2() {
+    $('#date').val(new Date().toJSON().slice(0, 10));
 }
 
 function validarFormularioCrearCuenta() {
