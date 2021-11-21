@@ -42,17 +42,22 @@ public class EquipoServlet extends HttpServlet {
         Equipo equipoUser = modelo.findEquipoByIdEquipo(usuario.getEquipo());
         s.setAttribute("equipoUser", equipoUser);
         
-        
+        s.setAttribute("mensaje", null);
         s.setAttribute("equipos", modelo.getAllEquipos());
         if (accion != null) {
             switch (accion) {
                 case "insertar":
-                    addEquipo(req, res, usuario);
-                    s.setAttribute("equipos", modelo.getAllEquipos());
-                    //s.setAttribute("equipoUser", getEquipo());
-                    s.setAttribute("equipo", getEquipo());
-                    s.setAttribute("usuario", modelo.findUser(usuario.getUser()));
-                    res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/ResponsableEquipoPanel.jsp"));
+                    if (modelo.existsEquipoNombre(req.getParameter("nombre"))) {
+                        s.setAttribute("mensaje", "Ya exite un equipo con este nombre");
+                        res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionEquipo.jsp"));
+                    } else {
+                        addEquipo(req, res, usuario);
+                        s.setAttribute("equipos", modelo.getAllEquipos());
+                        //s.setAttribute("equipoUser", getEquipo());
+                        s.setAttribute("equipo", getEquipo());
+                        s.setAttribute("usuario", modelo.findUser(usuario.getUser()));
+                        res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/ResponsableEquipoPanel.jsp"));
+                    }
                     break;
                 case "view":
                     s.setAttribute("equipoUser", viewEquipo(req, res));
@@ -69,7 +74,8 @@ public class EquipoServlet extends HttpServlet {
     
     
     private void addEquipo(HttpServletRequest req, HttpServletResponse res, User user) throws IOException, ServletException {
-
+        
+        
         String e2 = req.getServletContext().getRealPath("src/main/webapp/store/img");
         String pathFiles2 = Paths.get("src//main//webapp//store//img").toString();
         //String pathFiles = req.getServletContext().getRealPath("/store/img");
@@ -82,7 +88,7 @@ public class EquipoServlet extends HttpServlet {
         Part part = req.getPart("file");
         
         String foto = guardarFoto(part, uploads);
-
+        foto=foto.isEmpty()?null:foto;
 
         //String foto2 = guardarFoto(part, ue);
         /*/////NO BORRAAAAAAR
@@ -112,7 +118,7 @@ public class EquipoServlet extends HttpServlet {
         Path path = Paths.get(part.getSubmittedFileName());
         String fileName = path.getFileName().toString();
         InputStream inputStream = part.getInputStream();
-        if (inputStream != null && fileName!=null && fileName!="") {
+        if (inputStream != null && fileName!=null && !fileName.isEmpty()) {
             File file = new File(pathUploads, fileName);
             if (!file.exists()) {
                 Files.copy(inputStream, file.toPath());

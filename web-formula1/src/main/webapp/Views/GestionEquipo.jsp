@@ -91,7 +91,14 @@
                         </tr>
                     </table>
                 </form>
+                    <%
+                    String mensaje = (String) request.getSession().getAttribute("mensaje");
 
+                    if (mensaje != null) {%>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <%=mensaje%>
+                        </div>
+                    <%}%> 
                 <%} else {%> 
                 <h1 class="titulo">Detalles Equipo</h1>
                 <form class="datos">
@@ -100,7 +107,7 @@
                         <tr><td><input class="input" type="text" name="nombre" id="nombre" maxlength="100" width="400px" value="<%=equipoUser.getNombre()%>" disabled></td></tr>
                         <tr><td><label class="label">Twitter</label></td></tr>
                         <tr><td><input class="input" type="text" name="twitter" id="twitter" maxlength="50" width="400px" value="<%=equipoUser.getTwitter()%>" disabled ></td></tr>
-                        <%if (equipoUser.getLogo() != null && equipoUser.getLogo()!="") {%>
+                        <%if (equipoUser.getLogo() != null && !equipoUser.getLogo().isEmpty()) {%>
                             <tr><td><label class="label" >Logo</label></td></tr>
                             <tr><td><img class="imageEquipo" src="<%=equipoUser.getLogo()%>" width="400"></td></tr>
                         <%}%> 

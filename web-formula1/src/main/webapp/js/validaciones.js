@@ -198,7 +198,7 @@ function validarEquipo() {
     if (twitter===null || twitter==="") {
         alert("Ingrese el nombre de usuario de Twitter");
         return false;
-    } else if (noticia.length > 50) {
+    } else if (twitter.length > 50) {
             alert("El contenido nombre de usuario de Twitter debe contener menos de 50 caracteres");
             return false;
     }

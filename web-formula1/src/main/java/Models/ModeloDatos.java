@@ -662,13 +662,17 @@ public class ModeloDatos {
 
             //si existe crea instancia de User
             while (rs.next()) {
-                String ruta1 = rs.getString("logo");
-                String sustituir = ruta1.replace('\\', '/');
-                //Separo la ruta en partes delimitadas por el caracter /
-                String[] parts = sustituir.split("/");
-                //Obtengo lo que quiero mostrar en el textview
-                String ultima = parts[parts.length - 1];
-                u = new Equipo(rs.getString("nombre"), "../img/"+ultima, rs.getString("twitter"));
+                String ruta = rs.getString("logo");
+                String ultima = null;
+                if (ruta != null && !ruta.isEmpty()) {
+                    String sustituir = ruta.replace('\\', '/');
+                    //Separo la ruta en partes delimitadas por el caracter /
+                    String[] parts = sustituir.split("/");
+                    //Obtengo lo que quiero mostrar en el textview
+                    ultima = "../img/"+parts[parts.length - 1];
+                }
+
+                u = new Equipo(rs.getString("nombre"), ultima, rs.getString("twitter"));
             }
 
         } catch (SQLException e) {
@@ -727,6 +731,27 @@ public class ModeloDatos {
         }
 
         return u;
+    }
+    
+    public boolean existsEquipoNombre(String nombre) {
+        boolean existe = false;
+        PreparedStatement preparedStatement;
+
+        try {
+            String query = "SELECT * FROM equipos WHERE nombre = ?";
+            preparedStatement = conection.prepareStatement(query);
+            preparedStatement.setString(1, nombre);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet != null) {
+                if (resultSet.next()) {
+                    existe = true;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+
+        return existe;
     }
     
 }
