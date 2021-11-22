@@ -32,14 +32,14 @@
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link">Calendario</a></li>
                 </ul>
                 <di class="admin">
-                <%if (usuario != null) {%>
-                <img class="avatar" src="../img/Diez.png" alt="Avatar">
-                <a class="nav-menu-item"><%=usuario.getName()%></a><a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
-                    <%if (request.getParameter("logout") != null) {
-                            session.removeAttribute("usuario");
-                            response.sendRedirect("Noticias.jsp");
-                        }
-                    } else {%>
+                    <%if (usuario != null) {%>
+                    <img class="avatar" src="../img/Diez.png" alt="Avatar">
+                    <a class="nav-menu-item"><%=usuario.getName()%></a><a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
+                        <%if (request.getParameter("logout") != null) {
+                                session.removeAttribute("usuario");
+                                response.sendRedirect("Noticias.jsp");
+                            }
+                        } else {%>
                 </di>
                 <ul class="nav-menu">
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="InicioSesion.jsp">Iniciar sesión</a></li>
@@ -80,10 +80,14 @@
                 <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
                 <td class="td-icons">
                     <button class="trash-button">
-                        <a href="">
+                        <a href="/web-formula1/PilotosServlet?accion=eliminar&siglas=<%=p.getSiglas()%>">
                             <i class="fas fa-trash"></i>
                         </a>
                     </button>
+
+
+
+                    
                 </td>
             </tr>
             <%}%>

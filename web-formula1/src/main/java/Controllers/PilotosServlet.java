@@ -12,15 +12,13 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import org.apache.commons.io.FilenameUtils;
 
-
 /**
  *
  * @author Nasr
  */
-
 @MultipartConfig
 public class PilotosServlet extends HttpServlet {
-    
+
     private String pathFiles = "/Users/macbook/Documents/GitHub/web-formula1/web-formula1/src/main/webapp/img";
     private File uploads = new File(pathFiles);
     private ModeloDatos modelo;
@@ -49,8 +47,9 @@ public class PilotosServlet extends HttpServlet {
                     agregarPiloto(req, res);
                     break;
                 case "eliminar":
-                    //eliminarPiloto(req, res);
-                    //res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionPilotos.jsp"));
+                    eliminarPiloto(req, res);
+                    s.setAttribute("pilotos", modelo.getAllPilotos());
+                    res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionPilotos.jsp"));
                     break;
                 default:
                     break;
@@ -69,15 +68,15 @@ public class PilotosServlet extends HttpServlet {
         String foto = guardarFoto(part, uploads);
         String pais = req.getParameter("pais");
         String twitter = req.getParameter("twitter");
-        
+
         User usuario = (User) req.getSession().getAttribute("usuario");
         Equipo equipoUser = modelo.findEquipoByIdEquipo(usuario.getEquipo());
 
         modelo.insertPiloto(nombre, apellidos, siglas, dorsal, foto, pais, twitter, equipoUser.getId());
-        
+
         res.sendRedirect("/web-formula1/PilotosServlet?accion=listar");
     }
-    
+
     //guardar fotos
     private String guardarFoto(Part part, File pathUploads) throws IOException {
         String absolutePath = "";
@@ -101,9 +100,12 @@ public class PilotosServlet extends HttpServlet {
         }
         return absolutePath;
     }
-    
+
     //eliminar piloto
-    //method goes here
+    private void eliminarPiloto(HttpServletRequest req, HttpServletResponse res) {
+        String siglas = req.getParameter("siglas");
+        modelo.deletePilot(siglas);
+    }
 
     @Override
     public void destroy() {
