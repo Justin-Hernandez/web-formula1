@@ -32,6 +32,13 @@ public class Coche {
         this.ersCR = ersCR;
         this.consumo = consumo;
     }
+
+    public Coche(String nombre, String codigo) {
+        this.nombre = nombre;
+        this.codigo = codigo;
+    }
+    
+    
     
     //gets
     public int getId() {

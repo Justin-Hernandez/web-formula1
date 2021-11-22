@@ -1,6 +1,8 @@
 package Controllers;
 
+import Models.Equipo;
 import Models.ModeloDatos;
+import Models.User;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
@@ -29,7 +31,10 @@ public class CochesServlet extends HttpServlet {
         if (accion != null) {
             switch (accion) {
                 case "listar":
-                    s.setAttribute("coches", modelo.getAllCoches());
+                    //s.setAttribute("coches", modelo.getAllCoches());
+                    User usuario = (User) req.getSession().getAttribute("usuario");
+                    Equipo equipoUser = modelo.findEquipoByIdEquipo(usuario.getEquipo());
+                    s.setAttribute("coches", modelo.findCochesByIdEquipo(equipoUser.getId()));
                     res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionCoches.jsp"));
                     break;
                 case "insertar":
@@ -55,8 +60,11 @@ public class CochesServlet extends HttpServlet {
         float ersCM = Float.parseFloat(req.getParameter("ersCM"));
         float ersCR = Float.parseFloat(req.getParameter("ersCR"));
         float consumo = Float.parseFloat(req.getParameter("consumo"));
+        
+        User usuario = (User) req.getSession().getAttribute("usuario");
+        Equipo equipoUser = modelo.findEquipoByIdEquipo(usuario.getEquipo());
 
-        modelo.insertCoche(nombre, codigo, ersCL, ersCM, ersCR, consumo);
+        modelo.insertCoche(nombre, codigo, ersCL, ersCM, ersCR, consumo, equipoUser.getId());
         res.sendRedirect("/web-formula1/CochesServlet?accion=listar");
     }
 

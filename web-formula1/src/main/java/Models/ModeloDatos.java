@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.Timestamp;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -422,12 +423,12 @@ public class ModeloDatos {
             float ers_CL,
             float ers_CM,
             float ers_CR,
-            float consumo
+            float consumo, int idequipo
     ) {
         boolean insertado = true;
         PreparedStatement pstmt;
         try {
-            pstmt = conection.prepareStatement("INSERT INTO coches (nombre, codigo, ers_CL, ers_CM, ers_CR, consumo) VALUES (?, ?, ?, ?, ?, ?)");
+            pstmt = conection.prepareStatement("INSERT INTO coches (nombre, codigo, ers_CL, ers_CM, ers_CR, consumo, equipo) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
             pstmt.setString(1, nombre);
             pstmt.setString(2, codigo);
@@ -435,6 +436,7 @@ public class ModeloDatos {
             pstmt.setFloat(4, ers_CM);
             pstmt.setFloat(5, ers_CR);
             pstmt.setFloat(6, consumo);
+            pstmt.setInt(7, idequipo);
 
             //true si se ha insertado correctamente, de lo contrario false
             insertado = pstmt.execute();
@@ -588,12 +590,12 @@ public class ModeloDatos {
         int dorsal,
         String foto,
         String pais,
-        String twitter
+        String twitter, int equipo
     ) {       
         boolean insertado = true;
         PreparedStatement pstmt; 
         try {
-            pstmt = conection.prepareStatement("INSERT INTO pilotos (nombre, apellidos, siglas, dorsal, foto, pais, twitter) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            pstmt = conection.prepareStatement("INSERT INTO pilotos (nombre, apellidos, siglas, dorsal, foto, pais, twitter, equipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             
             pstmt.setString(1, nombre);
             pstmt.setString(2, apellidos);
@@ -602,6 +604,7 @@ public class ModeloDatos {
             pstmt.setString(5, foto);
             pstmt.setString(6, pais);
             pstmt.setString(7, twitter);
+            pstmt.setInt(8, equipo);
             
             //true si se ha insertado correctamente, de lo contrario false
             insertado = pstmt.execute();
@@ -672,7 +675,7 @@ public class ModeloDatos {
                     ultima = "../img/"+parts[parts.length - 1];
                 }
 
-                u = new Equipo(rs.getString("nombre"), ultima, rs.getString("twitter"));
+                u = new Equipo(Integer.parseInt(rs.getString("id")), rs.getString("nombre"), ultima, rs.getString("twitter"));
             }
 
         } catch (SQLException e) {
@@ -694,13 +697,16 @@ public class ModeloDatos {
 
             //si existe crea instancia de User
             while (rs.next()) {
-                String ruta1 = rs.getString("logo");
-                String sustituir = ruta1.replace('\\', '/');
-                //Separo la ruta en partes delimitadas por el caracter /
-                String[] parts = sustituir.split("/");
-                //Obtengo lo que quiero mostrar en el textview
-                String ultima = parts[parts.length - 1];
-                u = new Equipo(rs.getString("nombre"), "../img/"+ultima, rs.getString("twitter"));
+                String ruta = rs.getString("logo");
+                String ultima = null;
+                if (ruta != null && !ruta.isEmpty()) {
+                    String sustituir = ruta.replace('\\', '/');
+                    //Separo la ruta en partes delimitadas por el caracter /
+                    String[] parts = sustituir.split("/");
+                    //Obtengo lo que quiero mostrar en el textview
+                    ultima = "../img/"+parts[parts.length - 1];
+                }
+                u = new Equipo(Integer.parseInt(rs.getString("id")),rs.getString("nombre"), ultima, rs.getString("twitter"));
             }
 
         } catch (SQLException e) {
@@ -752,6 +758,52 @@ public class ModeloDatos {
         }
 
         return existe;
+    }
+    
+    public ArrayList<Piloto> findPilotosByIdEquipo(int equipo) {
+
+        ArrayList<Piloto> pilotos = new ArrayList<>();
+        Statement stmt;
+
+        try {
+            stmt = conection.createStatement();
+            String query = "SELECT * FROM pilotos WHERE equipo='" + equipo + "'";
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                pilotos.add(new Piloto(rs.getInt("id"), rs.getString("nombre"),
+                        rs.getString("apellidos"), rs.getString("siglas"),
+                        rs.getInt("dorsal"), rs.getString("foto"),
+                        rs.getString("pais"), rs.getString("twitter")
+                ));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+
+        return pilotos;
+    }
+    
+    public ArrayList<Coche> findCochesByIdEquipo(int equipo) {
+
+        ArrayList<Coche> coches = new ArrayList<>();;
+        Statement stmt;
+
+        try {
+            stmt = conection.createStatement();
+            String query = "SELECT * FROM coches WHERE equipo='" + equipo + "'";
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                coches.add(new Coche(rs.getString("nombre"), rs.getString("codigo")));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+
+        return coches;
     }
     
 }

@@ -5,6 +5,8 @@
 --%>
 
 
+<%@page import="Models.Coche"%>
+<%@page import="Models.Piloto"%>
 <%@page import="Models.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.Base64"%>
@@ -16,6 +18,8 @@
     <%
         Equipo equipoUser = (Equipo) request.getSession().getAttribute("equipoUser");
         User usuario = (User) session.getAttribute("usuario");
+        ArrayList<Piloto> pilotos = (ArrayList<Piloto>) request.getSession().getAttribute("pilotos");
+        ArrayList<Coche> coches = (ArrayList<Coche>) request.getSession().getAttribute("coches");
     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -114,14 +118,39 @@
                     </table>
                 </form>
             </div>
-            <div style="width: 50%; float:right">
-                <br/>
-                <h3 class="titulo">Pilotos del Equipo</h3>
-                <br/>
-                <h3 class="titulo">Coches del Equipo</h3>
-                <br/>
-            </div>
-
+                <%if (usuario.getRol() != null && ("Administrador").equals(usuario.getRol())) {%>
+                <div style="width: 50%; float:right">
+                    <br/>
+                    <h3 class="titulo">Pilotos del Equipo</h3>
+                    <table class="table">
+                        <tr>
+                            <th class="th">Nombre</th>
+                            <th class="th">Apellidos</th>
+                        </tr>
+                        <% for (Piloto p : pilotos) {%>
+                        <tr class="fila">
+                            <td class="td-nombre"><%=p.getNombre()%></td>
+                            <td class="td-info"><%=p.getApellidos()%></td>
+                        </tr>
+                        <%}%>
+                    </table>
+                    <br/>
+                    <h3 class="titulo">Coches del Equipo</h3>
+                    <table class="table">
+                        <tr>
+                            <th class="th">Nombre</th>
+                            <th class="th">Código</th>
+                        </tr>
+                        <% for (Coche c : coches) {%>
+                        <tr class="fila">
+                            <td class="td-nombre"><%=c.getNombre()%></td>
+                            <td class="td-info"><%=c.getCodigo()%></td>
+                        </tr>
+                        <%}%>
+                    </table>
+                    <br/>
+                </div>
+                <%}%> 
             <%}%> 
         </div>
             

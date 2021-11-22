@@ -51,8 +51,10 @@
                     <li class="section-item"><a href="/web-formula1/GestionResponsables"><i class="fas fa-vote-yea"></i>Gestión de Responsables</a></li>
                     <%}%>        
                 <li class="section-item"><a href="/web-formula1/EquipoServlet"><i class="fas fa-vote-yea"></i> Gestión de Equipo</a></li>
-                <li class="section-item"><a href="/web-formula1/CochesServlet?accion=listar"><i class="fas fa-car"></i> Gestión de coches</li>
-                <li class="section-item"><a href="/web-formula1/PilotosServlet?accion=listar"><i class="fas fa-vote-yea"></i>Gestión de Pilotos</li></a>
+                <%if (!("null").equals(usuario.getEquipo())) {%>
+                    <li class="section-item"><a href="/web-formula1/CochesServlet?accion=listar"><i class="fas fa-car"></i> Gestión de coches</li>
+                    <li class="section-item"><a href="/web-formula1/PilotosServlet?accion=listar"><i class="fas fa-vote-yea"></i>Gestión de Pilotos</li></a>
+                <%}%> 
             </ul>
         </section>
 

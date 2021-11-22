@@ -1,6 +1,8 @@
 package Controllers;
 
+import Models.Equipo;
 import Models.ModeloDatos;
+import Models.User;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -37,7 +39,10 @@ public class PilotosServlet extends HttpServlet {
         if (accion != null) {
             switch (accion) {
                 case "listar":
-                    s.setAttribute("pilotos", modelo.getAllPilotos());
+                    User usuario = (User) req.getSession().getAttribute("usuario");
+                    Equipo equipoUser = modelo.findEquipoByIdEquipo(usuario.getEquipo());
+                    s.setAttribute("pilotos", modelo.findPilotosByIdEquipo(equipoUser.getId()));
+                    //s.setAttribute("pilotos", modelo.getAllPilotos());
                     res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionPilotos.jsp"));
                     break;
                 case "insertar":
@@ -53,7 +58,7 @@ public class PilotosServlet extends HttpServlet {
         }
     }
 
-    //agregar coche
+    //agregar piloto
     private void agregarPiloto(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 
         String nombre = req.getParameter("nombre");
@@ -65,7 +70,11 @@ public class PilotosServlet extends HttpServlet {
         String pais = req.getParameter("pais");
         String twitter = req.getParameter("twitter");
         
-        modelo.insertPiloto(nombre, apellidos, siglas, dorsal, foto, pais, twitter);
+        User usuario = (User) req.getSession().getAttribute("usuario");
+        Equipo equipoUser = modelo.findEquipoByIdEquipo(usuario.getEquipo());
+
+        modelo.insertPiloto(nombre, apellidos, siglas, dorsal, foto, pais, twitter, equipoUser.getId());
+        
         res.sendRedirect("/web-formula1/PilotosServlet?accion=listar");
     }
     
