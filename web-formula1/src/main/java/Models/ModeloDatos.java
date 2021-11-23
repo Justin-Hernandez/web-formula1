@@ -843,8 +843,8 @@ public class ModeloDatos {
                     rs.getInt("id"), 
                     rs.getString("permalink"), 
                     rs.getString("titulo"), 
-                    rs.getString("descripcion")
-                    //rs.getTimestamp("fechaLimite")
+                    rs.getString("descripcion"),
+                    rs.getTimestamp("fecha_limite")
                 ));
             }
         } catch (SQLException e) {
