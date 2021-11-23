@@ -25,8 +25,8 @@
         <script src="../js/validaciones.js"></script>
         <style>
             .info-button {
-                    border-style: none;
-                    align-items: center;
+                border-style: none;
+                align-items: center;
             }
             .h1 {
                 text-align: center; 
@@ -50,12 +50,12 @@
             }
             .td-info{
                 text-align: center; 
-                
+
             }
             .fila{
                 margin-top: 5px; 
                 margin-bottom:  5px;
-                
+
             }
 
             .td {
@@ -116,10 +116,12 @@
             </table>
         </div>
         <footer class="footer">
-            <br>
-            Encuentra nuestro proyecto en <a  href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i>
-            <p>2021 ©</p>
-
+            <div class="footer_div">
+                <div>
+                    Encuentra nuestro proyecto en <a href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i><br>
+                </div>
+                <p>2021 &copy</p>
+            </div>
         </footer>
-</body>
+    </body>
 </html>
