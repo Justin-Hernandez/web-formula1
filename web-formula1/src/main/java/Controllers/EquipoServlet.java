@@ -64,6 +64,7 @@ public class EquipoServlet extends HttpServlet {
                     s.setAttribute("equipoUser", e);
                     s.setAttribute("pilotos", modelo.findPilotosByIdEquipo(e.getId()));
                     s.setAttribute("coches", modelo.findCochesByIdEquipo(e.getId()));
+                    s.setAttribute("responsables", modelo.findResponsablesMismoEquipo(e.getNombre()));
                     res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionEquipo.jsp"));
                     break;
                 default:

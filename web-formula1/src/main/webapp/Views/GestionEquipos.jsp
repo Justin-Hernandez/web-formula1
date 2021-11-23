@@ -40,21 +40,37 @@
             .table{
                 border-spacing: 25px; 
                 border-collapse: collapse;
-                width: 30%; 
                 margin-left: auto; 
                 margin-right: auto;
+                width:400px;
+                height: 400px;
             }
             .th{
-                border: 2px solid black;
+                border: 2px solid #dddddd;
             }
             .td-info{
                 text-align: center; 
+                
             }
             .fila{
                 margin-top: 5px; 
                 margin-bottom:  5px;
                 
             }
+
+            .td {
+                text-align:center; 
+                padding: 10px 0; 
+                border: 2px solid #dddddd;
+            }
+            .divtable{
+                align-content: center;
+                width:500px;
+                height: 440px;
+                overflow: auto;
+                margin: 0 auto;
+            }
+
         </style>
     </head>
     <body>
@@ -85,19 +101,20 @@
         </header>
         <!--View/Delete-->
         <h1 class="h1">Equipos</h1>
-        <table class="table">
-            <tr>
-                <th class="th">Nombre</th>
-                <th class="th"></th>
-            </tr>
-            <% for (Equipo e : equipos) {%>
-            <tr class="fila">
-                <td class="td-nombre"><%=e.getNombre()%></td>
-                <td class="td-info"><a href="/web-formula1/EquipoServlet?accion=view&id=<%=e.getId()%>"><button class="info-button"><i class="fas fa-info-circle"></i></button></td>
-            </tr>
-            <%}%>
-        </table>
-
+        <div class="divtable">
+            <table class="table">
+                <tr>
+                    <th class="th">Nombre</th>
+                    <th class="th"></th>
+                </tr>
+                <% for (Equipo e : equipos) {%>
+                <tr class="fila">
+                    <td class="td-nombre td"><%=e.getNombre()%></td>
+                    <td class="td-info td"><a href="/web-formula1/EquipoServlet?accion=view&id=<%=e.getId()%>"><button class="info-button"><i class="fas fa-info-circle"></i></button></td>
+                </tr>
+                <%}%>
+            </table>
+        </div>
         <footer class="footer">
             <br>
             Encuentra nuestro proyecto en <a  href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i>

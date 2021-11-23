@@ -20,6 +20,7 @@
         User usuario = (User) session.getAttribute("usuario");
         ArrayList<Piloto> pilotos = (ArrayList<Piloto>) request.getSession().getAttribute("pilotos");
         ArrayList<Coche> coches = (ArrayList<Coche>) request.getSession().getAttribute("coches");
+        ArrayList<User> responsables = (ArrayList<User>) request.getSession().getAttribute("responsables");
     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -29,8 +30,8 @@
         <script src="../js/validaciones.js"></script>
         <style>
             .info-button {
-                    border-style: none;
-                    background-color: rgb(236, 235, 235);
+                border-style: none;
+                background-color: rgb(236, 235, 235);
             }
             .titulo {
                 margin-left: 30px;
@@ -47,7 +48,41 @@
                 margin-top: 5px;
                 margin-bottom: 5px;
             }
-            
+            .table{
+                margin-left: 30px;
+                margin-top: 10px;
+                border-spacing: 25px;
+                border-collapse: collapse;
+                width: 230px;
+                margin-right: auto;
+            }
+
+            .th {
+                border: 2px solid #dddddd;
+            }
+
+            .td {
+                text-align:center;
+                padding: 10px 0;
+                border: 2px solid #dddddd;
+            }
+            .frase{
+                margin-left: 30px;
+                margin-top: 10px;
+            }
+            .divtable{
+                align-content: center;
+                width:300px;
+                height: 300px;
+                overflow: auto;
+            }
+            .columnas {
+                width: 25%;
+                height: 60%;
+                float: left;
+            }
+
+
         </style>
     </head>
     <body>
@@ -77,83 +112,120 @@
             </nav>
         </header>
         <div>
-            <div style="width: 50%; float:left">
-                <%if (equipoUser == null) {%>
-                <h1 class="titulo">Añadir Equipo</h1>
-                <form class="datos" action="/web-formula1/EquipoServlet?accion=insertar" method="post" enctype="multipart/form-data" onsubmit="return validarEquipo();">
-                    <table>
-                        <tr><td><label class="label">Nombre</label></td></tr>
-                        <tr><td><input class="input" type="text" name="nombre" id="nombre" maxlength="100" width="400px"></td></tr>
-                        <tr><td><label class="label">Twitter</label></td></tr>
-                        <tr><td><input class="input" type="text" name="twitter" id="twitter" maxlength="50" width="400px"></td></tr>
-                        <tr><td><label class="label">Logo</label></td></tr>
-                        <tr>
-                            <td><input class="input" type="file" id="imagen_noticia" name="file" onchange="validarImagen(this)"></td>
-                        </tr>
-                        <tr>
-                            <td><input class="label" type="submit" id="add_equipo" value="Añadir"></td>
-                        </tr>
-                    </table>
-                </form>
-                    <%
-                    String mensaje = (String) request.getSession().getAttribute("mensaje");
+            <%if (equipoUser == null) {%>
+            <h1 class="titulo">Añadir Equipo</h1>
+            <form class="datos" action="/web-formula1/EquipoServlet?accion=insertar" method="post" enctype="multipart/form-data" onsubmit="return validarEquipo();">
+                <table>
+                    <tr><td><label class="label">Nombre</label></td></tr>
+                    <tr><td><input class="input" type="text" name="nombre" id="nombre" maxlength="100" width="400px"></td></tr>
+                    <tr><td><label class="label">Twitter</label></td></tr>
+                    <tr><td><input class="input" type="text" name="twitter" id="twitter" maxlength="50" width="400px"></td></tr>
+                    <tr><td><label class="label">Logo</label></td></tr>
+                    <tr>
+                        <td><input class="input" type="file" id="imagen_noticia" name="file" onchange="validarImagen(this)"></td>
+                    </tr>
+                    <tr>
+                        <td><input class="label" type="submit" id="add_equipo" value="Añadir"></td>
+                    </tr>
+                </table>
+            </form>
+            <%
+                String mensaje = (String) request.getSession().getAttribute("mensaje");
 
-                    if (mensaje != null) {%>
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <%=mensaje%>
-                        </div>
-                    <%}%> 
-                <%} else {%> 
-                <h1 class="titulo">Detalles Equipo</h1>
-                <form class="datos">
-                    <table>
-                        <tr><td><label class="label">Nombre</label></td></tr>
-                        <tr><td><input class="input" type="text" name="nombre" id="nombre" maxlength="100" width="400px" value="<%=equipoUser.getNombre()%>" disabled></td></tr>
-                        <tr><td><label class="label">Twitter</label></td></tr>
-                        <tr><td><input class="input" type="text" name="twitter" id="twitter" maxlength="50" width="400px" value="<%=equipoUser.getTwitter()%>" disabled ></td></tr>
-                        <%if (equipoUser.getLogo() != null && !equipoUser.getLogo().isEmpty()) {%>
-                            <tr><td><label class="label" >Logo</label></td></tr>
-                            <tr><td><img class="imageEquipo" src="<%=equipoUser.getLogo()%>" width="400"></td></tr>
-                        <%}%> 
-                    </table>
-                </form>
+                if (mensaje != null) {%>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <%=mensaje%>
             </div>
-                <%if (usuario.getRol() != null && ("Administrador").equals(usuario.getRol())) {%>
-                <div style="width: 50%; float:right">
-                    <br/>
-                    <h3 class="titulo">Pilotos del Equipo</h3>
-                    <table class="table">
-                        <tr>
-                            <th class="th">Nombre</th>
-                            <th class="th">Apellidos</th>
-                        </tr>
-                        <% for (Piloto p : pilotos) {%>
-                        <tr class="fila">
-                            <td class="td-nombre"><%=p.getNombre()%></td>
-                            <td class="td-info"><%=p.getApellidos()%></td>
-                        </tr>
+            <%}%> 
+            <%} else {%> 
+            <div>
+                <h1 class="titulo">Detalles Equipo</h1>
+                <div>
+                    <div class="columnas">
+                        <form class="datos">
+                            <table>
+                                <tr><td><label class="label">Nombre</label></td></tr>
+                                <tr><td><input class="input" type="text" name="nombre" id="nombre" maxlength="100" width="400px" value="<%=equipoUser.getNombre()%>" disabled></td></tr>
+                                <tr><td><label class="label">Twitter</label></td></tr>
+                                <tr><td><input class="input" type="text" name="twitter" id="twitter" maxlength="50" width="400px" value="<%=equipoUser.getTwitter()%>" disabled ></td></tr>
+                                        <%if (equipoUser.getLogo() != null && !equipoUser.getLogo().isEmpty()) {%>
+                                <tr><td><label class="label" >Logo</label></td></tr>
+                                <tr><td><img class="imageEquipo" src="<%=equipoUser.getLogo()%>" width="400"></td></tr>
+                                        <%}%> 
+                            </table>
+                        </form>
+                    </div>
+
+                    <%if (usuario.getRol() != null && ("Administrador").equals(usuario.getRol())) {%>
+                    <div class="columnas">
+                        <br/>
+                        <h3 class="titulo">Responsables del Equipo</h3>
+                        <div class="divtable">
+                            <table class="table">
+                                <tr>
+                                    <th class="th">Usuario</th>
+                                    <th class="th">Nombre</th>
+                                </tr>
+                                <% for (User r : responsables) {%>
+                                <tr class="fila">
+                                    <td class="td"><%=r.getUser()%></td>
+                                    <td class="td"><%=r.getName()%></td>
+                                </tr>
+                                <%}%>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="columnas">
+                        <br/>
+                        <h3 class="titulo">Pilotos del Equipo</h3>
+                        <%if (pilotos != null && !pilotos.isEmpty()) {%>
+                        <div class="divtable">
+                            <table class="table">
+                                <tr>
+                                    <th class="th">Nombre</th>
+                                    <th class="th">Apellidos</th>
+                                </tr>
+                                <% for (Piloto p : pilotos) {%>
+                                <tr class="fila">
+                                    <td class="td"><%=p.getNombre()%></td>
+                                    <td class="td"><%=p.getApellidos()%></td>
+                                </tr>
+                                <%}%>
+                            </table>
+                        </div>
+                        <%} else {%> 
+                        <span class="frase"> Este equipo no tiene níngún piloto.</span>
                         <%}%>
-                    </table>
-                    <br/>
-                    <h3 class="titulo">Coches del Equipo</h3>
-                    <table class="table">
-                        <tr>
-                            <th class="th">Nombre</th>
-                            <th class="th">Código</th>
-                        </tr>
-                        <% for (Coche c : coches) {%>
-                        <tr class="fila">
-                            <td class="td-nombre"><%=c.getNombre()%></td>
-                            <td class="td-info"><%=c.getCodigo()%></td>
-                        </tr>
+                    </div>
+                    <div class="columnas">
+                        <br/>
+                        <h3 class="titulo">Coches del Equipo</h3>
+                        <%if (coches != null && !coches.isEmpty()) {%>
+                        <div class="divtable">
+                            <table class="table">
+                                <tr>
+                                    <th class="th">Nombre</th>
+                                    <th class="th">Código</th>
+                                </tr>
+                                <% for (Coche c : coches) {%>
+                                <tr class="fila">
+                                    <td class="td"><%=c.getNombre()%></td>
+                                    <td class="td"><%=c.getCodigo()%></td>
+                                </tr>
+                                <%}%>
+                            </table>
+                        </div>
+                        <%} else {%> 
+                        <span class="frase"> Este equipo no tiene níngún coche.</span>
                         <%}%>
-                    </table>
-                    <br/>
+                        <br/>
+                    </div>
                 </div>
-                <%}%> 
+            </div>
+            <%}%> 
             <%}%> 
         </div>
-            
+
         <footer class="footer">
             <div class="footer_div">
                 <div>
@@ -162,6 +234,6 @@
                 <p>2021 &copy</p>
             </div>
         </footer>
-        </body>
+    </body>
 
 </html>

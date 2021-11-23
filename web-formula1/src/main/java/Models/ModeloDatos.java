@@ -806,4 +806,26 @@ public class ModeloDatos {
         return coches;
     }
     
+    public ArrayList<User> findResponsablesMismoEquipo(String equipo) {
+
+        ArrayList<User> responsables = new ArrayList<>();;
+        Statement stmt;
+
+        try {
+            stmt = conection.createStatement();
+            String query = "SELECT * FROM users WHERE equipo='" + equipo + "'";
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                responsables.add(new User(rs.getString("name"), rs.getString("user"), rs.getString("email"), 
+                        rs.getString("password"), rs.getString("role"), rs.getString("equipo")));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+
+        return responsables;
+    }
+    
 }
