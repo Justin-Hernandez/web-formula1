@@ -806,13 +806,14 @@ public class ModeloDatos {
         return coches;
     }
     
-    public ArrayList<User> findResponsablesMismoEquipo(String equipo) {
 
+    public ArrayList<User> findResponsablesMismoEquipo(String equipo) {
         ArrayList<User> responsables = new ArrayList<>();;
         Statement stmt;
 
         try {
             stmt = conection.createStatement();
+
             String query = "SELECT * FROM users WHERE equipo='" + equipo + "'";
             ResultSet rs = stmt.executeQuery(query);
 
@@ -824,8 +825,32 @@ public class ModeloDatos {
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
-
         return responsables;
     }
     
+    //<<<<<Votaciones>>>>>
+    public ArrayList<Votacion> getAllVotaciones() {
+
+        ArrayList<Votacion> listaVotaciones = new ArrayList<>();
+        Statement stmt;
+
+        try {
+            stmt = conection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM votaciones");
+
+            while (rs.next()) {
+                listaVotaciones.add(new Votacion(
+                    rs.getInt("id"), 
+                    rs.getString("permalink"), 
+                    rs.getString("titulo"), 
+                    rs.getString("descripcion")
+                    //rs.getTimestamp("fechaLimite")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+
+        return listaVotaciones;
+    }
 }
