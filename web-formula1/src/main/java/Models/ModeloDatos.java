@@ -806,4 +806,31 @@ public class ModeloDatos {
         return coches;
     }
     
+    //<<<<<Votaciones>>>>>
+    
+    public ArrayList<Votacion> getAllVotaciones() {
+
+        ArrayList<Votacion> listaVotaciones = new ArrayList<>();
+        Statement stmt;
+
+        try {
+            stmt = conection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM votaciones");
+
+            while (rs.next()) {
+                listaVotaciones.add(new Votacion(
+                    rs.getInt("id"), 
+                    rs.getString("permalink"), 
+                    rs.getString("titulo"), 
+                    rs.getString("descripcion")
+                    //rs.getTimestamp("fechaLimite")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+
+        return listaVotaciones;
+    }
+    
 }
