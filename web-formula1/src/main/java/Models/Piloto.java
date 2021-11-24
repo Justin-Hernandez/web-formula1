@@ -13,6 +13,7 @@ public class Piloto {
     private String foto;
     private String pais;
     private String twitter;
+    private int equipo;
     
     //constructor
     public Piloto(
@@ -34,6 +35,25 @@ public class Piloto {
         this.pais = pais;
         this.twitter = twitter;
     }
+
+    public Piloto(String nombre, String apellidos) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+    }
+
+    public Piloto(int id, String nombre, String apellidos, String siglas, int dorsal, String foto, String pais, String twitter, int equipo) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.siglas = siglas;
+        this.dorsal = dorsal;
+        this.foto = foto;
+        this.pais = pais;
+        this.twitter = twitter;
+        this.equipo = equipo;
+    }
+    
+    
     
     //gets
     public int getId() {
@@ -100,4 +120,14 @@ public class Piloto {
     public void setTwitter(String twitter) {
         this.twitter = twitter;
     }
+
+    public int getEquipo() {
+        return equipo;
+    }
+
+    public void setEquipo(int equipo) {
+        this.equipo = equipo;
+    }
+    
+    
 }

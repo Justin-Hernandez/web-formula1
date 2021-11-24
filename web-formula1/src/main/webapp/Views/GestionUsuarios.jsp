@@ -68,6 +68,7 @@
         </style>
     </head>
     <body>
+        <div class="page-container">
         <header class="header">
             <nav class="nav">
                 <img class="image" src="../img/f1_logo.png">
@@ -156,5 +157,6 @@
                 </div>
             </footer>
         </div>
+            
     </body>
 </html>

@@ -51,6 +51,14 @@ public class VotacionesServlet extends HttpServlet {
                 crearVotacion(req, resp);
                 resp.sendRedirect("/web-formula1/Views/GestionVotaciones.jsp");
                 break;
+            case "eliminar":
+                //eliminarVotacion(req, res);
+                s.setAttribute("votaciones", modelo.getAllVotaciones());
+                res.sendRedirect("/web-formula1/Views/GestionVotaciones.jsp");
+                break;
+            default:
+
+                break;
         }
 
     }

@@ -48,19 +48,23 @@
         <section class="section">
             <ul>
                 <%if (!usuario.getEquipo().equals("null")) {%>
-                    <li class="section-item"><a href="/web-formula1/GestionResponsables"><i class="fas fa-vote-yea"></i>Gestión de Responsables</a></li>
+                <li class="section-item"><a href="/web-formula1/GestionResponsables"><i class="fas fa-vote-yea"></i> Gestión de Responsables</a></li>
                     <%}%>        
                 <li class="section-item"><a href="/web-formula1/EquipoServlet"><i class="fas fa-vote-yea"></i> Gestión de Equipo</a></li>
+                    <%if (!("null").equals(usuario.getEquipo())) {%>
                 <li class="section-item"><a href="/web-formula1/CochesServlet?accion=listar"><i class="fas fa-car"></i> Gestión de coches</li>
-                <li class="section-item"><a href="/web-formula1/PilotosServlet?accion=listar"><i class="fas fa-vote-yea"></i>Gestión de Pilotos</li></a>
+                <li class="section-item"><a href="/web-formula1/PilotosServlet?accion=listar"><i class="fas fa-vote-yea"></i> Gestión de Pilotos</li></a>
+                    <%}%> 
             </ul>
         </section>
 
         <footer class="footer">
-            <br>
-            Encuentra nuestro proyecto en <a  href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i>
-            <p>2021 ©</p>
-
+            <div class="footer_div">
+                <div>
+                    Encuentra nuestro proyecto en <a href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i><br>
+                </div>
+                <p>2021 &copy</p>
+            </div>
         </footer>
 
     </body>
