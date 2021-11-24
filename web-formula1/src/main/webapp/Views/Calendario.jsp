@@ -4,6 +4,7 @@
     Author     : DELL
 --%>
 
+<%@page import="Models.User"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="Models.Evento"%>
@@ -16,6 +17,7 @@
         <%
             String path = request.getContextPath();
             LinkedList<Evento> lista_eventos = (LinkedList<Evento>) request.getAttribute("lista_eventos");
+            User usuario = (User) session.getAttribute("usuario");
         %>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -46,11 +48,10 @@
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link">Calendario</a></li>
                 </ul>  
                 <%
-                    if (session.getAttribute("name") != null) {%>
+                    if (usuario != null) {%>
                 <div class="admin">
                     <img class="avatar" src="<%= path%>/img/Diez.png" alt="Avatar">
-                    <% String nombre = (String) session.getAttribute("name");%>
-                    <a href="AdminPanel.jsp" class="nav-menu-item"><%=nombre%></a>
+                    <a href="AdminPanel.jsp" class="nav-menu-item"><%=usuario.getName()%></a>
                 </div>
                 <a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
                     <%if (request.getParameter("logout") != null) {
@@ -65,11 +66,8 @@
                 </ul> 
                 <%}%>     
             </nav>
-
+            
             <div id="calendar"></div>
-
-
-
 
             <footer class="footer">
                 <div class="footer_div">
@@ -83,7 +81,7 @@
         <script type="text/javascript" src="<%= path%>/js/caleandar.js"></script>
         <script type="text/javascript">
             <%
-                Calendar cal = Calendar.getInstance();%>
+            Calendar cal = Calendar.getInstance();%>
             var events = [];
             <%
             for (Evento evento : lista_eventos) {

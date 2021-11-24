@@ -34,8 +34,12 @@ public class NoticiasServlet extends HttpServlet {
                 case "listar":
                     s.setAttribute("news", modelo.getAllNews());
                     // Llamada a la página jsp 
-
                     res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/Noticias.jsp"));
+                    break;
+                case "gestion-noticias":
+                    s.setAttribute("news", modelo.getAllNews());
+                    // Llamada a la página jsp 
+                    res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionNoticias.jsp"));
                     break;
                 case "insertar":
                     agregarNoticia(req, res);

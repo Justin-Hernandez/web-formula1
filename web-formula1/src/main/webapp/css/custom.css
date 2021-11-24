@@ -170,6 +170,11 @@ input[type="email"]::placeholder
     height: 25px;
 }
 
+#titulo_votacion{
+    width: 604px;
+    height: 25px;
+}
+
 .article{
     width: 50%;
     height: 100%;
@@ -303,30 +308,49 @@ hr {
 }
 /* mensaje  */
 .alert {
-  padding: 20px;
-  background-color: #f44336; /* Red */
-  color: white;
-  margin-bottom: 15px;
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
 }
 
 /* boton de cerrado */
 .closebtn {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 /* hover */
 .closebtn:hover {
-  color: black;
+    color: black;
 }
 
 .info-button {
     border-style: none;
     background-color: rgb(236, 235, 235);
+}
+
+
+#contenedor {
+    float: left;
+    width: 804px;
+}
+
+#tabla1, #tabla2 {
+    float: left;
+    width: 400px;
+}
+
+#tabla1 table, #tabla2 table {
+    text-align: center;
+}
+
+#tabla1 table tr td, #tabla2 table tr td {
+    width: 100px
 }
