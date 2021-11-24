@@ -35,25 +35,25 @@ public class VotacionesServlet extends HttpServlet {
      * @throws IOException
      */
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String accion = req.getParameter("accion");
         HttpSession s = req.getSession(true);
         switch (accion) {
             case "votaciones":
                 
                 s.setAttribute("pilotos", modeloDatos.getAllPilotos());
-                //s.setAttribute("pilotos", modeloDatos.getAllVotaciones);
-                resp.sendRedirect("/web-formula1/Views/GestionVotaciones.jsp");
+                s.setAttribute("votaciones", modeloDatos.getAllVotaciones());
+                res.sendRedirect("/web-formula1/Views/GestionVotaciones.jsp");
                 break;
             case "crear_votacion":
+                crearVotacion(req, res);
                 s.setAttribute("pilotos", modeloDatos.getAllPilotos());
-                //s.setAttribute("pilotos", modeloDatos.getAllVotaciones);
-                crearVotacion(req, resp);
-                resp.sendRedirect("/web-formula1/Views/GestionVotaciones.jsp");
+                s.setAttribute("votaciones", modeloDatos.getAllVotaciones());
+                res.sendRedirect("/web-formula1/Views/GestionVotaciones.jsp");
                 break;
             case "eliminar":
                 //eliminarVotacion(req, res);
-                s.setAttribute("votaciones", modelo.getAllVotaciones());
+                s.setAttribute("votaciones", modeloDatos.getAllVotaciones());
                 res.sendRedirect("/web-formula1/Views/GestionVotaciones.jsp");
                 break;
             default:
@@ -71,7 +71,7 @@ public class VotacionesServlet extends HttpServlet {
         super.destroy();
     }
 
-    private void crearVotacion(HttpServletRequest req, HttpServletResponse resp) {
+    private void crearVotacion(HttpServletRequest req, HttpServletResponse res) {
         
         //modeloDatos.crearVotacion();
     }

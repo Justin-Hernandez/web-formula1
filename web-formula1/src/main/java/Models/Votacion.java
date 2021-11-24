@@ -1,6 +1,7 @@
 package Models;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  *
@@ -14,22 +15,24 @@ public class Votacion {
     private String descripcion;
     private Timestamp fechaLimite;
     private ArrayList<Piloto> listaPilotos;
+    private LinkedList<Votante> listaVotantes;
     
     //constructor
     public Votacion(
-            int id,
-            String permalink,
-            String titulo,
-            String descripcion,
-            Timestamp fechaLimite,
-            ArrayList<Piloto> listaPilotos
-    ) {
+            int id, 
+            String permalink, 
+            String titulo, 
+            String descripcion, 
+            Timestamp fechaLimite, 
+            ArrayList<Piloto> listaPilotos, 
+            LinkedList<Votante> listaVotantes) {
         this.id = id;
         this.permalink = permalink;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fechaLimite = fechaLimite;
         this.listaPilotos = listaPilotos;
+        this.listaVotantes = listaVotantes;
     }
     
     //Aditional constructors
@@ -108,5 +111,12 @@ public class Votacion {
     public ArrayList<Piloto> getListaPilotos() {
         return listaPilotos;
     }
-    
+
+    public LinkedList<Votante> getListaVotantes() {
+        return listaVotantes;
+    }
+
+    public void setListaVotantes(LinkedList<Votante> listaVotantes) {
+        this.listaVotantes = listaVotantes;
+    }
 }

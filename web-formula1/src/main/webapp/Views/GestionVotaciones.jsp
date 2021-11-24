@@ -4,6 +4,7 @@
     Author     : DELL
 --%>
 
+<%@page import="Models.Votacion"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Models.Piloto"%>
 <%@page import="Models.User"%>
@@ -15,6 +16,8 @@
 
         User usuario = (User) session.getAttribute("usuario");
         ArrayList<Piloto> pilotos = (ArrayList<Piloto>) request.getSession().getAttribute("pilotos");
+        ArrayList<Votacion> votaciones = (ArrayList<Votacion>) request.getSession().getAttribute("votaciones");
+        
     %>
     <head>
         <%
@@ -105,7 +108,7 @@
                         <%}%>                
                     </table>
                 </div>
-                <div style="float: left; margin-left: 60px; width: 30%">
+                <div style="float: left; margin-left: 50px; width: 40%">
                     <table>
                         <tr>
                             <td colspan="3"><strong><label style="color: red">Listado de votaciones activas en el sistema:</label></strong></td>                  
@@ -115,11 +118,11 @@
                             <td style="text-align: center"><strong>Descripción</strong></td>
                             <td style="text-align: center"><strong>Fecha Límite</strong></td>
                         </tr>
-                        <% for (Piloto p : pilotos) {%>
+                        <% for (Votacion p : votaciones) {%>
                         <tr>                            
-                            <td class="td-noticias" style="text-align: center"><label for="<%=p.getSiglas()%>"><%=p.getSiglas()%></label></td>
-                            <td class="td-noticias" style="text-align: center"><label for="<%=p.getSiglas()%>"><%=p.getNombre() + " " + p.getApellidos()%></label></td>
-                            <td class="td-noticias" style="text-align: center"><label for="<%=p.getSiglas()%>"><%=p.getPais()%></label></td>                        
+                            <td class="td-noticias" style="text-align: center"><label><%=p.getTitulo()%></label></td>
+                            <td class="td-noticias" style="text-align: center"><label><%=p.getDescripcion()%></label></td>
+                            <td class="td-noticias" style="text-align: center"><label><%=p.getFechaLimite()%></label></td>                        
                             <td class="td-noticias" class="td-icons"><button class="trash-button"><a href="#"><i class="fas fa-trash"></i></a></button></td>
                         </tr>
                         <%}%>                

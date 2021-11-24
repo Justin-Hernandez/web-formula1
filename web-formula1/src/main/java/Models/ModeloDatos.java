@@ -840,7 +840,7 @@ public class ModeloDatos {
 
             while (rs.next()) {
                 listaVotaciones.add(new Votacion(
-                    rs.getInt("id"), 
+                    rs.getInt("id_votaciones"), 
                     rs.getString("permalink"), 
                     rs.getString("titulo"), 
                     rs.getString("descripcion"),
