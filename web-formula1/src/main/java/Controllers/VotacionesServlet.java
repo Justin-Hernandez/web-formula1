@@ -7,6 +7,12 @@ package Controllers;
 
 import Models.ModeloDatos;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,8 +45,11 @@ public class VotacionesServlet extends HttpServlet {
         String accion = req.getParameter("accion");
         HttpSession s = req.getSession(true);
         switch (accion) {
+            case "listar":
+                s.setAttribute("votaciones", modeloDatos.getAllVotaciones());
+                res.sendRedirect("/web-formula1/Views/Votaciones.jsp");
+                break;
             case "votaciones":
-                
                 s.setAttribute("pilotos", modeloDatos.getAllPilotos());
                 s.setAttribute("votaciones", modeloDatos.getAllVotaciones());
                 res.sendRedirect("/web-formula1/Views/GestionVotaciones.jsp");
@@ -62,8 +71,6 @@ public class VotacionesServlet extends HttpServlet {
         }
 
     }
-    
-    
 
     @Override
     public void destroy() {
@@ -72,8 +79,28 @@ public class VotacionesServlet extends HttpServlet {
     }
 
     private void crearVotacion(HttpServletRequest req, HttpServletResponse res) {
-        
-        //modeloDatos.crearVotacion();
+        String titulo = req.getParameter("titulo");
+        String descripcion = req.getParameter("descripcion");
+        String dateTimeISO = req.getParameter("fecha");   //2021-11-18T23:58
+        /**
+         * *******PARA EL MANEJO DEL TIMESTAMP*************************
+         */
+        Timestamp fecha = null;
+        try {
+            String date = dateTimeISO.substring(0, 10);
+            String time = dateTimeISO.substring(11, 16);
+            Date d = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(date + " " + time);
+            fecha = new Timestamp(d.getTime());
+        } catch (ParseException e) {
+            System.out.println("Parse ERROR: " + e.toString());
+        }
+
+        /**
+         * ************************************************************
+         */
+        String siglas[] = req.getParameterValues("siglas");
+
+        modeloDatos.crearVotacion("http://localhost:8080/web-formula1/Votacion?id=", titulo, descripcion, fecha, siglas);
     }
 
 }

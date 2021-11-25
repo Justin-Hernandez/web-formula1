@@ -14,7 +14,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.Timestamp;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  *
@@ -157,28 +156,28 @@ public class ModeloDatos {
 
     //inserta nueva noticia
     public boolean insertNews(String permalink, String titulo, String imagen, String texto) {
-        
+
         String nextId = "";
-        
+
         //recupera la ultima noticia y obtén su id
         try {
             Statement stmt;
-            
+
             stmt = conection.createStatement();
             String query = "SELECT * FROM news ORDER BY ID DESC LIMIT 1";
             ResultSet rs = stmt.executeQuery(query);
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 nextId = String.valueOf(rs.getInt("id") + 1);
             }
-            
+
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
-        
+
         //id de la nueva noticia a insertar
         permalink = permalink + nextId;
-        
+
         boolean insertado = true;
         PreparedStatement pstmt;
 
@@ -281,9 +280,9 @@ public class ModeloDatos {
 
         return actualizado;
     }
-    
+
     public boolean updateUserEquipo(String user, String equipo) {
-        
+
         boolean actualizado = true;
         PreparedStatement pstmt;
 
@@ -302,7 +301,7 @@ public class ModeloDatos {
 
         return actualizado;
     }
-    
+
     //devuelve todos los circuitos de la base de datos en un ArrayList
     public ArrayList<Circuito> getAllCircuitos() {
 
@@ -485,8 +484,6 @@ public class ModeloDatos {
         return eliminado;
     }
 
-
-
     public boolean addEvent(String nombre_circuito, Timestamp timestamp) {
         boolean evento = false;
         PreparedStatement preparedStatement, preparedStatement2;
@@ -540,8 +537,8 @@ public class ModeloDatos {
             ResultSet rs = stmt.executeQuery("select * from circuitos inner join eventos on circuitos.id = eventos.id_circuito");
 
             while (rs.next()) {
-                listaEventos.add(new Evento(rs.getString("nombre"), rs.getString("ciudad"), rs.getString("pais"), 
-                        rs.getInt("numeroDevueltas"), rs.getInt("longitud"), rs.getInt("curvasLentas"), 
+                listaEventos.add(new Evento(rs.getString("nombre"), rs.getString("ciudad"), rs.getString("pais"),
+                        rs.getInt("numeroDevueltas"), rs.getInt("longitud"), rs.getInt("curvasLentas"),
                         rs.getInt("curvasMedia"), rs.getInt("curvasRapidas"), rs.getTimestamp("fecha_evento")));
             }
         } catch (SQLException e) {
@@ -550,25 +547,24 @@ public class ModeloDatos {
 
         return listaEventos;
     }
-    
+
     //eliminar coche existente
     //--method goes here--
-    
     //<<<<<Pilotos>>>>>>
     //devuelve todos los pilotos de la base de datos en un ArrayList
     public ArrayList<Piloto> getAllPilotos() {
-        
+
         ArrayList<Piloto> listaPilotos = new ArrayList<>();
         Statement stmt;
-        
+
         try {
             stmt = conection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM pilotos");
-            while(rs.next()) {
+            while (rs.next()) {
                 listaPilotos.add(new Piloto(
-                        rs.getInt("id"), 
-                        rs.getString("nombre"), 
-                        rs.getString("apellidos"), 
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("apellidos"),
                         rs.getString("siglas"),
                         rs.getInt("dorsal"),
                         rs.getString("foto"),
@@ -581,22 +577,22 @@ public class ModeloDatos {
         }
         return listaPilotos;
     }
-    
+
     //inserta nuevo piloto
     public boolean insertPiloto(
-        String nombre, 
-        String apellidos,         
-        String siglas,
-        int dorsal,
-        String foto,
-        String pais,
-        String twitter, int equipo
-    ) {       
+            String nombre,
+            String apellidos,
+            String siglas,
+            int dorsal,
+            String foto,
+            String pais,
+            String twitter, int equipo
+    ) {
         boolean insertado = true;
-        PreparedStatement pstmt; 
+        PreparedStatement pstmt;
         try {
             pstmt = conection.prepareStatement("INSERT INTO pilotos (nombre, apellidos, siglas, dorsal, foto, pais, twitter, equipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            
+
             pstmt.setString(1, nombre);
             pstmt.setString(2, apellidos);
             pstmt.setString(3, siglas);
@@ -605,39 +601,39 @@ public class ModeloDatos {
             pstmt.setString(6, pais);
             pstmt.setString(7, twitter);
             pstmt.setInt(8, equipo);
-            
+
             //true si se ha insertado correctamente, de lo contrario false
             insertado = pstmt.execute();
-          
+
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
-        }    
+        }
         return insertado;
     }
-      
+
     //recupera todos los equipos de la base de datos
     public ArrayList<Equipo> getAllEquipos() {
-        
+
         ArrayList<Equipo> listaEquipos = new ArrayList<>();
         Statement stmt;
-        
+
         try {
             stmt = conection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM equipos");
-            
-            while(rs.next()) {
-                listaEquipos.add(new Equipo(rs.getInt("id"),rs.getString("nombre"), rs.getString("logo"), rs.getString("twitter")));
+
+            while (rs.next()) {
+                listaEquipos.add(new Equipo(rs.getInt("id"), rs.getString("nombre"), rs.getString("logo"), rs.getString("twitter")));
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
-        
+
         return listaEquipos;
     }
-    
+
     public void addEquipo(Equipo equipo, User user) {
         PreparedStatement preparedStatement;
-        
+
         try {
             String query = "INSERT INTO equipos (nombre, logo, twitter) VALUES (?, ?, ?)";
             preparedStatement = conection.prepareStatement(query);
@@ -652,7 +648,7 @@ public class ModeloDatos {
             System.out.println("SQL ERROR: " + e.toString());
         }
     }
-    
+
     public Equipo findEquipoByIdEquipo(String equipo) {
 
         Equipo u = null;
@@ -672,7 +668,7 @@ public class ModeloDatos {
                     //Separo la ruta en partes delimitadas por el caracter /
                     String[] parts = sustituir.split("/");
                     //Obtengo lo que quiero mostrar en el textview
-                    ultima = "../img/"+parts[parts.length - 1];
+                    ultima = "../img/" + parts[parts.length - 1];
                 }
 
                 u = new Equipo(Integer.parseInt(rs.getString("id")), rs.getString("nombre"), ultima, rs.getString("twitter"));
@@ -684,7 +680,7 @@ public class ModeloDatos {
 
         return u;
     }
-    
+
     public Equipo findEquipoById(int id) {
 
         Equipo u = null;
@@ -704,9 +700,9 @@ public class ModeloDatos {
                     //Separo la ruta en partes delimitadas por el caracter /
                     String[] parts = sustituir.split("/");
                     //Obtengo lo que quiero mostrar en el textview
-                    ultima = "../img/"+parts[parts.length - 1];
+                    ultima = "../img/" + parts[parts.length - 1];
                 }
-                u = new Equipo(Integer.parseInt(rs.getString("id")),rs.getString("nombre"), ultima, rs.getString("twitter"));
+                u = new Equipo(Integer.parseInt(rs.getString("id")), rs.getString("nombre"), ultima, rs.getString("twitter"));
             }
 
         } catch (SQLException e) {
@@ -715,7 +711,7 @@ public class ModeloDatos {
 
         return u;
     }
-    
+
     //si el usuario existe devuelve una instancia de User con sus datos, si no existe devuelve null
     public User findUser(String user) {
 
@@ -738,7 +734,7 @@ public class ModeloDatos {
 
         return u;
     }
-    
+
     public boolean existsEquipoNombre(String nombre) {
         boolean existe = false;
         PreparedStatement preparedStatement;
@@ -759,7 +755,7 @@ public class ModeloDatos {
 
         return existe;
     }
-    
+
     public ArrayList<Piloto> findPilotosByIdEquipo(int equipo) {
 
         ArrayList<Piloto> pilotos = new ArrayList<>();
@@ -784,7 +780,7 @@ public class ModeloDatos {
 
         return pilotos;
     }
-    
+
     public ArrayList<Coche> findCochesByIdEquipo(int equipo) {
 
         ArrayList<Coche> coches = new ArrayList<>();;
@@ -805,7 +801,6 @@ public class ModeloDatos {
 
         return coches;
     }
-    
 
     public ArrayList<User> findResponsablesMismoEquipo(String equipo) {
         ArrayList<User> responsables = new ArrayList<>();;
@@ -818,7 +813,7 @@ public class ModeloDatos {
             ResultSet rs = stmt.executeQuery(query);
 
             while (rs.next()) {
-                responsables.add(new User(rs.getString("name"), rs.getString("user"), rs.getString("email"), 
+                responsables.add(new User(rs.getString("name"), rs.getString("user"), rs.getString("email"),
                         rs.getString("password"), rs.getString("role"), rs.getString("equipo")));
             }
 
@@ -827,7 +822,7 @@ public class ModeloDatos {
         }
         return responsables;
     }
-    
+
     //<<<<<Votaciones>>>>>
     public ArrayList<Votacion> getAllVotaciones() {
 
@@ -840,11 +835,11 @@ public class ModeloDatos {
 
             while (rs.next()) {
                 listaVotaciones.add(new Votacion(
-                    rs.getInt("id_votaciones"), 
-                    rs.getString("permalink"), 
-                    rs.getString("titulo"), 
-                    rs.getString("descripcion"),
-                    rs.getTimestamp("fecha_limite")
+                        rs.getInt("id_votaciones"),
+                        rs.getString("permalink"),
+                        rs.getString("titulo"),
+                        rs.getString("descripcion"),
+                        rs.getTimestamp("fecha_limite")
                 ));
             }
         } catch (SQLException e) {
@@ -852,5 +847,56 @@ public class ModeloDatos {
         }
 
         return listaVotaciones;
+    }
+
+    public void crearVotacion(String permalink, String titulo, String descripcion, Timestamp fecha, String[] siglas) {
+        
+        String idPermalink = "";
+        //int idUltimaVotacion = 0;
+        String sql1 = "INSERT INTO pilotos_votaciones (id_votaciones, id_pilotos) VALUES (?, ?)";
+        String sql2 = "SELECT id_votaciones FROM votaciones ORDER BY id_votaciones DESC LIMIT 1";
+        String sql3 = "INSERT INTO votaciones (permalink, titulo, descripcion, fecha_limite) VALUES (?, ?, ?, ?)";
+        String sql4 = "SELECT id FROM pilotos WHERE siglas = ?";
+
+        /**/
+        try {
+            PreparedStatement preparedStatement = conection.prepareStatement(sql2);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                idPermalink = String.valueOf(resultSet.getInt("id_votaciones") + 1);
+            }
+
+            preparedStatement = conection.prepareStatement(sql3);
+            preparedStatement.setString(1, permalink + idPermalink);
+            preparedStatement.setString(2, titulo);
+            preparedStatement.setString(3, descripcion);
+            preparedStatement.setTimestamp(4, fecha);
+            preparedStatement.execute();
+
+            /*
+            PreparedStatement preparedStatement2 = conection.prepareStatement(sql2);
+            ResultSet resultSet1 = preparedStatement2.executeQuery();
+            while (resultSet1.next()) {
+                idUltimaVotacion = resultSet1.getInt("id_votaciones");
+            }*/
+
+            PreparedStatement preparedStatement3 = conection.prepareStatement(sql1);
+            PreparedStatement preparedStatement4 = conection.prepareStatement(sql4);
+            preparedStatement3 = conection.prepareStatement(sql1);
+            for (int i = 0; i < siglas.length; i++) {
+                preparedStatement4.setString(1, siglas[i]);
+                ResultSet resultSet2 = preparedStatement4.executeQuery();
+                while (resultSet2.next()) {
+                    Integer idPiloto = resultSet2.getInt("id");
+                    preparedStatement3.setInt(1, Integer.parseInt(idPermalink));
+                    preparedStatement3.setInt(2, idPiloto);
+                    preparedStatement3.execute();
+                }
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("SQL ERROR: " + ex.toString());
+        }
+
     }
 }

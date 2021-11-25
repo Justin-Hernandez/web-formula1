@@ -17,11 +17,10 @@
         User usuario = (User) session.getAttribute("usuario");
         ArrayList<Piloto> pilotos = (ArrayList<Piloto>) request.getSession().getAttribute("pilotos");
         ArrayList<Votacion> votaciones = (ArrayList<Votacion>) request.getSession().getAttribute("votaciones");
-        
+
     %>
     <head>
-        <%
-            String path = request.getContextPath();
+        <%            String path = request.getContextPath();
         %>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -77,11 +76,11 @@
             <form action="/web-formula1/VotacionesServlet?accion=crear_votacion" method="POST">
                 <table style="margin-bottom: 20px; margin-left: 20px">
                     <tr><td><label>Título:</label></td></tr>
-                    <tr><td><input style="width: 236px" type="text" maxlength="100"></td></tr>
+                    <tr><td><input style="width: 236px" type="text" name="titulo" maxlength="100"></td></tr>
                     <tr><td><label>Descripción:</label></td></tr>
-                    <tr><td><textarea name="textarea" rows="5" cols="29" id="descripcion" maxlength="500"></textarea></td></tr>
+                    <tr><td><textarea name="descripcion" rows="5" cols="29" id="descripcion" maxlength="500"></textarea></td></tr>
                     <tr><td><label>Fecha límite</label></td></tr>
-                    <tr><td><input type="datetime-local" id="date" name="date"></td></tr>
+                    <tr><td><input type="datetime-local" id="date" name="fecha"></td></tr>
                 </table>
 
                 <div style="float: left; margin-left: 20px; width: 50%">
@@ -97,12 +96,14 @@
                             <td style="text-align: center"><strong>Seleccione</strong></td>
                         </tr>
                         <% for (Piloto p : pilotos) {%>
-                        <tr>                            
-                            <td class="td-noticias" style="text-align: center"><label for="<%=p.getSiglas()%>"><%=p.getSiglas()%></label></td>
-                            <td class="td-noticias" style="text-align: center"><label for="<%=p.getSiglas()%>"><%=p.getNombre() + " " + p.getApellidos()%></label></td>
-                            <td class="td-noticias" style="text-align: center"><label for="<%=p.getSiglas()%>"><%=p.getPais()%></label></td>                        
+                        <tr>           
+                            
+                            <td class="td-noticias" style="text-align: center"><label><%=p.getSiglas()%></label></td>
+                            <td class="td-noticias" style="text-align: center"><label><%=p.getNombre() + " " + p.getApellidos()%></label></td>
+                            <td class="td-noticias" style="text-align: center"><label><%=p.getPais()%></label></td>                        
+
                             <td class="td-noticias" style="text-align: center">
-                                <input type="checkbox" id="<%=p.getSiglas()%>">
+                                <input type="checkbox" name="siglas" value="<%=p.getSiglas()%>">
                             </td>
                         </tr>
                         <%}%>                

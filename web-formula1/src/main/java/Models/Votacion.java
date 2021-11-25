@@ -24,6 +24,21 @@ public class Votacion {
             String titulo, 
             String descripcion, 
             Timestamp fechaLimite, 
+            ArrayList<Piloto> listaPilotos) {
+        this.id = id;
+        this.permalink = permalink;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.fechaLimite = fechaLimite;
+        this.listaPilotos = listaPilotos;
+    }
+    
+        public Votacion(
+            int id, 
+            String permalink, 
+            String titulo, 
+            String descripcion, 
+            Timestamp fechaLimite, 
             ArrayList<Piloto> listaPilotos, 
             LinkedList<Votante> listaVotantes) {
         this.id = id;
