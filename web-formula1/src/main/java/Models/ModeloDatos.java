@@ -909,4 +909,23 @@ public class ModeloDatos {
         }
 
     }
+    
+    public boolean deleteVotacion(String titulo) {
+        boolean eliminado = true;
+        PreparedStatement pstmt;
+
+        try {
+            pstmt = conection.prepareStatement("DELETE FROM votaciones WHERE titulo = ?");
+
+            pstmt.setString(1, titulo);
+
+            //true si se ha eliminado correctamente, de lo contrario false
+            eliminado = pstmt.execute();
+
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+        return eliminado;
+    }
+    
 }
