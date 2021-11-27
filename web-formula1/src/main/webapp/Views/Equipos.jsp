@@ -5,6 +5,9 @@
 --%>
 
 
+<%@page import="java.util.List"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="Models.Piloto"%>
 <%@page import="Models.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.Base64"%>
@@ -15,6 +18,7 @@
 <html>
     <%
         ArrayList<Equipo> equipos = (ArrayList<Equipo>) request.getSession().getAttribute("equipos");
+        HashMap <Integer, List<Piloto>> pilotos = (HashMap <Integer, List<Piloto>>) request.getSession().getAttribute("pilotos");
         User usuario = (User) session.getAttribute("usuario");
     %>
     <head>
@@ -24,18 +28,12 @@
         <link rel="stylesheet" href="../css/all.min.css">
         <script src="../js/validaciones.js"></script>
         <style>
-            .info-button {
-                border-style: none;
-                align-items: center;
-            }
-            .h1 {
-                text-align: center; 
-                margin-bottom: 10px;
-            }
-            .td-nombre{
-                text-align: center; 
-                border: 1px solid black;
-                border-collapse: separate;
+            .divtable{
+                align-content: center;
+                width:500px;
+                height: 440px;
+                overflow: auto;
+                margin: 0 auto;
             }
             .table{
                 border-spacing: 25px; 
@@ -45,32 +43,38 @@
                 width:400px;
                 height: 400px;
             }
-            .th{
-                border: 2px solid #dddddd;
-            }
-            .td-info{
+            .h1 {
                 text-align: center; 
-
+                margin-bottom: 10px;
             }
-            .fila{
-                margin-top: 5px; 
-                margin-bottom:  5px;
-
+            .foto{
+                margin-top: 5px;
+                margin-bottom: 5px;
             }
-
-            .td {
-                text-align:center; 
-                padding: 10px 0; 
-                border: 2px solid #dddddd;
+            .detalle{
+                margin:6px;
+                border-spacing: 25px; 
             }
-            .divtable{
+            .divequipo{
+                width:400px;
+                height: auto;
+                background-color: #fff;
+                
+            }
+            .cards{
+                display:flex;
+                flex-wrap:wrap;
+                justify-content:center;
+                gap:1.5rem;
+                padding:1rem;
+                margin: 0;
+                
+            }
+            .page{
                 align-content: center;
-                width:500px;
-                height: 440px;
+                height: 400px;
                 overflow: auto;
-                margin: 0 auto;
             }
-
         </style>
     </head>
     <body>
@@ -100,21 +104,54 @@
             </nav>
         </header>
         <!--View/Delete-->
-        <h1 class="h1">Equipos</h1>
-        <div class="divtable">
-            <table class="table">
-                <tr>
-                    <th class="th">Nombre</th>
-                    <th class="th"></th>
-                </tr>
-                <% for (Equipo e : equipos) {%>
-                <tr class="fila">
-                    <td class="td-nombre td"><%=e.getNombre()%></td>
-                    <td class="td-info td"><a href="/web-formula1/EquipoServlet?accion=view&id=<%=e.getId()%>"><button class="info-button"><i class="fas fa-info-circle"></i></button></td>
-                </tr>
-                <%}%>
-            </table>
+        <div class="page">
+            <h1 class="h1">Equipos</h1>
+        <section class="cards">
+        <% for (Equipo e : equipos) {%>
+            <div class="divequipo">
+                <%if (e.getLogo() != null && !e.getLogo().isEmpty()) {%>
+                <div style="float: left; margin: 10px; heigth: 50px; width: 50px" class="foto">
+                    <img class="imageEquipo" src="<%=e.getLogo()%>" width="150px">
+                </div>
+                <div style="float: right; margin-left: 20px; width: 50%"class="detalle">
+                    <body>
+                        <h4><%=e.getNombre()%></h4>
+                        <br>
+                        <% if (pilotos.get(e.getId()) != null && pilotos.get(e.getId()).size() > 0) {%>
+                        Pilotos:<br>
+                        <% for (Piloto p : pilotos.get(e.getId())) {%>
+                        <span>&#8226;&nbsp;<%=p.getNombre()%>&nbsp;<%=p.getApellidos()%></span><br/>
+                        <%}%>
+                        <%} else {%>
+                        Este equipo no tiene ningún piloto
+                        <br>
+                        <%}%>
+                    </body>
+                </div>
+                <%}else{%> 
+                <div class="detalle">
+                    <body>
+                        <h4><%=e.getNombre()%></h4>
+                        <br>
+                        <% if (pilotos.get(e.getId()) != null && pilotos.get(e.getId()).size() > 0) {%>
+                        <b>Pilotos:</b><br><br>
+                        <% for (Piloto p : pilotos.get(e.getId())) {%>
+                        <%=p.getNombre()%>&nbsp;<%=p.getApellidos()%><br/>
+                        <%}%>
+                        <%} else {%>
+                        Este equipo no tiene ningún piloto
+                        <br>
+                        <%}%>
+                    </body>
+                </div>
+                <%}%> 
+                
+            </div>
+                    <%}%>
+        </section>
         </div>
+        
+        
         <footer class="footer">
             <div class="footer_div">
                 <div>

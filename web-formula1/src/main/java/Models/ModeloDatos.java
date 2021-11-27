@@ -622,7 +622,17 @@ public class ModeloDatos {
             ResultSet rs = stmt.executeQuery("SELECT * FROM equipos");
 
             while (rs.next()) {
-                listaEquipos.add(new Equipo(rs.getInt("id"), rs.getString("nombre"), rs.getString("logo"), rs.getString("twitter")));
+                String ruta = rs.getString("logo");
+                String logo = null;
+                if (ruta != null && !ruta.isEmpty()) {
+                    String sustituir = ruta.replace('\\', '/');
+                    //Separo la ruta en partes delimitadas por el caracter /
+                    String[] parts = sustituir.split("/");
+                    //Obtengo lo que quiero mostrar en el textview
+                    logo = "../img/" + parts[parts.length - 1];
+                }
+                Equipo e =new Equipo(rs.getInt("id"), rs.getString("nombre"), logo, rs.getString("twitter"));
+                listaEquipos.add(e);
             }
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
@@ -662,16 +672,16 @@ public class ModeloDatos {
             //si existe crea instancia de User
             while (rs.next()) {
                 String ruta = rs.getString("logo");
-                String ultima = null;
+                String logo = null;
                 if (ruta != null && !ruta.isEmpty()) {
                     String sustituir = ruta.replace('\\', '/');
                     //Separo la ruta en partes delimitadas por el caracter /
                     String[] parts = sustituir.split("/");
                     //Obtengo lo que quiero mostrar en el textview
-                    ultima = "../img/" + parts[parts.length - 1];
+                    logo = "../img/" + parts[parts.length - 1];
                 }
 
-                u = new Equipo(Integer.parseInt(rs.getString("id")), rs.getString("nombre"), ultima, rs.getString("twitter"));
+                u = new Equipo(Integer.parseInt(rs.getString("id")), rs.getString("nombre"), logo, rs.getString("twitter"));
             }
 
         } catch (SQLException e) {
@@ -694,15 +704,15 @@ public class ModeloDatos {
             //si existe crea instancia de User
             while (rs.next()) {
                 String ruta = rs.getString("logo");
-                String ultima = null;
+                String logo = null;
                 if (ruta != null && !ruta.isEmpty()) {
                     String sustituir = ruta.replace('\\', '/');
                     //Separo la ruta en partes delimitadas por el caracter /
                     String[] parts = sustituir.split("/");
                     //Obtengo lo que quiero mostrar en el textview
-                    ultima = "../img/" + parts[parts.length - 1];
+                    logo = "../img/" + parts[parts.length - 1];
                 }
-                u = new Equipo(Integer.parseInt(rs.getString("id")), rs.getString("nombre"), ultima, rs.getString("twitter"));
+                u = new Equipo(Integer.parseInt(rs.getString("id")), rs.getString("nombre"), logo, rs.getString("twitter"));
             }
 
         } catch (SQLException e) {
