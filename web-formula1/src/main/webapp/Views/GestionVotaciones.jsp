@@ -119,12 +119,16 @@
                             <td style="text-align: center"><strong>Descripción</strong></td>
                             <td style="text-align: center"><strong>Fecha Límite</strong></td>
                         </tr>
-                        <% for (Votacion p : votaciones) {%>
+                        <% for (Votacion v : votaciones) {%>
                         <tr>                            
-                            <td class="td-noticias" style="text-align: center"><label><%=p.getTitulo()%></label></td>
-                            <td class="td-noticias" style="text-align: center"><label><%=p.getDescripcion()%></label></td>
-                            <td class="td-noticias" style="text-align: center"><label><%=p.getFechaLimite()%></label></td>                        
-                            <td class="td-noticias" class="td-icons"><button class="trash-button"><a href="#"><i class="fas fa-trash"></i></a></button></td>
+                            <td class="td-noticias" style="text-align: center"><label><%=v.getTitulo()%></label></td>
+                            <td class="td-noticias" style="text-align: center"><label><%=v.getDescripcion()%></label></td>
+                            <td class="td-noticias" style="text-align: center"><label><%=v.getFechaLimite()%></label></td>                        
+                            <td class="td-noticias" class="td-icons">
+                                <a href="/web-formula1/VotacionesServlet?accion=eliminar&titulo=<%=v.getTitulo()%>">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
                         </tr>
                         <%}%>                
                     </table>
