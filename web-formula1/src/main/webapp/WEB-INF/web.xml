@@ -80,6 +80,14 @@
         <servlet-name>PilotosServlet</servlet-name>
         <servlet-class>Controllers.PilotosServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GestionEquiposServlet</servlet-name>
+        <servlet-class>Controllers.GestionEquiposServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EquiposServlet</servlet-name>
+        <servlet-class>Controllers.EquiposServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -123,5 +131,13 @@
     <servlet-mapping>
         <servlet-name>CochesServlet</servlet-name>
         <url-pattern>/CochesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GestionEquiposServlet</servlet-name>
+        <url-pattern>/GestionEquiposServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EquiposServlet</servlet-name>
+        <url-pattern>/EquiposServlet</url-pattern>
     </servlet-mapping>
 </web-app>

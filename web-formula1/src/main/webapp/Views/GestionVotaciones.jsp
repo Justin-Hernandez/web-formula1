@@ -41,11 +41,11 @@
                         </a>
                     </div>
                     <ul class="nav-menu">
-                        <li class="nav-menu-item active" ><a class="nav-menu-link nav-link">Noticias</a></li>
-                        <li class="nav-menu-item"><a class="nav-menu-link nav-link">Equipos</a></li>
-                        <li class="nav-menu-item"><a class="nav-menu-link nav-link">Votaciones</a></li>
-                        <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/web-formula1/CalendarioServlet?accion=listar_eventos">Calendario</a></li>
-                    </ul>  
+                        <li class="nav-menu-item"><a href="/web-formula1/NoticiasServlet?accion=listar" class="nav-menu-link nav-link">Noticias</a></li>
+                        <li class="nav-menu-item"><a href="/web-formula1/EquiposServlet?accion=listar" class="nav-menu-link nav-link">Equipos</a></li>
+                        <li class="nav-menu-item"><a href="/web-formula1/VotacionesServlet?accion=listar" class="nav-menu-link nav-link">Votaciones</a></li>
+                        <li class="nav-menu-item"><a href="/web-formula1/CalendarioServlet?accion=listar_eventos" class="nav-menu-link nav-link">Calendario</a></li>
+                    </ul> 
 
                     <%
                         if (usuario != null) {%>
@@ -119,12 +119,16 @@
                             <td style="text-align: center"><strong>Descripción</strong></td>
                             <td style="text-align: center"><strong>Fecha Límite</strong></td>
                         </tr>
-                        <% for (Votacion p : votaciones) {%>
+                        <% for (Votacion v : votaciones) {%>
                         <tr>                            
-                            <td class="td-noticias" style="text-align: center"><label><%=p.getTitulo()%></label></td>
-                            <td class="td-noticias" style="text-align: center"><label><%=p.getDescripcion()%></label></td>
-                            <td class="td-noticias" style="text-align: center"><label><%=p.getFechaLimite()%></label></td>                        
-                            <td class="td-noticias" class="td-icons"><button class="trash-button"><a href="#"><i class="fas fa-trash"></i></a></button></td>
+                            <td class="td-noticias" style="text-align: center"><label><%=v.getTitulo()%></label></td>
+                            <td class="td-noticias" style="text-align: center"><label><%=v.getDescripcion()%></label></td>
+                            <td class="td-noticias" style="text-align: center"><label><%=v.getFechaLimite()%></label></td>                        
+                            <td class="td-noticias" class="td-icons">
+                                <a href="/web-formula1/VotacionesServlet?accion=eliminar&titulo=<%=v.getTitulo()%>">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
                         </tr>
                         <%}%>                
                     </table>

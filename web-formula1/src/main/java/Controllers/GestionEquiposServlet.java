@@ -13,8 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 @MultipartConfig
-@WebServlet(name = "EquiposServlet", urlPatterns = {"/EquiposServlet"})
-public class EquiposServelt extends HttpServlet {
+@WebServlet(name = "GestionEquiposServlet", urlPatterns = {"/GestionEquiposServlet"})
+public class GestionEquiposServlet extends HttpServlet {
 
     private String pathFiles = "";
     private File uploads = new File(pathFiles);
@@ -39,39 +39,12 @@ public class EquiposServelt extends HttpServlet {
                     // Llamada a la página jsp 
                     res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionEquipos.jsp"));
                     break;
-                case "eliminar":
-                    //TODO PENDIENTE IMPLEMENTACION
-                    break;
                 default:
                     break;
             }
         }
-        s.setAttribute("equipos", modelo.getAllEquipos());
     }
 
-
-    private String guardarFoto(Part part, File pathUploads) throws IOException {
-        String absolutePath = "";
-
-        Path path = Paths.get(part.getSubmittedFileName());
-        String fileName = path.getFileName().toString();
-        InputStream inputStream = part.getInputStream();
-        if (inputStream != null) {
-            File file = new File(pathUploads, fileName);
-            if (!file.exists()) {
-                Files.copy(inputStream, file.toPath());
-                absolutePath = file.getAbsolutePath();
-            } else {
-                String nombreSolamente = FilenameUtils.removeExtension(fileName);
-                String extension = FilenameUtils.getExtension(fileName);
-                String fileNameModificado = nombreSolamente + "-" + Math.random() + "." + extension;
-                File tmp = new File(pathUploads, fileNameModificado);
-                Files.copy(inputStream, tmp.toPath());
-                absolutePath = tmp.getAbsolutePath();
-            }
-        }
-        return absolutePath;
-    }
 
     @Override
     public void destroy() {
