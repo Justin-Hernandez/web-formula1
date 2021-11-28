@@ -45,12 +45,6 @@
                         <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/web-formula1/CalendarioServlet?accion=listar_eventos">Calendario</a></li>
                     </ul>  
 
-
-
-
-
-
-
                     <%
                         if (usuario != null) {%>
                     <div class="admin">

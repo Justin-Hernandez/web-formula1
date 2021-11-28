@@ -850,35 +850,43 @@ public class ModeloDatos {
     }
 
     public void crearVotacion(String permalink, String titulo, String descripcion, Timestamp fecha, String[] siglas) {
-        
+
         String idPermalink = "";
-        //int idUltimaVotacion = 0;
+        int idUltimaVotacion = 0;
         String sql1 = "INSERT INTO pilotos_votaciones (id_votaciones, id_pilotos) VALUES (?, ?)";
         String sql2 = "SELECT id_votaciones FROM votaciones ORDER BY id_votaciones DESC LIMIT 1";
         String sql3 = "INSERT INTO votaciones (permalink, titulo, descripcion, fecha_limite) VALUES (?, ?, ?, ?)";
         String sql4 = "SELECT id FROM pilotos WHERE siglas = ?";
+        String sql5 = "UPDATE votaciones SET permalink = ?, titulo = ?, descripcion = ?, fecha_limite = ? where id_votaciones = ? ";
 
-        /**/
         try {
+            /*
             PreparedStatement preparedStatement = conection.prepareStatement(sql2);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 idPermalink = String.valueOf(resultSet.getInt("id_votaciones") + 1);
-            }
+            }*/
 
-            preparedStatement = conection.prepareStatement(sql3);
+            PreparedStatement preparedStatement = conection.prepareStatement(sql3);
             preparedStatement.setString(1, permalink + idPermalink);
             preparedStatement.setString(2, titulo);
             preparedStatement.setString(3, descripcion);
             preparedStatement.setTimestamp(4, fecha);
             preparedStatement.execute();
 
-            /*
             PreparedStatement preparedStatement2 = conection.prepareStatement(sql2);
             ResultSet resultSet1 = preparedStatement2.executeQuery();
             while (resultSet1.next()) {
                 idUltimaVotacion = resultSet1.getInt("id_votaciones");
-            }*/
+            }
+
+            PreparedStatement preparedStatement5 = conection.prepareStatement(sql5);
+            preparedStatement5.setString(1, permalink + String.valueOf(idUltimaVotacion));
+            preparedStatement5.setString(2, titulo);
+            preparedStatement5.setString(3, descripcion);
+            preparedStatement5.setTimestamp(4, fecha);
+            preparedStatement5.setInt(5, idUltimaVotacion);
+            preparedStatement5.execute();
 
             PreparedStatement preparedStatement3 = conection.prepareStatement(sql1);
             PreparedStatement preparedStatement4 = conection.prepareStatement(sql4);
@@ -888,7 +896,7 @@ public class ModeloDatos {
                 ResultSet resultSet2 = preparedStatement4.executeQuery();
                 while (resultSet2.next()) {
                     Integer idPiloto = resultSet2.getInt("id");
-                    preparedStatement3.setInt(1, Integer.parseInt(idPermalink));
+                    preparedStatement3.setInt(1, idUltimaVotacion);
                     preparedStatement3.setInt(2, idPiloto);
                     preparedStatement3.execute();
                 }
@@ -897,6 +905,122 @@ public class ModeloDatos {
         } catch (SQLException ex) {
             System.out.println("SQL ERROR: " + ex.toString());
         }
+
+    }
+
+    public ArrayList<Piloto> getAllPilotosByIdVotation(int idVotacion) {
+        ArrayList<Piloto> listaPilotos = new ArrayList<>();
+        String sql = "select id_pilotos, pilotos.nombre, apellidos, siglas, dorsal, foto, pais, pilotos.twitter, "
+                + "equipos.nombre as equipo from pilotos_votaciones inner join votaciones on pilotos_votaciones.id_votaciones "
+                + "= votaciones.id_votaciones inner join pilotos on pilotos_votaciones.id_pilotos = pilotos.id inner join equipos "
+                + "on pilotos.equipo = equipos.id where pilotos_votaciones.id_votaciones = ?";
+
+        try {
+            PreparedStatement preparedStatement = conection.prepareStatement(sql);
+            preparedStatement.setInt(1, idVotacion);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                listaPilotos.add(new Piloto(resultSet.getInt("id_pilotos"), resultSet.getString("nombre"),
+                        resultSet.getString("apellidos"), resultSet.getString("siglas"), resultSet.getInt("dorsal"),
+                        resultSet.getString("foto"), resultSet.getString("pais"), resultSet.getString("twitter"), resultSet.getString("equipo")));
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQL ERROR: " + ex.toString());
+        }
+
+        return listaPilotos;
+
+    }
+
+    public boolean checkMailOnDeterminedVotation(String correo, int id_votacion) {
+        boolean exist = false;
+
+        String sql = "select * from votantes inner join votantes_votaciones_pilotos "
+                + "on votantes.id_votante = votantes_votaciones_pilotos.id_votante "
+                + "where correo = ? and id_votaciones = ?";
+
+        try {
+            PreparedStatement preparedStatement = conection.prepareStatement(sql);
+            preparedStatement.setString(1, correo);
+            preparedStatement.setInt(2, id_votacion);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                exist = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQL ERROR: " + ex.toString());
+        }
+
+        return exist;
+    }
+
+    public void adicionarVotacion(String nombre, String correo, int id_piloto, int id_votacion) {
+        int id_votante = 0;
+        String sql1 = "INSERT INTO votantes (nombre, correo) VALUES (?, ?)";
+        String sql2 = "SELECT id_votante from votantes where correo = ?";
+        String sql3 = "INSERT INTO votantes_votaciones_pilotos (id_votaciones, id_votante, id_pilotos) VALUES (?, ?, ?)";
+
+        try {
+            if (!existeVotanteConEseCorreo(correo)) {
+                PreparedStatement preparedStatement = conection.prepareStatement(sql1);
+                preparedStatement.setString(1, nombre);
+                preparedStatement.setString(2, correo);
+                preparedStatement.execute();
+            }
+
+            PreparedStatement preparedStatement1 = conection.prepareStatement(sql2);
+            preparedStatement1.setString(1, correo);
+            ResultSet resultSet = preparedStatement1.executeQuery();
+            while (resultSet.next()) {
+                id_votante = resultSet.getInt("id_votante");
+            }
+
+            PreparedStatement preparedStatement2 = conection.prepareStatement(sql3);
+            preparedStatement2.setInt(1, id_votacion);
+            preparedStatement2.setInt(2, id_votante);
+            preparedStatement2.setInt(3, id_piloto);
+            preparedStatement2.execute();
+
+        } catch (SQLException ex) {
+            System.out.println("SQL ERROR: " + ex.toString());
+        }
+
+    }
+
+    public boolean existeVotanteConEseCorreo(String correo) {
+        boolean exist = false;
+        String sql = "SELECT * FROM votantes where correo = ?";
+        try {
+            PreparedStatement preparedStatement = conection.prepareStatement(sql);
+            preparedStatement.setString(1, correo);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                exist = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQL ERROR: " + ex.toString());
+        }
+        return exist;
+    }
+
+    public ArrayList<Integer> cantidadVotosDePilotos(Votacion v) {
+        ArrayList<Integer> votos = new ArrayList<>();
+        String sql = "select count(id_votante) as cantidad_votantes "
+                + "from votantes_votaciones_pilotos where id_votaciones = ? and id_pilotos = ?";
+        try {
+            PreparedStatement preparedStatement = conection.prepareStatement(sql);
+            preparedStatement.setInt(1, v.getId());
+            for (int i = 0; i < v.getListaPilotos().size(); i++) {
+                preparedStatement.setInt(2, v.getListaPilotos().get(i).getId());
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    votos.add(resultSet.getInt("cantidad_votantes"));
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQL ERROR: " + ex.toString());
+        }
+        return votos;
 
     }
 }

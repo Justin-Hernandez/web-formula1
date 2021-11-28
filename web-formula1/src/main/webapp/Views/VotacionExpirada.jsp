@@ -1,24 +1,24 @@
 <%-- 
-    Document   : Votaciones
-    Created on : 23 nov. 2021, 16:35:07
-    Author     : Nasr
+    Document   : VotacionExpirada
+    Created on : 26/11/2021, 07:24:53 PM
+    Author     : DELL
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="Models.Piloto"%>
 <%@page import="Models.User"%>
 <%@page import="Models.Votacion"%>
-<%@page import="java.util.Base64"%>
-<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page session="true" %>
 <!DOCTYPE html>
 <html>
     <%
-        ArrayList<Votacion> votaciones = (ArrayList<Votacion>) request.getSession().getAttribute("votaciones");
+        Votacion votacion = (Votacion) request.getSession().getAttribute("votacion");
+        ArrayList<Integer> votos = (ArrayList<Integer>) request.getSession().getAttribute("votos");  
         User usuario = (User) session.getAttribute("usuario");
     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Votaciones</title>
+        <title>Votación</title>
         <link rel="stylesheet" href="../css/custom.css">
         <link rel="stylesheet" href="../css/all.min.css">
         <script src="../js/validaciones.js"></script>
@@ -49,20 +49,41 @@
                 <%}%>
             </nav>
         </header>
-        <!--Votations Section-->
-        <div class="section_title">Votaciones</div>
-        <hr> 
-        <section class="cards">
-            <% for (Votacion v : votaciones) {%>
-            <a href="<%=v.getPermalink()%>" target="_blank" class="card">
-                <div class="card_content">
-                    <div class="card_title"><%=v.getTitulo()%></div>
-                    <div style="text-align: center" class="card_article"><%=v.getDescripcion()%></div>
-                    <div  style="text-align: center" class="card_article">Fecha Limite: <%=v.getFechaLimite()%></div>
-                </div>
-            </a>
-            <%}%>
-        </section>
+
+        <div>
+            <h2 style="color: red; text-align: center">Esta votación ya excedió su fecha límite</h2>
+
+            <div style="text-align: center">
+                <table   cellpadding="20" style="margin: auto">
+                    <%int i = 0;
+                        for (Piloto piloto : votacion.getListaPilotos()) {%>
+                    <tr>
+                        <td>
+                            <img style="float: left" src="../img/Diez.png" >
+                        </td>
+                        <td>
+                            <p><strong><%= piloto.getSiglas()%></strong></p>
+                        </td>
+                        <td>
+                            <p><strong><%= piloto.getNombre() + " " + piloto.getApellidos()%></strong></p>
+                        </td>
+                        <td>
+                            <p><strong><%= piloto.getPais()%></strong></p>
+                        </td>
+                        <td>
+                            <p><strong><%=piloto.getEquipoV()%></strong></p>
+                        </td>
+                        <td>
+                            <p style="color: green"><strong>Tiene <%= votos.get(i)%> votos</strong></p>
+                        </td>
+
+                    </tr>
+                    <%i++;}%>
+                </table>
+            </div>
+
+        </div>
+
 
         <footer class="footer">
             <div class="footer_div">
