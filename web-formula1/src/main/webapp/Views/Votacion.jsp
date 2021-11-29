@@ -106,7 +106,7 @@
                 </div>
 
                 <div style="text-align: center">
-                    <input style="background-color:red; color:white; font-size: 20px" type="submit" value="Votar">
+                    <input class="boton-rojo" type="submit" value="Votar">
                 </div>
             </div>
         </form>
