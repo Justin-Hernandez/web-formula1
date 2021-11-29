@@ -69,7 +69,6 @@
                 <% for (News n : news) {%>
                 <tr>
                     <td class="td-noticias"><%=n.getTitulo()%></td>
-                    <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
                     <td class="td-icons"><button class="trash-button"><a href="/web-formula1/NoticiasServlet?accion=eliminar&titulo=<%=n.getTitulo()%>"><i class="fas fa-trash"></i></a></button></td>
                 </tr>
                 <%}%>

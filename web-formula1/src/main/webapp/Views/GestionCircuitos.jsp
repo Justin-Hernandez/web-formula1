@@ -114,7 +114,6 @@
                 <% for (Circuito c : circuitos) {%>
                 <tr>
                     <td class="td-noticias"><%=c.getNombre()%></td>
-                    <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
                     <td class="td-icons">
                         <button class="trash-button">
                             <a href="/web-formula1/CircuitosServlet?accion=eliminar&nombre=<%=c.getNombre()%>">

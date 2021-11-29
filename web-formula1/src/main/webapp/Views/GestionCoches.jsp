@@ -75,7 +75,6 @@
                 <% for (Coche c : coches) {%>
                 <tr>
                     <td class="td-noticias"><%=c.getNombre()%></td>
-                    <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
                     <td class="td-icons">
                         <button class="trash-button">
                             <a href="/web-formula1/CochesServlet?accion=eliminar&codigo=<%=c.getCodigo()%>">
