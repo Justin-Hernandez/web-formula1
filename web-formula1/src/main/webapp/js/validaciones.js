@@ -1,6 +1,6 @@
 /*window.onload = function () {
-    validateDateEvent();
-};*/
+ validateDateEvent();
+ };*/
 
 function validarNoticias() {
     var titulo_noticia = document.getElementById('titulo_noticia').value;
@@ -26,17 +26,17 @@ function validarNoticias() {
     }
 }
 
-function validarFechaVacia(){
-    if(fecha === ""){
+function validarFechaVacia() {
+    if (fecha === "") {
         alert("Debe seleccionar una fecha para crear el evento en el calendario");
         return false;
     }
     /*else{
-       if(){
-            alert("La fecha seleccionada no puede ser inferior a la fecha de HOY");
-            return false;
-       } 
-    }*/
+     if(){
+     alert("La fecha seleccionada no puede ser inferior a la fecha de HOY");
+     return false;
+     } 
+     }*/
 }
 
 
@@ -53,8 +53,8 @@ function addDate() {
 
 function validateDateEvent() {
     var dateInput = document.getElementById('date');
-    if(dateInput === ""){
-        
+    if (dateInput === "") {
+
     }
     var str = new Date().toISOString();
     str = str.substring(0, str.length - 1);
@@ -128,7 +128,7 @@ function validarImagen(obj) {
         alert("El navegador no soporta la lectura de archivos");
         return false;
     }
-    
+
     if (!(/\.(jpg|jpeg|png|gif)$/i).test(uploadFile.name)) {
         alert("El archivo a seleccionado no es una imagen");
         document.getElementById('imagen_noticia').value = null;
@@ -187,19 +187,50 @@ function validarCircuitos() {
 function validarEquipo() {
     var nombre = document.getElementById('nombre').value;
     var twitter = document.getElementById('twitter').value;
-    
-    if (nombre===null || nombre==="") {
+
+    if (nombre === null || nombre === "") {
         alert("Ingrese el nombre del equipo");
         return false;
     } else if (nombre.length > 100) {
-            alert("El nombre debe contener menos de 100 caracteres");
-            return false;
+        alert("El nombre debe contener menos de 100 caracteres");
+        return false;
     }
-    if (twitter===null || twitter==="") {
+    if (twitter === null || twitter === "") {
         alert("Ingrese el nombre de usuario de Twitter");
         return false;
     } else if (twitter.length > 50) {
-            alert("El contenido nombre de usuario de Twitter debe contener menos de 50 caracteres");
-            return false;
+        alert("El contenido nombre de usuario de Twitter debe contener menos de 50 caracteres");
+        return false;
     }
 }
+
+
+function validarAlVotar() {
+    var nombreVotante = document.getElementById("nombre").value;
+    var correoVotante = document.getElementById("correo").value;
+    var radios = document.getElementsByName("piloto");
+
+    if (nombreVotante === null || nombreVotante === "") {
+        alert("Ingrese su nombre");
+        return false;
+    }
+    if (correoVotante === null || correoVotante === "") {
+        alert("Ingrese su correo");
+        return false;
+    }
+    if(radios.length === checkedRadio(radios)){
+        alert("Debe seleccionar al menos un piloto");
+        return false;
+    }
+}
+
+
+function checkedRadio(radios) {
+    var marcados = 0;
+    for (var i = 0, len = radios.length; i < len; i++) {
+       if (!radios[i].checked) {
+          marcados++;
+       }
+    }
+    return marcados;
+ }

@@ -11,8 +11,6 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,13 +31,6 @@ public class VotacionesServlet extends HttpServlet {
         modeloDatos.abrirConexion();
     }
 
-    /**
-     *
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
-     */
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String accion = req.getParameter("accion");
@@ -91,7 +82,7 @@ public class VotacionesServlet extends HttpServlet {
 
         String siglas[] = req.getParameterValues("siglas");
 
-        modeloDatos.crearVotacion("http://localhost:8080/web-formula1/Votacion?id=", titulo, descripcion, fecha, siglas);
+        modeloDatos.crearVotacion("http://localhost:8080/web-formula1/VotacionServlet?id=", titulo, descripcion, fecha, siglas);
     }
     
     //eliminar votacion

@@ -57,8 +57,8 @@
             <a href="<%=v.getPermalink()%>" target="_blank" class="card">
                 <div class="card_content">
                     <div class="card_title"><%=v.getTitulo()%></div>
-                    <div class="card_article"><%=v.getDescripcion()%></div>
-                    <div class="card_article">Fecha Limite: <%=v.getFechaLimite()%></div>
+                    <div style="text-align: center" class="card_article"><%=v.getDescripcion()%></div>
+                    <div  style="text-align: center" class="card_article">Fecha Limite: <%=v.getFechaLimite()%></div>
                 </div>
             </a>
             <%}%>
