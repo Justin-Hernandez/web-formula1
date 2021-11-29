@@ -8,6 +8,13 @@
         <servlet-name>VotacionServlet</servlet-name>
         <servlet-class>Controllers.VotacionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SimulacionesServlet</servlet-name>
+        <servlet-class>Controllers.SimulacionesServlet</servlet-class>
+    <servlet>
+        <servlet-name>VotarServlet</servlet-name>
+        <servlet-class>Controllers.VotarServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PilotosServlet</servlet-name>
         <url-pattern>/PilotosServlet</url-pattern>
@@ -19,6 +26,14 @@
     <servlet-mapping>
         <servlet-name>VotacionServlet</servlet-name>
         <url-pattern>/VotacionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SimulacionesServlet</servlet-name>
+        <url-pattern>/SimulacionesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>VotarServlet</servlet-name>
+        <url-pattern>/VotarServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

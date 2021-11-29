@@ -1,22 +1,27 @@
 <%-- 
-    Document   : AdminPanel
-    Created on : 28/10/2021, 08:16:07 PM
+    Document   : VotacionExpirada
+    Created on : 26/11/2021, 07:24:53 PM
     Author     : DELL
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="Models.Piloto"%>
 <%@page import="Models.User"%>
+<%@page import="Models.Votacion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page session="true" %>
 <!DOCTYPE html>
 <html>
     <%
+        Votacion votacion = (Votacion) request.getSession().getAttribute("votacion");
+        ArrayList<Integer> votos = (ArrayList<Integer>) request.getSession().getAttribute("votos");  
         User usuario = (User) session.getAttribute("usuario");
-    %>    
+    %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Panel de Administración</title>
+        <title>Votación</title>
         <link rel="stylesheet" href="../css/custom.css">
         <link rel="stylesheet" href="../css/all.min.css">
+        <script src="../js/validaciones.js"></script>
     </head>
     <body>
         <header class="header">
@@ -24,8 +29,8 @@
                 <img class="image" src="../img/f1_logo.png">
                 <ul class="nav-menu">
                     <li class="nav-menu-item"><a href="/web-formula1/NoticiasServlet?accion=listar" class="nav-menu-link nav-link">Noticias</a></li>
-                    <li class="nav-menu-item"><a href="/web-formula1/EquiposServlet?accion=listar" class="nav-menu-link nav-link">Equipos</a></li>
-                    <li class="nav-menu-item"><a href="/web-formula1/VotacionesServlet?accion=listar" class="nav-menu-link nav-link">Votaciones</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link">Equipos</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link">Votaciones</a></li>
                     <li class="nav-menu-item"><a href="/web-formula1/CalendarioServlet?accion=listar_eventos" class="nav-menu-link nav-link">Calendario</a></li>
                 </ul>
 
@@ -41,22 +46,45 @@
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="InicioSesion.jsp">Iniciar sesión</a></li>
                     <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="CrearCuenta.jsp">Crear cuenta</a></li>    
                 </ul> 
-                <%}%>  
+                <%}%>
             </nav>
         </header>
 
-        <section class="section">
-            <ul>
-                <%if (!usuario.getEquipo().equals("null")) {%>
-                <li class="section-item"><a href="/web-formula1/GestionResponsables"><i class="fas fa-vote-yea"></i> Gestión de Responsables</a></li>
-                <li class="section-item"><a href="/web-formula1/CochesServlet?accion=listar"><i class="fas fa-car"></i> Gestión de coches</li>
-                <li class="section-item"><a href="/web-formula1/PilotosServlet?accion=listar"><i class="fas fa-vote-yea"></i> Gestión de Pilotos</li></a>
-                    <%}%>        
-                <li class="section-item"><a href="/web-formula1/EquipoServlet"><i class="fas fa-vote-yea"></i> Gestión de Equipo</a></li>
-                <li class="section-item"><a href="/web-formula1/SimulacionesServlet"><i class="fas fa-vote-yea"></i> Simulaciones</a></li>
-                
-            </ul>
-        </section>
+        <div>
+            <h2 style="color: red; text-align: center">Esta votación ya excedió su fecha límite</h2>
+
+            <div style="text-align: center">
+                <table   cellpadding="20" style="margin: auto">
+                    <%int i = 0;
+                        for (Piloto piloto : votacion.getListaPilotos()) {%>
+                    <tr>
+                        <td>
+                            <img style="float: left" src="../img/Diez.png" >
+                        </td>
+                        <td>
+                            <p><strong><%= piloto.getSiglas()%></strong></p>
+                        </td>
+                        <td>
+                            <p><strong><%= piloto.getNombre() + " " + piloto.getApellidos()%></strong></p>
+                        </td>
+                        <td>
+                            <p><strong><%= piloto.getPais()%></strong></p>
+                        </td>
+                        <td>
+                            <p><strong><%=piloto.getEquipoV()%></strong></p>
+                        </td>
+                        <td>
+                            <p style="color: green"><strong>Tiene <%= votos.get(i)%> votos</strong></p>
+                        </td>
+
+                    </tr>
+                    <%i++;}%>
+                </table>
+            </div>
+
+        </div>
+
+
         <footer class="footer">
             <div class="footer_div">
                 <div>

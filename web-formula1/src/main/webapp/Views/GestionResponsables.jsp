@@ -149,12 +149,13 @@
             </tr>
             <%}%>
         </table>
-
         <footer class="footer">
-            <br>
-            Encuentra nuestro proyecto en <a  href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i>
-            <p>2021 ©</p>
-
+            <div class="footer_div">
+                <div>
+                    Encuentra nuestro proyecto en <a href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i><br>
+                </div>
+                <p>2021 &copy</p>
+            </div>
         </footer>
     </body>
 </html>

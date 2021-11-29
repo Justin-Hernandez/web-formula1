@@ -26,7 +26,7 @@ public class NoticiasServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-        
+               
         String accion = req.getParameter("accion");
         HttpSession s = req.getSession(true);
         if (accion != null) {
