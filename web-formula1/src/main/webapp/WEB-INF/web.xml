@@ -11,6 +11,7 @@
     <servlet>
         <servlet-name>SimulacionesServlet</servlet-name>
         <servlet-class>Controllers.SimulacionesServlet</servlet-class>
+        </servlet>
     <servlet>
         <servlet-name>VotarServlet</servlet-name>
         <servlet-class>Controllers.VotarServlet</servlet-class>
