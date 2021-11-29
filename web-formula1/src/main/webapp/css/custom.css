@@ -250,6 +250,12 @@ tr {
     background-position:50%;
 }
 
+.boton-rojo{
+    background-color: red; 
+    color: white; 
+    font-size: 15px;
+}
+
 .card_content {
     display:flex;
     flex-direction:column;

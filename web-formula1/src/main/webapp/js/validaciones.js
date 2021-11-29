@@ -218,7 +218,7 @@ function validarAlVotar() {
         alert("Ingrese su correo");
         return false;
     }
-    if(radios.length === checkedRadio(radios)){
+    if (radios.length === checkedRadio(radios)) {
         alert("Debe seleccionar al menos un piloto");
         return false;
     }
@@ -228,9 +228,35 @@ function validarAlVotar() {
 function checkedRadio(radios) {
     var marcados = 0;
     for (var i = 0, len = radios.length; i < len; i++) {
-       if (!radios[i].checked) {
-          marcados++;
-       }
+        if (!radios[i].checked) {
+            marcados++;
+        }
     }
     return marcados;
- }
+}
+
+function validarCrearVotacion() {
+    var titulo = document.getElementById("titulo").value;
+    var descripcion = document.getElementById("descripcion").value;
+    var fecha_limite = document.getElementById("date").value;
+
+    if (titulo === null || titulo === "") {
+        alert("Ingrese el título de la votación");
+        return false;
+    } else {
+        if (titulo.length > 100) {
+            alert("El título de la votación debe ser máximo 100 caracteres");
+            return false;
+        }
+    }
+    if (descripcion === null || descripcion === "") {
+        alert("Ingrese la descripción de la votación");
+        return false;
+    } else {
+        if (descripcion.length > 500) {
+            alert("La descripción de la votación debe ser máximo 500 caracteres");
+            return false;
+        }
+    }
+
+}
