@@ -28,12 +28,13 @@ public class CochesServlet extends HttpServlet {
 
         String accion = req.getParameter("accion");
         HttpSession s = req.getSession(true);
+        User usuario = (User) req.getSession().getAttribute("usuario");
+        Equipo equipoUser = modelo.findEquipoByIdEquipo(usuario.getEquipo());
+        
         if (accion != null) {
             switch (accion) {
                 case "listar":
                     //s.setAttribute("coches", modelo.getAllCoches());
-                    User usuario = (User) req.getSession().getAttribute("usuario");
-                    Equipo equipoUser = modelo.findEquipoByIdEquipo(usuario.getEquipo());
                     s.setAttribute("coches", modelo.findCochesByIdEquipo(equipoUser.getId()));
                     res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionCoches.jsp"));
                     break;
@@ -42,7 +43,8 @@ public class CochesServlet extends HttpServlet {
                     break;
                 case "eliminar":
                     eliminarCoche(req, res);
-                    s.setAttribute("coches", modelo.getAllCoches());
+                    s.setAttribute("coches", modelo.findCochesByIdEquipo(equipoUser.getId()));
+                    //s.setAttribute("coches", modelo.getAllCoches());
                     res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionCoches.jsp"));
                     break;
                 default:
