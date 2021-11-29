@@ -23,23 +23,9 @@ public class Coche {
             float ersCL, 
             float ersCM, 
             float ersCR,
-            float consumo
+            float consumo,
+            int equipo
     ) {
-        this.id = id;
-        this.nombre = nombre;
-        this.codigo = codigo;
-        this.ersCL = ersCL;
-        this.ersCM = ersCM;
-        this.ersCR = ersCR;
-        this.consumo = consumo;
-    }
-
-    public Coche(String nombre, String codigo) {
-        this.nombre = nombre;
-        this.codigo = codigo;
-    }
-
-    public Coche(int id, String nombre, String codigo, float ersCL, float ersCM, float ersCR, float consumo, int equipo) {
         this.id = id;
         this.nombre = nombre;
         this.codigo = codigo;
@@ -49,8 +35,19 @@ public class Coche {
         this.consumo = consumo;
         this.equipo = equipo;
     }
-    
-    
+
+    public Coche(String nombre, String codigo) {
+        this.nombre = nombre;
+        this.codigo = codigo;
+    }
+
+    public int getEquipo() {
+        return equipo;
+    }
+
+    public void setEquipo(int equipo) {
+        this.equipo = equipo;
+    }
     
     //gets
     public int getId() {
@@ -108,16 +105,5 @@ public class Coche {
     
     public void setConsumo(float consumo){
         this.consumo = consumo;
-    }
-
-    public int getEquipo() {
-        return equipo;
-    }
-
-    public void setEquipo(int equipo) {
-        this.equipo = equipo;
-    }
-    
-    
-    
+    } 
 }

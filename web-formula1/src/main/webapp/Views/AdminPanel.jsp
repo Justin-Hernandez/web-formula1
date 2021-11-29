@@ -31,7 +31,7 @@
                 
                 <%if(usuario != null){%>
                     <img class="avatar" src="../img/Diez.png" alt="Avatar">
-                    <a class="nav-menu-item"><%=usuario.getName()%></a><a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
+                    <a class="nav-menu-item"><%=usuario.getName()%></a><a class="down" href="NoticiasSevlet?logout=1"><i class="fas fa-door-open"></i></a>
                     <%if(request.getParameter("logout")!= null){
                         session.removeAttribute("usuario");
                         response.sendRedirect("Noticias.jsp");
