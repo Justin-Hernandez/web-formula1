@@ -111,7 +111,7 @@
                 <tr class="fila">
                     <td class="td-nombre td"><%=e.getNombre()%></td>
                     <td class="td-info td"><a href="/web-formula1/EquipoServlet?accion=view&id=<%=e.getId()%>"><button class="info-button"><i class="fas fa-info-circle"></i></button></td>
-                    <td class="td-nombte td"><a href="/web-formula1/">simulación</a></td> 
+                    <td class="td-nombte td"><a href="/web-formula1/SimulacionesServlet?equipo=<%=e.getNombre()%>">Simulaciones</a></td> 
                 </tr>
                 <%}%>
             </table>

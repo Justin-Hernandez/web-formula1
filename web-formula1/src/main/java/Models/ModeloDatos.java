@@ -387,8 +387,6 @@ public class ModeloDatos {
         return eliminado;
     }
 
-    //<<<<<<<<<<<<<<End Circuitos part>>>>>>>>>>>>>>
-    //<<<<<<<<<<<<<<Coches part>>>>>>>>>>>>>>
     //devuelve todos los coches de la base de datos en un ArrayList
     public ArrayList<Coche> getAllCoches() {
 
@@ -406,7 +404,8 @@ public class ModeloDatos {
                         rs.getFloat("ers_CL"),
                         rs.getFloat("ers_CM"),
                         rs.getFloat("ers_CR"),
-                        rs.getFloat("consumo")
+                        rs.getFloat("consumo"),
+                        rs.getInt("equipo")
                 ));
             }
         } catch (SQLException e) {
