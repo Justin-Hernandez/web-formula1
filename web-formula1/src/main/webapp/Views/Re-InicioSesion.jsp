@@ -1,7 +1,7 @@
 <%-- 
-    Document   : InicioSesionServlet
-    Created on : 29/10/2021, 09:32:32 PM
-    Author     : DELL
+    Document   : Re-InicioSesion
+    Created on : 29 nov. 2021, 02:45:13
+    Author     : Nasr
 --%>
 
 <%@page import="Models.User"%>
@@ -28,8 +28,15 @@
                 <input type="submit" value="Entrar">
                 <p>¿Eres de nuestros usuarios? <a href="CrearCuenta.jsp">Crear cuenta</a></p>
             </form>
+            <br>
+            <div class="err-msg">
+                <%if (usuario == null) {%>
+                <p>Nombre de usuario o Contraseña son incorrectos</p>
+                <%}%>
+            </div>
         </div>
-        
+
+
 
         <footer class="footer">
             <div class="footer_div">
