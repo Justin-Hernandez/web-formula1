@@ -1,12 +1,7 @@
 package Controllers;
 
-import Models.Equipo;
 import Models.ModeloDatos;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import org.apache.commons.io.FilenameUtils;
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -16,8 +11,6 @@ import javax.servlet.http.*;
 @WebServlet(name = "GestionEquiposServlet", urlPatterns = {"/GestionEquiposServlet"})
 public class GestionEquiposServlet extends HttpServlet {
 
-    private String pathFiles = "";
-    private File uploads = new File(pathFiles);
     private ModeloDatos modelo;
 
     @Override

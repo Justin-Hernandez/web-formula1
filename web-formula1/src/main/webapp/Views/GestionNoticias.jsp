@@ -49,28 +49,37 @@
                 <%}%>
             </nav>
         </header>
+            
+            
+            <h1 style="margin-bottom: 20px; margin-left:20px">Crear Noticias</h1>
 
             <form action="/web-formula1/NoticiasServlet?accion=insertar" method="post" enctype="multipart/form-data" onsubmit="return validarNoticias();">
-                <table>
+                <table style="margin-left: 20px">
                     <tr><td><label>Título:</label></td></tr>
                     <tr><td><input type="text" name="title" id="titulo_noticia" maxlength="100" width="400px"></td></tr>
                     <tr><td><label>Artículo</label></td></tr>
                     <tr><td><textarea name="textarea" rows="10" cols="79" id="noticia" minlength="500" maxlength="2000"></textarea></td></tr>
                     <tr>
-                        <td><input type="file" id="imagen_noticia" name="file" onchange="validarImagen(this)"></td>
+                        <td>
+                            <div style="display: inline-block">
+                                <input type="file" id="imagen_noticia" name="file" onchange="validarImagen(this)">
+                            </div>
+                            <div style="display: inline-block; float: right">
+                                <input class="boton-rojo" type="submit" id="adicionar_noticia" value="Adicionar">
+                            </div>
+                        </td>
                     </tr>
-                    <tr>
-                        <td><input type="submit" id="adicionar_noticia" value="Adicionar"></td>
-                    </tr>
+
                 </table>
             </form>
             <!--Edit/Delete-->
-            <table>
+            
+            <h3 style="margin-bottom: 10px; margin-top: 20px; margin-left:20px">Listado de Noticias</h1>
+            <table style="margin-left: 20px">
                 <% for (News n : news) {%>
                 <tr>
-                    <td class="td-noticias"><%=n.getTitulo()%></td>
-                    <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
-                    <td class="td-icons"><button class="trash-button"><a href="/web-formula1/NoticiasServlet?accion=eliminar&titulo=<%=n.getTitulo()%>"><i class="fas fa-trash"></i></a></button></td>
+                    <td class="td-noticias"><strong><%=n.getTitulo()%></strong></td>
+                    <td class="td-icons"><a class="trash-button" href="/web-formula1/NoticiasServlet?accion=eliminar&titulo=<%=n.getTitulo()%>"><i class="fas fa-trash"></i></a></td>
                 </tr>
                 <%}%>
             </table>

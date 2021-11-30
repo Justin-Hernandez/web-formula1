@@ -9,6 +9,10 @@
         <servlet-class>Controllers.VotacionServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>SimulacionesServlet</servlet-name>
+        <servlet-class>Controllers.SimulacionesServlet</servlet-class>
+        </servlet>
+    <servlet>
         <servlet-name>VotarServlet</servlet-name>
         <servlet-class>Controllers.VotarServlet</servlet-class>
     </servlet>
@@ -25,7 +29,11 @@
         <url-pattern>/VotacionServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>VotarServlet</servlet-name>
+        <servlet-name>SimulacionesServlet</servlet-name>
+        <url-pattern>/SimulacionesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>VotarServlet</servlet-name>
         <url-pattern>/VotarServlet</url-pattern>
     </servlet-mapping>
     <session-config>

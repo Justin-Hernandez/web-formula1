@@ -78,17 +78,12 @@
                 <% for (Piloto p : pilotos) {%>
                 <tr>
                     <td class="td-noticias"><%=p.getSiglas()%></td>
-                    <td class="td-icons"><button class="edit-button"><i class="fas fa-edit"></i></button></td>
                     <td class="td-icons">
                         <button class="trash-button">
                             <a href="/web-formula1/PilotosServlet?accion=eliminar&siglas=<%=p.getSiglas()%>">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </button>
-
-
-
-
                     </td>
                 </tr>
                 <%}%>

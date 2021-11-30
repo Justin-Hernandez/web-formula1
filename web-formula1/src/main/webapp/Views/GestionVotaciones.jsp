@@ -73,21 +73,25 @@
 
 
 
-            <form action="/web-formula1/VotacionesServlet?accion=crear_votacion" method="POST">
+            <form action="/web-formula1/VotacionesServlet?accion=crear_votacion" method="POST" onsubmit="return validarCrearVotacion();">
                 <table style="margin-bottom: 20px; margin-left: 20px">
                     <tr><td><label>Título:</label></td></tr>
-                    <tr><td><input style="width: 236px" type="text" name="titulo" maxlength="100"></td></tr>
+                    <tr><td><input style="width: 236px" type="text" id="titulo" name="titulo" maxlength="100"></td></tr>
                     <tr><td><label>Descripción:</label></td></tr>
                     <tr><td><textarea name="descripcion" rows="5" cols="29" id="descripcion" maxlength="500"></textarea></td></tr>
                     <tr><td><label>Fecha límite</label></td></tr>
                     <tr><td><input type="datetime-local" id="date" name="fecha"></td></tr>
+                    <tr><td>
+                            <input class="boton-rojo" style="float: right; margin-top: 10px" 
+                                   type="submit" id="crear_votacion" value="Crear votación">
+                        </td>
+                    </tr>
                 </table>
 
                 <div style="float: left; margin-left: 20px; width: 50%">
                     <table>
                         <tr>
-                            <td colspan="3"><strong><label style="color: red">Seleccione los pilotos a valorar para esta votación:</label></strong></td>
-                            <td style="text-align: center"><input style="color: blue; border-color: blue" type="submit" id="crear_votacion" value="Crear votación"></td>                    
+                            <td colspan="3"><h3>Listado de pilotos disponibles para una votación:</h3></td>
                         </tr>                    
                         <tr>
                             <td style="text-align: center"><strong>Siglas</strong></td>
@@ -112,7 +116,7 @@
                 <div style="float: left; margin-left: 50px; width: 40%">
                     <table>
                         <tr>
-                            <td colspan="3"><strong><label style="color: red">Listado de votaciones activas en el sistema:</label></strong></td>                  
+                            <td colspan="3"><h3>Listado de votaciones activas en el sistema:</h3></td>                  
                         </tr>                    
                         <tr>
                             <td style="text-align: center"><strong>Título</strong></td>
@@ -125,7 +129,7 @@
                             <td class="td-noticias" style="text-align: center"><label><%=v.getDescripcion()%></label></td>
                             <td class="td-noticias" style="text-align: center"><label><%=v.getFechaLimite()%></label></td>                        
                             <td class="td-noticias" class="td-icons">
-                                <a href="/web-formula1/VotacionesServlet?accion=eliminar&titulo=<%=v.getTitulo()%>">
+                                <a class="trash-button" href="/web-formula1/VotacionesServlet?accion=eliminar&titulo=<%=v.getTitulo()%>">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>
