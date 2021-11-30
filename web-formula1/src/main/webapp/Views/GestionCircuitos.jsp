@@ -39,10 +39,10 @@
                         </a>
                     </div>
                     <ul class="nav-menu">
-                    <li class="nav-menu-item"><a href="/web-formula1/NoticiasServlet?accion=listar" class="nav-menu-link nav-link">Noticias</a></li>
-                    <li class="nav-menu-item"><a href="/web-formula1/EquiposServlet?accion=listar" class="nav-menu-link nav-link">Equipos</a></li>
-                    <li class="nav-menu-item"><a href="/web-formula1/VotacionesServlet?accion=listar" class="nav-menu-link nav-link">Votaciones</a></li>
-                    <li class="nav-menu-item"><a href="/web-formula1/CalendarioServlet?accion=listar_eventos" class="nav-menu-link nav-link">Calendario</a></li>
+                        <li class="nav-menu-item"><a href="/web-formula1/NoticiasServlet?accion=listar" class="nav-menu-link nav-link">Noticias</a></li>
+                        <li class="nav-menu-item"><a href="/web-formula1/EquiposServlet?accion=listar" class="nav-menu-link nav-link">Equipos</a></li>
+                        <li class="nav-menu-item"><a href="/web-formula1/VotacionesServlet?accion=listar" class="nav-menu-link nav-link">Votaciones</a></li>
+                        <li class="nav-menu-item"><a href="/web-formula1/CalendarioServlet?accion=listar_eventos" class="nav-menu-link nav-link">Calendario</a></li>
                     </ul> 
 
                     <%
@@ -66,32 +66,36 @@
                 </nav>
             </header>
             <!--Añadir circuitos-->
-            <form action="/web-formula1/CircuitosServlet?accion=insertar" method="post" enctype="multipart/form-data" ">
-                <table>
-                    <tr><td><label>Nombre</label></td></tr>
-                    <tr><td><input type="text" name="nombre" id="nombre" maxlength="100" width="400px"></td></tr>
-                    <tr><td><label>Ciudad</label></td></tr>
-                    <tr><td><input type="text" name="ciudad" id="ciudad" maxlength="100" width="400px"></td></tr>
-                    <tr><td><label>País</label></td></tr>
-                    <tr><td><input type="text" name="pais" id="pais" maxlength="100" width="400px"></td></tr>
-                    <tr><td><label>Numero de vueltas</label></td></tr>
-                    <tr><td><input type="number" name="numeroDeVueltas" id="numeroDeVueltas" maxlength="100" width="400px"></td></tr>
-                    <tr><td><label>Longitud</label></td></tr>
-                    <tr><td><input type="number" name="longitud" id="longitud" maxlength="100" width="400px"></td></tr>
-                    <tr><td><label>Curvas Lentas</label></td></tr>
-                    <tr><td><input type="number" name="curvasLentas" id="curvasLentas" maxlength="100" width="400px"></td></tr>
-                    <tr><td><label>Curvas Media</label></td></tr>
-                    <tr><td><input type="number" name="curvasMedia" id="curvasMedia" maxlength="100" width="400px"></td></tr>
-                    <tr><td><label>Curvas Rápidas</label></td></tr>
-                    <tr><td><input type="number" name="curvasRapidas" id="curvasRapidas" maxlength="100" width="400px"></td></tr>
-                    <tr>
-                        <td><input type="file" id="trazado" name="file" onchange="validarImagen(this)"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="submit" id="adicionar_circuito" value="Adicionar"></td>
-                    </tr>
-                </table>
-            </form>
+            <div class="section_title">Gestión de circuitos</div>
+            <hr> 
+            <div class="circuitos-form-container">
+                <form class="circuitos-form" action="/web-formula1/CircuitosServlet?accion=insertar" method="post" enctype="multipart/form-data" ">
+                    <table>
+                        <tr><td><label>Nombre</label></td></tr>
+                        <tr><td><input type="text" name="nombre" id="nombre" maxlength="100" width="400px"></td></tr>
+                        <tr><td><label>Ciudad</label></td></tr>
+                        <tr><td><input type="text" name="ciudad" id="ciudad" maxlength="100" width="400px"></td></tr>
+                        <tr><td><label>País</label></td></tr>
+                        <tr><td><input type="text" name="pais" id="pais" maxlength="100" width="400px"></td></tr>
+                        <tr><td><label>Numero de vueltas</label></td></tr>
+                        <tr><td><input type="number" name="numeroDeVueltas" id="numeroDeVueltas" maxlength="100" width="400px"></td></tr>
+                        <tr><td><label>Longitud</label></td></tr>
+                        <tr><td><input type="number" name="longitud" id="longitud" maxlength="100" width="400px"></td></tr>
+                        <tr><td><label>Curvas Lentas</label></td></tr>
+                        <tr><td><input type="number" name="curvasLentas" id="curvasLentas" maxlength="100" width="400px"></td></tr>
+                        <tr><td><label>Curvas Media</label></td></tr>
+                        <tr><td><input type="number" name="curvasMedia" id="curvasMedia" maxlength="100" width="400px"></td></tr>
+                        <tr><td><label>Curvas Rápidas</label></td></tr>
+                        <tr><td><input type="number" name="curvasRapidas" id="curvasRapidas" maxlength="100" width="400px"></td></tr>
+                        <tr>
+                            <td><input type="file" id="trazado" name="file" onchange="validarImagen(this)"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="submit" id="adicionar_circuito" value="Adicionar"></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
             <!--Edit/Delete-->
             <table>
                 <tr>
