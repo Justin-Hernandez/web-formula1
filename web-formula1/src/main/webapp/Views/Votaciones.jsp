@@ -56,7 +56,8 @@
             <% for (Votacion v : votaciones) {%>
             <a href="<%=v.getPermalink()%>" target="_blank" class="card">
                 <div class="card_content">
-                    <div class="card_title"><%=v.getTitulo()%></div>
+                    <div  class="card_image" style='background-image: url("../img/votacion.jpg")'></div>
+                    <div style="margin-top: 10px" class="card_title"><%=v.getTitulo()%></div>
                     <div style="text-align: center" class="card_article"><%=v.getDescripcion()%></div>
                     <div  style="text-align: center" class="card_article">Fecha Limite: <%=v.getFechaLimite()%></div>
                 </div>
