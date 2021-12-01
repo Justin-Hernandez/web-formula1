@@ -1,7 +1,7 @@
 <%-- 
     Document   : AnadirCircuitos.jsp
     Created on : 1 déc. 2021, 01:12:02
-    Author     : macbook
+    Author     : Nasr
 --%>
 
 <%@page import="Models.User"%>
@@ -61,42 +61,73 @@
                     <%}%>
                 </nav>
             </header>
-
-            <!--Añadir circuitos-->          
+            <!--Form para añadir circuitos-->          
             <div class="form-gp">
                 <form action="/web-formula1/CircuitosServlet?accion=insertar" method="post" enctype="multipart/form-data" ">
                     <table class="form-table-gp">
-                        <!--<tr><td><label>Nombre</label></td></tr>-->
-                        <tr><td><input type="text" name="nombre" id="nombre" maxlength="100" width="400px" placeholder="Nombre"></td></tr>
-                        <!--<tr><td><label>Ciudad</label></td></tr>-->
-                        <tr><td><input type="text" name="ciudad" id="ciudad" maxlength="100" width="400px" placeholder="Ciudad"></td></tr>
-                        <!--<tr><td><label>País</label></td></tr>-->
-                        <tr><td><input type="text" name="pais" id="pais" maxlength="100" width="400px" placeholder="País"></td></tr>
-                        <!--<tr><td><label>Numero de vueltas</label></td></tr>-->
+                        <tr><td><label>Nombre</label></td></tr>
                         <tr>
                             <td>
-                                <input type="number" name="numeroDeVueltas" id="numeroDeVueltas" maxlength="100" width="400px" placeholder="Numero de vueltas">
+                                <input type="text" name="nombre" id="nombre" maxlength="100" width="400px">
+                            </td>
+                        </tr>
+                        <tr><td><label>Ciudad</label></td></tr>
+                        <tr>
+                            <td>
+                                <input type="text" name="ciudad" id="ciudad" maxlength="100" width="400px">
+                            </td>
+                        </tr>
+                        <tr><td><label>País</label></td></tr>
+                        <tr>
+                            <td>
+                                <input type="text" name="pais" id="pais" maxlength="100" width="400px">
+                            </td>
+                        </tr>
+                        <tr><td><label>Numero de vueltas</label></td></tr>
+                        <tr>
+                            <td>
+                                <input type="number" name="numeroDeVueltas" id="numeroDeVueltas" maxlength="100" width="400px">
                             </td>                                                    
                         </tr>                       
-                        <!--<tr><td><label>Longitud</label></td></tr>-->
-                        <tr><td><input type="number" name="longitud" id="longitud" maxlength="100" width="400px" placeholder="Longitud"></td></tr>
-                        <!--<tr><td><label>Curvas Lentas</label></td></tr>-->
-                        <tr><td><input type="number" name="curvasLentas" id="curvasLentas" maxlength="100" width="400px" placeholder="Curvas Lentas"></td></tr>
-                        <!--<tr><td><label>Curvas Media</label></td></tr>-->
-                        <tr><td><input type="number" name="curvasMedia" id="curvasMedia" maxlength="100" width="400px" placeholder="Curvas Media"></td></tr>
-                        <!--<tr><td><label>Curvas Rápidas</label></td></tr>-->
-                        <tr><td><input type="number" name="curvasRapidas" id="curvasRapidas" maxlength="100" width="400px" placeholder="Curvas Rápidas"></td></tr>
+                        <tr><td><label>Longitud</label></td></tr>
                         <tr>
-                            <td><input type="file" id="trazado" name="file" onchange="validarImagen(this)"></td>
+                            <td>
+                                <input type="number" name="longitud" id="longitud" maxlength="100" width="400px">
+                            </td>
+                        </tr>
+                        <tr><td><label>Curvas Lentas</label></td></tr>
+                        <tr>
+                            <td>
+                                <input type="number" name="curvasLentas" id="curvasLentas" maxlength="100" width="400px" >
+                            </td>
+                        </tr>
+                        <tr><td><label>Curvas Media</label></td></tr>
+                        <tr>
+                            <td>
+                                <input type="number" name="curvasMedia" id="curvasMedia" maxlength="100" width="400px">
+                            </td>
+                        </tr>
+                        <tr><td><label>Curvas Rápidas</label></td></tr>
+                        <tr>
+                            <td>
+                                <input type="number" name="curvasRapidas" id="curvasRapidas" maxlength="100" width="400px">
+                            </td>
                         </tr>
                         <tr>
-                            <td><input type="submit" id="adicionar_circuito" value="Adicionar" class="btn"></td>
+                            <td>
+                                <input type="file" id="trazado" name="file" onchange="validarImagen(this)">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="submit" id="adicionar_circuito" value="Adicionar" class="btn">
+                            </td>
                         </tr>
                     </table>
                 </form>
             </div>
             <!--Footer-->
-            <footer class="footer">
+            <footer class="footer-gp">
                 <div class="footer_div">
                     <div>
                         Encuentra nuestro proyecto en <a href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i><br>

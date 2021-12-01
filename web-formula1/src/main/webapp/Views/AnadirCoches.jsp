@@ -1,22 +1,22 @@
 <%-- 
-    Document   : AnadirPilotos
-    Created on : 30 nov. 2021, 22:27:43
+    Document   : AnadirCoches
+    Created on : 1 déc. 2021, 18:38:37
     Author     : Nasr
 --%>
 
 <%@page import="Models.User"%>
-<%@page import="Models.Piloto"%>
+<%@page import="Models.Coche"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page session="true" %>
 <!DOCTYPE html>
 <html>
     <%
-        ArrayList<Piloto> pilotos = (ArrayList<Piloto>) request.getSession().getAttribute("pilotos");
+        ArrayList<Coche> coches = (ArrayList<Coche>) request.getSession().getAttribute("coches");
         User usuario = (User) session.getAttribute("usuario");
     %>
     <head>
-        <title>Añadir Pilotos</title>
+        <title>Añadir Coches</title>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-8">
         <link rel="stylesheet" href="../css/custom.css">
         <link rel="stylesheet" href="../css/all.min.css">
@@ -53,36 +53,31 @@
                 <%}%>
             </nav>
         </header>
-
-        <!--Form-->
+        <!--Añadir coches-->
         <div class="form-gp">
-            <form action="/web-formula1/PilotosServlet?accion=insertar" method="post" enctype="multipart/form-data" ">
+            <form action="/web-formula1/CochesServlet?accion=insertar" method="post" enctype="multipart/form-data" ">
                 <table class="form-table-gp">
                     <tr><td><label>Nombre</label></td></tr>
-                    <tr><td><input type="text" name="nombre" id="nombre" maxlength="100"></td></tr>
-                    <tr><td><label>Apellidos</label></td></tr>
-                    <tr><td><input type="text" name="apellidos" id="apellidos" maxlength="100" width="400px"></td></tr>          
-                    <tr><td><label>Siglas</label></td></tr>
-                    <tr><td><input type="text" name="siglas" id="siglas" maxlength="100" width="400px"></td></tr>
-                    <tr><td><label>Dorsal</label></td></tr>
-                    <tr><td><input type="text" name="dorsal" id="dorsal" maxlength="100" width="400px"></td></tr>
-                    <tr><td><label>País</label></td></tr>
-                    <tr><td><input type="text" name="pais" id="pais" maxlength="100" width="400px"></td></tr>
-                    <tr><td><label>Equipo</label></td></tr>
-                    <tr><td><input type="text" name="equipoV" id="equipoV" maxlength="100" width="400px"></td></tr>
-                    <tr><td><label>Twitter</label></td></tr>
-                    <tr><td><input type="text" name="twitter" id="twitter" maxlength="100" width="400px"></td></tr>
+                    <tr><td><input type="text" name="nombre" id="nombre" maxlength="100" width="400px"></td></tr>
+                    <tr><td><label>Código</label></td></tr>
+                    <tr><td><input type="text" name="codigo" id="codigo" maxlength="100" width="400px"></td></tr>          
+                    <tr><td><label>ERS-Curva Lenta</label></td></tr>
+                    <tr><td><input type="number" step="0.1" name="ersCL" id="ersCL" maxlength="100" width="400px"></td></tr>
+                    <tr><td><label>ERS-Curva Media</label></td></tr>
+                    <tr><td><input type="number" step="0.1" name="ersCM" id="ersCM" maxlength="100" width="400px"></td></tr>
+                    <tr><td><label>ERS-Curva Rápida</label></td></tr>
+                    <tr><td><input type="number" step="0.1" name="ersCR" id="ersCR" maxlength="100" width="400px"></td></tr>
+                    <tr><td><label>Consumo</label></td></tr>
+                    <tr><td><input type="number" step="0.1" name="consumo" id="consumo" maxlength="100" width="400px"></td></tr>
                     <tr>
-                        <td><input type="file" id="foto" name="file" onchange="validarImagen(this)"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="submit" id="adicionar_piloto" value="Adicionar" class="btn"></td>
+
+                        <td><input type="submit" id="adicionar_coche" value="Adicionar" class="btn"></td>
                     </tr>
                 </table>
             </form>
         </div>
         <!--Footer-->
-        <footer class="footer-gp">
+        <footer class="footer">
             <div class="footer_div">
                 <div>
                     Encuentra nuestro proyecto en <a href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i><br>
@@ -90,6 +85,5 @@
                 <p>2021 &copy</p>
             </div>
         </footer>
-
     </body>
 </html>
