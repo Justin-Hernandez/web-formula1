@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Saira&display=swap');
+
 * {
     margin: 0;
     box-sizing: border-box;
@@ -5,12 +7,13 @@
 
 body {
     background-color: #ecebeb;
-    font-family: sans-serif;
+    font-family: 'Saira', sans-serif;
 }
 
 .page-container {
     position: relative;
-    min-height: 70vw;
+    /*min-height: 100vw;*/
+
 }
 
 header {
@@ -67,6 +70,15 @@ header {
 
 .footer {
     position: fixed;
+    bottom: 0;
+    width: 100vw;
+    height: auto;
+    background-color: #D3D3D3;
+    margin-top: 20px;
+}
+
+.footer-gp {
+    /*position: fixed;*/
     bottom: 0;
     width: 100vw;
     height: auto;
@@ -180,39 +192,6 @@ input[type="email"]::placeholder
     height: 100%;
 }
 
-tr {
-    border: 1px;
-    border-style: solid;
-    border-color: #707070;
-}
-
-.td-noticias {
-    width: 400px;
-    height: 55px;
-    border: 1px solid #707070;
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-    color: #828282;
-}
-
-.td-icons {
-    width: 100px;
-    height: 55px;
-    border: 1px solid #707070;
-    text-align: center;
-}
-
-.edit-button {
-    border-style: none;
-    background-color: rgb(236, 235, 235);
-}
-
-.trash-button {
-    border-style: none;
-    color: #FF2E2E;
-    background-color: rgb(236, 235, 235);
-}
-
 .cards {
     display:flex;
     flex-wrap:wrap;
@@ -310,8 +289,12 @@ hr {
     width: 60%; 
     margin-left: auto; 
     margin-right: auto;
-
 }
+
+.table-header{
+    background-color: #FF4742;
+}
+
 /* mensaje  */
 .alert {
     padding: 20px;
@@ -384,3 +367,112 @@ hr {
 .circuitos-form-container {
     margin: auto;
 }
+
+
+.btn {
+    background: #FF4742;
+    border: 1px solid #FF4742;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 40px;
+    outline: 0;
+    padding: 12px 14px;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    margin: 20px;
+}
+
+.btn:hover,
+.btn:active {
+    background-color: initial;
+    background-position: 0 0;
+    color: #FF4742;
+}
+
+.btn:active {
+    opacity: .5;
+}
+
+.btn a:hover {
+    text-decoration: none;
+    color:#FF4742;
+}
+
+.content-gp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
+}
+
+.btn a i .fas fa-user-plus {
+    margin-left: 10px;
+}
+
+.btn .fas {
+    margin-left:10px;
+}
+
+/*G-pilotos table*/
+
+.table-gp {
+    border: 0.5px solid #595260;
+}
+
+.tr-gp:nth-child(2n+1) {
+    background-color: white;
+    
+}
+
+.td-gp {
+    width: 400px;
+    height: 50px;
+    text-align: center;
+    opacity: 0.7;
+}
+
+.td-icons-gp {
+    width: 100px;
+    height: 50px;
+    text-align: center;
+}
+
+.td-icons-gp .fas{
+    color:  #FF4742;
+}
+
+.trash-button {
+    border-style: none;
+    color: #FF2E2E;
+    background-color: rgb(236, 235, 235);
+}
+
+/*Form*/
+
+.form-gp {
+    display: flex;
+    justify-content: center;
+}
+
+.form-table-gp {
+    text-align: center;
+}
+
+.form-table-gp 
+input[type="text"], input[type="number"] {
+    width:300px;
+    height: 35px;
+}
+

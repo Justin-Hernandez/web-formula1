@@ -17,15 +17,18 @@
     %>
     <head>
         <title>Gestion de pilotos</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-8">
         <link rel="stylesheet" href="../css/custom.css">
         <link rel="stylesheet" href="../css/all.min.css">
     </head>
     <body>
         <div class="page-container">
+            <!--Header-->
             <header class="header">
                 <nav class="nav">
-                    <img class="image" src="../img/f1_logo.png">
+                    <a href="/web-formula1/Views/ResponsableEquipoPanel.jsp">                   
+                        <img class="image" src="../img/f1_logo.png" alt="logo">
+                    </a>  
                     <ul class="nav-menu">
                         <li class="nav-menu-item"><a href="/web-formula1/NoticiasServlet?accion=listar" class="nav-menu-link nav-link">Noticias</a></li>
                         <li class="nav-menu-item"><a href="/web-formula1/EquiposServlet?accion=listar" class="nav-menu-link nav-link">Equipos</a></li>
@@ -35,13 +38,15 @@
                     <di class="admin">
                         <%if (usuario != null) {%>
                         <img class="avatar" src="../img/Diez.png" alt="Avatar">
-                        <a class="nav-menu-item"><%=usuario.getName()%></a><a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
-                            <%if (request.getParameter("logout") != null) {
-                                    session.removeAttribute("usuario");
-                                    response.sendRedirect("Noticias.jsp");
-                                }
-                            } else {%>
+                        <a href="/web-formula1/Views/ResponsableEquipoPanel.jsp" class="nav-menu-item"><%=usuario.getName()%></a>
                     </di>
+                    <a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
+                        <%if (request.getParameter("logout") != null) {
+                                session.removeAttribute("usuario");
+                                response.sendRedirect("Noticias.jsp");
+                            }
+                        } else {%>
+
                     <ul class="nav-menu">
                         <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="InicioSesion.jsp">Iniciar sesión</a></li>
                         <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="CrearCuenta.jsp">Crear cuenta</a></li>    
@@ -50,46 +55,40 @@
                 </nav>
             </header>
 
-            <!--Añadir pilotos-->
-            <form action="/web-formula1/PilotosServlet?accion=insertar" method="post" enctype="multipart/form-data" ">
-                <table>
-                    <tr><td><label>Nombre</label></td></tr>
-                    <tr><td><input type="text" name="nombre" id="nombre" maxlength="100" width="400px"></td></tr>
-                    <tr><td><label>Apellidos</label></td></tr>
-                    <tr><td><input type="text" name="apellidos" id="apellidos" maxlength="100" width="400px"></td></tr>          
-                    <tr><td><label>Siglas</label></td></tr>
-                    <tr><td><input type="text" name="siglas" id="siglas" maxlength="100" width="400px"></td></tr>
-                    <tr><td><label>Dorsal</label></td></tr>
-                    <tr><td><input type="text" name="dorsal" id="dorsal" maxlength="100" width="400px"></td></tr>
-                    <tr><td><label>País</label></td></tr>
-                    <tr><td><input type="text" name="pais" id="pais" maxlength="100" width="400px"></td></tr>
-                    <tr><td><label>Twitter</label></td></tr>
-                    <tr><td><input type="text" name="twitter" id="twitter" maxlength="100" width="400px"></td></tr>
-                    <tr>
-                        <td><input type="file" id="foto" name="file" onchange="validarImagen(this)"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="submit" id="adicionar_piloto" value="Adicionar"></td>
-                    </tr>
-                </table>
-            </form>
-            <!--Edit/Delete-->
-            <table>
-                <% for (Piloto p : pilotos) {%>
-                <tr>
-                    <td class="td-noticias"><%=p.getSiglas()%></td>
-                    <td class="td-icons">
-                        <button class="trash-button">
-                            <a href="/web-formula1/PilotosServlet?accion=eliminar&siglas=<%=p.getSiglas()%>">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </button>
-                    </td>
-                </tr>
-                <%}%>
-            </table>
+            <div class="content-gp">
+                <!--Añadir-->          
+                <div>
+                    <button class="btn">
+                        <a href="/web-formula1/Views/AnadirPilotos.jsp">Añadir un piloto <i class="fas fa-user-plus"></i></a>
+                    </button>
+                </div>
+                <!--Delete-->
+                <div class="container-table-gp">
+                    <table class="table-gp">
+                        <tr class="table-header tr-gp">
+                            <th>
+                                Nombre y Apellido
+                            </th>
+                            <th>
+                                Borrar
+                            </th>
+                        </tr>
+                        <% for (Piloto p : pilotos) {%>
+                        <tr class="tr-gp">
+                            <td class="td-gp"><%=p.getNombre()%> <%=p.getApellidos()%></td>
+                            <td class="td-icons-gp">
+                                <a href="/web-formula1/PilotosServlet?accion=eliminar&siglas=<%=p.getSiglas()%>">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <%}%>
+                    </table>
+                </div>
+            </div>
 
-            <footer class="footer">
+            <!--Footer-->
+            <footer class="footer-gp">
                 <div class="footer_div">
                     <div>
                         Encuentra nuestro proyecto en <a href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i><br>
@@ -97,6 +96,7 @@
                     <p>2021 &copy</p>
                 </div>
             </footer>
+
         </div>
     </body>
 </html>

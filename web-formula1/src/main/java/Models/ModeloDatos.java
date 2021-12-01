@@ -48,7 +48,7 @@ public class ModeloDatos {
             System.out.println("Error de SQL " + e.getMessage());
         }
     }
-
+    
     //devuelve todas las noticias de la abse de datos en un ArrayList
     public ArrayList<News> getAllNews() {
 
@@ -465,6 +465,7 @@ public class ModeloDatos {
     }
 
     //<<<<<<<<<<<<<<End Coches part>>>>>>>>>>>>>>
+    
     public boolean deletePilot(String siglas) {
         boolean eliminado = true;
         PreparedStatement pstmt;
@@ -568,7 +569,8 @@ public class ModeloDatos {
                         rs.getInt("dorsal"),
                         rs.getString("foto"),
                         rs.getString("pais"),
-                        rs.getString("twitter")
+                        rs.getString("twitter"),
+                        rs.getString("equipoV")
                 ));
             }
         } catch (SQLException e) {
@@ -585,12 +587,14 @@ public class ModeloDatos {
             int dorsal,
             String foto,
             String pais,
-            String twitter, int equipo
+            String twitter, 
+            int equipo,
+            String equipoV
     ) {
         boolean insertado = true;
         PreparedStatement pstmt;
         try {
-            pstmt = conection.prepareStatement("INSERT INTO pilotos (nombre, apellidos, siglas, dorsal, foto, pais, twitter, equipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            pstmt = conection.prepareStatement("INSERT INTO pilotos (nombre, apellidos, siglas, dorsal, foto, pais, twitter, equipo, equipoV) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             pstmt.setString(1, nombre);
             pstmt.setString(2, apellidos);
@@ -600,6 +604,7 @@ public class ModeloDatos {
             pstmt.setString(6, pais);
             pstmt.setString(7, twitter);
             pstmt.setInt(8, equipo);
+            pstmt.setString(9, equipoV);
 
             //true si se ha insertado correctamente, de lo contrario false
             insertado = pstmt.execute();

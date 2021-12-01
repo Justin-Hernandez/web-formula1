@@ -68,11 +68,12 @@ public class PilotosServlet extends HttpServlet {
         String foto = guardarFoto(part, uploads);
         String pais = req.getParameter("pais");
         String twitter = req.getParameter("twitter");
+        String equipoV = req.getParameter("equipoV");
 
         User usuario = (User) req.getSession().getAttribute("usuario");
         Equipo equipoUser = modelo.findEquipoByIdEquipo(usuario.getEquipo());
 
-        modelo.insertPiloto(nombre, apellidos, siglas, dorsal, foto, pais, twitter, equipoUser.getId());
+        modelo.insertPiloto(nombre, apellidos, siglas, dorsal, foto, pais, twitter, equipoUser.getId(), equipoV);
 
         res.sendRedirect("/web-formula1/PilotosServlet?accion=listar");
     }

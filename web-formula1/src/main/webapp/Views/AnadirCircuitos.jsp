@@ -1,7 +1,7 @@
 <%-- 
-    Document   : GestionCircuitos
-    Created on : 10 nov. 2021, 00:58:05
-    Author     : Nasr
+    Document   : AnadirCircuitos.jsp
+    Created on : 1 déc. 2021, 01:12:02
+    Author     : macbook
 --%>
 
 <%@page import="Models.User"%>
@@ -22,7 +22,7 @@
         %>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Gestión de Circuitos</title>
+        <title>Añadir Circuitos</title>
         <link rel="stylesheet" href="<%= path%>/css/custom.css">
         <link rel="stylesheet" href="<%= path%>/css/all.min.css">
         <script src="<%= path%>/js/validaciones.js"></script>
@@ -61,64 +61,40 @@
                     <%}%>
                 </nav>
             </header>
-            
-            <div class="content-gp">
-                <!--Añadir-->          
-                <div>
-                    <button class="btn">
-                        <a href="/web-formula1/Views/AnadirCircuitos.jsp">Añadir un circuito <i class="fas fa-plus"></i></a>
-                    </button>
-                </div>
-                <!--Delete-->
-                <div class="container-table-gp">
-                    <table class="table-gp">
-                        <tr class="table-header tr-gp">
-                            <td>Circuito</td>
-                            <td>Borrar</td>                            
-                            <td colspan="3"><strong>Añadir el circuito como evento en el calendario</strong></td>
-                            <td>
-                                <%
-                                    String evento_adicionado = (String) request.getAttribute("adicionado");
-                                    String evento_existe = (String) request.getAttribute("existe");
-                                    if (evento_adicionado != null) {%>
-                                <p style="color: green">El evento fue adicionado al calendario correctamente</p>
-                                <%}
-                            if (evento_existe != null) {%>
-                                <p style="color: red">Ya este evento existe para ese día</p>
-                                <%}%>
-                            </td>
-                        </tr>
-                        <% for (Circuito c : circuitos) {%>
-                        <tr>
-                            <td class="td-noticias"><%=c.getNombre()%></td>
-                            <td class="td-icons">
-                                <button class="trash-button">
-                                    <a href="/web-formula1/CircuitosServlet?accion=eliminar&nombre=<%=c.getNombre()%>">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </button>
-                            </td>
-                        <form action="/web-formula1/CalendarioServlet?accion=adicionar_evento&nombre=<%=c.getNombre()%>" method="post" onsubmit="return validarFechaVacia();">
-                            <td>
-                                <input type="datetime-local" id="date" name="date">
-                            </td>
-                            <td class="td-icons">
-                                <button class="edit-button" type="submit">
-                                    <!--<a href="/web-formula1/CalendarioServlet?accion=adicionar_evento&nombre=<%=c.getNombre()%>" >
-                                        <i class="fas fa-check-square"></i>
-                                    </a>-->
-                                    <a href="#">
-                                        <i class="fas fa-check-square"></i>
-                                    </a>
-                                </button>
-                            </td>
-                        </form>
-                        </tr>
-                        <%}%>
-                    </table>
-                </div>
-            </div>
 
+            <!--Añadir circuitos-->          
+            <div class="form-gp">
+                <form action="/web-formula1/CircuitosServlet?accion=insertar" method="post" enctype="multipart/form-data" ">
+                    <table class="form-table-gp">
+                        <!--<tr><td><label>Nombre</label></td></tr>-->
+                        <tr><td><input type="text" name="nombre" id="nombre" maxlength="100" width="400px" placeholder="Nombre"></td></tr>
+                        <!--<tr><td><label>Ciudad</label></td></tr>-->
+                        <tr><td><input type="text" name="ciudad" id="ciudad" maxlength="100" width="400px" placeholder="Ciudad"></td></tr>
+                        <!--<tr><td><label>País</label></td></tr>-->
+                        <tr><td><input type="text" name="pais" id="pais" maxlength="100" width="400px" placeholder="País"></td></tr>
+                        <!--<tr><td><label>Numero de vueltas</label></td></tr>-->
+                        <tr>
+                            <td>
+                                <input type="number" name="numeroDeVueltas" id="numeroDeVueltas" maxlength="100" width="400px" placeholder="Numero de vueltas">
+                            </td>                                                    
+                        </tr>                       
+                        <!--<tr><td><label>Longitud</label></td></tr>-->
+                        <tr><td><input type="number" name="longitud" id="longitud" maxlength="100" width="400px" placeholder="Longitud"></td></tr>
+                        <!--<tr><td><label>Curvas Lentas</label></td></tr>-->
+                        <tr><td><input type="number" name="curvasLentas" id="curvasLentas" maxlength="100" width="400px" placeholder="Curvas Lentas"></td></tr>
+                        <!--<tr><td><label>Curvas Media</label></td></tr>-->
+                        <tr><td><input type="number" name="curvasMedia" id="curvasMedia" maxlength="100" width="400px" placeholder="Curvas Media"></td></tr>
+                        <!--<tr><td><label>Curvas Rápidas</label></td></tr>-->
+                        <tr><td><input type="number" name="curvasRapidas" id="curvasRapidas" maxlength="100" width="400px" placeholder="Curvas Rápidas"></td></tr>
+                        <tr>
+                            <td><input type="file" id="trazado" name="file" onchange="validarImagen(this)"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="submit" id="adicionar_circuito" value="Adicionar" class="btn"></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
             <!--Footer-->
             <footer class="footer">
                 <div class="footer_div">
@@ -128,7 +104,6 @@
                     <p>2021 &copy</p>
                 </div>
             </footer>
-
         </div>
     </body>
 </html>
