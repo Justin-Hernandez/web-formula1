@@ -4,6 +4,7 @@
     Author     : Justin Hernández
 --%>
 
+<%@page import="java.io.File"%>
 <%@page import="Models.User"%>
 <%@page import="java.util.Base64"%>
 <%@page import="java.util.ArrayList"%>
@@ -16,6 +17,7 @@
     <%
         ArrayList<News> news = (ArrayList<News>) request.getSession().getAttribute("news");
         User usuario = (User) session.getAttribute("usuario");
+        String path = request.getContextPath();
     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -56,7 +58,7 @@
         <section class="cards">
             <% for (News n : news) {%>
             <a href="<%=n.getPermalink()%>" target="_blank" class="card">
-                <div class="card_image" style='background-image: url("../img/img2.jpg")'></div>
+                <div class="card_image" style='background-image: url("<%=n.getImg()%>")'></div>
                 <div class="card_content">
                     <div class="card_title"><%=n.getTitulo()%></div>
                     <div class="card_article"><%=n.getTexto()%></div>
@@ -74,6 +76,6 @@
             </div>
         </footer>
 
-</body>
+    </body>
 </html>
 

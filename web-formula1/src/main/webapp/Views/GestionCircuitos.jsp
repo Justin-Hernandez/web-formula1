@@ -125,9 +125,9 @@
                             </a>
                         </button>
                     </td>
-                <form action="/web-formula1/CalendarioServlet?accion=adicionar_evento&nombre=<%=c.getNombre()%>" method="post" onsubmit="return validarFechaVacia();">
+                <form action="/web-formula1/CalendarioServlet?accion=adicionar_evento&nombre=<%=c.getNombre()%>" method="post" onsubmit="return validarFechaEvento();">
                     <td>
-                        <input type="datetime-local" id="date" name="date">
+                        <input type="datetime-local" id="dateEvent" name="dateEvent">
                     </td>
                     <td class="td-icons">
                         <button class="edit-button" type="submit">

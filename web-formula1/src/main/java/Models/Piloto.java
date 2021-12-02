@@ -15,7 +15,7 @@ public class Piloto {
     private String pais;
     private String twitter;
     private int equipo;
-    private String equipoV; //no borrar, es para obtener los equipos por su nombre y utilizarlo en las votaciones
+    private String equipoV; //no borrar, es para obtener los equipos por su nombre y utilizarlo en la vista (jsp de las votaciones)
 
     //constructor
     public Piloto(

@@ -64,7 +64,7 @@ public class CalendarioServlet extends HttpServlet {
 
         try {
             String nombre_circuito = req.getParameter("nombre");
-            String dateTimeISO = req.getParameter("date");   //2021-11-18T23:58
+            String dateTimeISO = req.getParameter("dateEvent");   //2021-11-18T23:58
             String date = dateTimeISO.substring(0, 10);
             String time = dateTimeISO.substring(11, 16);
 
@@ -80,7 +80,7 @@ public class CalendarioServlet extends HttpServlet {
         boolean exist = false;
         try {
             String nombre_circuito = req.getParameter("nombre");
-            String dateTimeISO = req.getParameter("date");   //2021-11-18T23:58
+            String dateTimeISO = req.getParameter("dateEvent");   //2021-11-18T23:58
             String date = dateTimeISO.substring(0, 10);
             String time = dateTimeISO.substring(11, 16);
 

@@ -22,7 +22,7 @@
         <script src="<%= path%>/js/jquery-3.6.0.min.js"></script>
         <script src="<%= path%>/js/bootstrap.min.js"></script>
         <script src="<%= path%>/js/validaciones.js"></script>
-    </head>
+    </head>/
     <body> 
         <div class="login-box">
             <h1>Crear una cuenta</h1>

@@ -24,6 +24,7 @@
         <script src="../js/validaciones.js"></script>
     </head>
     <body>
+
         <header class="header">
             <nav class="nav">
                 <img class="image" src="../img/f1_logo.png">
@@ -49,67 +50,70 @@
                 <%}%>
             </nav>
         </header>
-        <form  action="/web-formula1/VotarServlet?votacion=<%=votacion%>" method="POST" onsubmit="return validarAlVotar()">
-            <div>
-                <h2 style="text-align: center"><%=votacion.getTitulo()%></h2>
 
-                <%
-                    String existe_votacion = (String) session.getAttribute("existe_votacion");
-                    String votacion_creada = (String) session.getAttribute("votacion_creada");
+        <div>
+            <form  action="/web-formula1/VotarServlet?votacion=<%=votacion%>" method="POST" onsubmit="return validarAlVotar()">
+                <div>
+                    <h2 style="text-align: center"><%=votacion.getTitulo()%></h2>
 
-                    if (existe_votacion != null) {%>
-                <p style="color: red; text-align: center; margin-top: 2px"><%=existe_votacion%></p>
-                <%
-                        session.removeAttribute("existe_votacion");
-                    }
-                    if (votacion_creada != null) {%>
-                <p style="color: green; text-align: center; margin-top: 2px"><%=votacion_creada%></p>
-                <%
-                        session.removeAttribute("votacion_creada");
-                    }
-                %>
+                    <%
+                        String existe_votacion = (String) session.getAttribute("existe_votacion");
+                        String votacion_creada = (String) session.getAttribute("votacion_creada");
+
+                        if (existe_votacion != null) {%>
+                    <p style="color: red; text-align: center; margin-top: 2px"><%=existe_votacion%></p>
+                    <%
+                            session.removeAttribute("existe_votacion");
+                        }
+                        if (votacion_creada != null) {%>
+                    <p style="color: green; text-align: center; margin-top: 2px"><%=votacion_creada%></p>
+                    <%
+                            session.removeAttribute("votacion_creada");
+                        }
+                    %>
 
 
-                <div style="text-align: center; margin-top: 1%">
-                    <label>Nombre:</label>
-                    <input id="nombre" name="nombre" style="margin-right: 100px" type="text">
-                    <label>Correo:</label>
-                    <input id="correo" name="correo" type="email">
+                    <div style="text-align: center; margin-top: 1%">
+                        <label>Nombre:</label>
+                        <input id="nombre" name="nombre" style="margin-right: 100px" type="text">
+                        <label>Correo:</label>
+                        <input id="correo" name="correo" type="email">
+                    </div>
+
+                    <div style="text-align: center">
+                        <table   cellpadding="20" style="margin: auto">
+                            <%for (Piloto piloto : votacion.getListaPilotos()) {%>
+                            <tr>
+                                <td>
+                                    <input style="float: left" type="radio" name="piloto" value="<%=piloto.getId()%>" style="margin-bottom: 5px; width: 92px; height: 59px">
+                                </td>
+                                <td>
+                                    <img style="float: left" src="../img/Diez.png" >
+                                </td>
+                                <td>
+                                    <p><strong><%= piloto.getSiglas()%></strong></p>
+                                </td>
+                                <td>
+                                    <p><strong><%= piloto.getNombre() + " " + piloto.getApellidos()%></strong></p>
+                                </td>
+                                <td>
+                                    <p><strong><%= piloto.getPais()%></strong></p>
+                                </td>
+                                <td>
+                                    <p><strong><%=piloto.getEquipoV()%></strong></p>
+                                </td>
+
+                            </tr>
+                            <%}%>
+                        </table>
+                    </div>
+
+                    <div style="text-align: center">
+                        <input class="boton-rojo" type="submit" value="Votar">
+                    </div>
                 </div>
-
-                <div style="text-align: center">
-                    <table   cellpadding="20" style="margin: auto">
-                        <%for (Piloto piloto : votacion.getListaPilotos()) {%>
-                        <tr>
-                            <td>
-                                <input style="float: left" type="radio" name="piloto" value="<%=piloto.getId()%>" style="margin-bottom: 5px; width: 92px; height: 59px">
-                            </td>
-                            <td>
-                                <img style="float: left" src="../img/Diez.png" >
-                            </td>
-                            <td>
-                                <p><strong><%= piloto.getSiglas()%></strong></p>
-                            </td>
-                            <td>
-                                <p><strong><%= piloto.getNombre() + " " + piloto.getApellidos()%></strong></p>
-                            </td>
-                            <td>
-                                <p><strong><%= piloto.getPais()%></strong></p>
-                            </td>
-                            <td>
-                                <p><strong><%=piloto.getEquipoV()%></strong></p>
-                            </td>
-
-                        </tr>
-                        <%}%>
-                    </table>
-                </div>
-
-                <div style="text-align: center">
-                    <input class="boton-rojo" type="submit" value="Votar">
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
 
         <footer class="footer">
             <div class="footer_div">

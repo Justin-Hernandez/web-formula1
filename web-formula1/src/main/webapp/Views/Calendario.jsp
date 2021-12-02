@@ -33,8 +33,7 @@
 <!--<link rel="stylesheet" href="<%=path%>/css/bootstrap.min.css">-->
     </head>
     <body>
-        <div class="page-container">
-
+        <div>
             <nav class="nav">
                 <div class="logo">
                     <a href="/web-formula1/Noticias.jsp">
@@ -67,7 +66,7 @@
                 <%}%>     
             </nav>
             
-            <div id="calendar"></div>
+            <div  id="calendar"></div>
 
             <footer class="footer">
                 <div class="footer_div">

@@ -2,9 +2,13 @@ package Controllers;
 
 import Models.ModeloDatos;
 import java.io.*;
+import java.net.URLDecoder;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.io.FilenameUtils;
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,12 +17,11 @@ import javax.servlet.http.*;
 @MultipartConfig
 public class NoticiasServlet extends HttpServlet {
 
-    private String pathFiles = "/Users/macbook/Documents/GitHub/web-formula1/web-formula1/src/main/webapp/img";
-    private File uploads = new File(pathFiles);
     private ModeloDatos modelo;
 
     @Override
     public void init(ServletConfig cfg) throws ServletException {
+        super.init(cfg);
         modelo = new ModeloDatos();
         modelo.abrirConexion();
     }
@@ -26,7 +29,6 @@ public class NoticiasServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-               
         String accion = req.getParameter("accion");
         HttpSession s = req.getSession(true);
         if (accion != null) {
@@ -60,28 +62,24 @@ public class NoticiasServlet extends HttpServlet {
 
     private void agregarNoticia(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 
-        String pathFiles = req.getServletContext().getRealPath("/store/img");
-
-        File uploads = new File(pathFiles);
-        
-        
         String noticia = req.getParameter("textarea");
         String titulo = req.getParameter("title");
         Part part = req.getPart("file");
-
-        /*/////NO BORRAAAAAAR
-        String camino = getServletContext().getRealPath("/" + "file" + File.separator + part.getSubmittedFileName());
-        System.out.println(camino);
-        */
-
-        String foto = guardarFoto(part, uploads);
-        modelo.insertNews("http://localhost:8080/web-formula1/Noticia?id=", titulo, foto, noticia);
+        //String fotoFileName = part.getSubmittedFileName();
         
+        String pathFiles = req.getContextPath();
+        String pathFiles2 = req.getServletContext().getRealPath("/img");
+        
+        File uploads = new File(pathFiles2);
+
+        String fotoFileName = guardarFoto(part, uploads);
+
+        modelo.insertNews("http://localhost:8080/web-formula1/Noticia?id=", titulo, pathFiles + "/img/" + fotoFileName, noticia);
+
     }
 
     private String guardarFoto(Part part, File pathUploads) throws IOException {
-        String absolutePath = "";
-
+        String modifiedName = "";
         Path path = Paths.get(part.getSubmittedFileName());
         String fileName = path.getFileName().toString();
         InputStream inputStream = part.getInputStream();
@@ -89,17 +87,18 @@ public class NoticiasServlet extends HttpServlet {
             File file = new File(pathUploads, fileName);
             if (!file.exists()) {
                 Files.copy(inputStream, file.toPath());
-                absolutePath = file.getAbsolutePath();
+                modifiedName = fileName;
+
             } else {
                 String nombreSolamente = FilenameUtils.removeExtension(fileName);
                 String extension = FilenameUtils.getExtension(fileName);
                 String fileNameModificado = nombreSolamente + "-" + Math.random() + "." + extension;
                 File tmp = new File(pathUploads, fileNameModificado);
                 Files.copy(inputStream, tmp.toPath());
-                absolutePath = tmp.getAbsolutePath();
+                modifiedName = fileNameModificado;
             }
         }
-        return absolutePath;
+        return modifiedName;
     }
 
     private void eliminarNoticia(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -112,4 +111,5 @@ public class NoticiasServlet extends HttpServlet {
         modelo.cerrarConexion();
         super.destroy();
     }
+
 }

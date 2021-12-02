@@ -52,10 +52,10 @@ public class VotacionesServlet extends HttpServlet {
                 res.sendRedirect("/web-formula1/Views/GestionVotaciones.jsp");
                 break;
             case "eliminar":
-                    eliminarVotacion(req, res);
-                    s.setAttribute("votaciones", modeloDatos.getAllVotaciones());
-                    res.sendRedirect("/web-formula1/Views/GestionVotaciones.jsp");
-                    break;
+                eliminarVotacion(req, res);
+                s.setAttribute("votaciones", modeloDatos.getAllVotaciones());
+                res.sendRedirect("/web-formula1/Views/GestionVotaciones.jsp");
+                break;
             default:
 
                 break;
@@ -70,7 +70,7 @@ public class VotacionesServlet extends HttpServlet {
         /**
          * *******PARA EL MANEJO DEL TIMESTAMP*************************
          */
-       Timestamp fecha = null;
+        Timestamp fecha = null;
         try {
             String date = dateTimeISO.substring(0, 10);
             String time = dateTimeISO.substring(11, 16);
@@ -78,17 +78,17 @@ public class VotacionesServlet extends HttpServlet {
             fecha = new Timestamp(d.getTime());
         } catch (ParseException e) {
             System.out.println("Parse ERROR: " + e.toString());
-        } 
+        }
 
         String siglas[] = req.getParameterValues("siglas");
 
         modeloDatos.crearVotacion("http://localhost:8080/web-formula1/VotacionServlet?id=", titulo, descripcion, fecha, siglas);
     }
-    
+
     //eliminar votacion
     private void eliminarVotacion(HttpServletRequest req, HttpServletResponse res) {
-           String titulo = req.getParameter("titulo");
-           modeloDatos.deleteVotacion(titulo);
+        String titulo = req.getParameter("titulo");
+        modeloDatos.deleteVotacion(titulo);
     }
 
     @Override

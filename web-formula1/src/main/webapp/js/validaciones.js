@@ -1,6 +1,6 @@
 /*window.onload = function () {
- validateDateEvent();
- };*/
+    validarFechaVotaciones();
+};*/
 
 function validarNoticias() {
     var titulo_noticia = document.getElementById('titulo_noticia').value;
@@ -26,19 +26,6 @@ function validarNoticias() {
     }
 }
 
-function validarFechaVacia() {
-    if (fecha === "") {
-        alert("Debe seleccionar una fecha para crear el evento en el calendario");
-        return false;
-    }
-    /*else{
-     if(){
-     alert("La fecha seleccionada no puede ser inferior a la fecha de HOY");
-     return false;
-     } 
-     }*/
-}
-
 
 function addDate() {
     date = new Date();
@@ -51,42 +38,19 @@ function addDate() {
     }
 }
 
-function validateDateEvent() {
-    var dateInput = document.getElementById('date');
-    if (dateInput === "") {
 
-    }
-    var str = new Date().toISOString();
-    str = str.substring(0, str.length - 1);
-    dateInput.setAttribute('min', str);
-}
+/*
+function validarFechaVotaciones() {
+    fecha = document.getElementById("date");
 
-function getDate() {
+    var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+    var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
 
-    /*    var today = new Date();
-     var dd = today.getDate();
-     var mm = today.getMonth() + 1; //January is 0!
-     var yyyy = today.getFullYear();
-     
-     if (dd < 10) {
-     dd = '0' + dd;
-     }
-     
-     if (mm < 10) {
-     mm = '0' + mm;
-     }
-     
-     today = dd + '/' + mm + '/' + yyyy;
-     document.getElementById("date").value = today;*/
-    const timeElapsed = Date.now();
-    const today = new Date(timeElapsed);
-    var dateControl = document.querySelector('input[type="datetime-local"]');
-
-    dateControl.value = '2017-06-01T08:30';
-    //today.toISOString()
-
-}
-
+    //var iso = new Date().toISOString();
+    //var minDate = iso.substring(0, iso.length - 1);
+    fecha.value = localISOTime;
+    fecha.min = localISOTime;
+}*/
 
 function addDate2() {
     $('#date').val(new Date().toJSON().slice(0, 10));
@@ -239,6 +203,7 @@ function validarCrearVotacion() {
     var titulo = document.getElementById("titulo").value;
     var descripcion = document.getElementById("descripcion").value;
     var fecha_limite = document.getElementById("date").value;
+    var checkboxs = document.getElementsByName("siglas");
 
     if (titulo === null || titulo === "") {
         alert("Ingrese el título de la votación");
@@ -258,5 +223,31 @@ function validarCrearVotacion() {
             return false;
         }
     }
+    if (fecha_limite == null || fecha_limite === "") {
+        alert("Debe seleccionar una fecha límite para la votación");
+        return false;
+    }
+    if (checkboxs.length === checkedCheckBox(checkboxs)) {
+        alert("Debe seleccionar al menos un piloto para poder crear la votación");
+        return false;
+    }
 
+}
+
+function checkedCheckBox(checkboxs) {
+    var marcados = 0;
+    for (var i = 0, len = checkboxs.length; i < len; i++) {
+        if (!checkboxs[i].checked) {
+            marcados++;
+        }
+    }
+    return marcados;
+}
+
+function validarFechaEvento() {
+    var fecha_evento = document.getElementById("dateEvent");
+    if (fecha_evento == null || fecha_evento === "") {
+        alert("Debe seleccionar una fecha para crear el evento en el calendario");
+        return false;
+    }
 }
