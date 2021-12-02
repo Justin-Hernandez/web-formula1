@@ -1,36 +1,32 @@
 <%-- 
-    Document   : index
-    Created on : Oct 28, 2021, 6:37:14 PM
-    Author     : Justin Hernández
+    Document   : AnadirCoches
+    Created on : 1 déc. 2021, 18:38:37
+    Author     : Nasr
 --%>
 
-<%@page import="java.io.File"%>
 <%@page import="Models.User"%>
-<%@page import="java.util.Base64"%>
+<%@page import="Models.Coche"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="Models.News"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="Models.ModeloDatos"%>
 <%@page session="true" %>
+<%@page import="Models.ModeloDatos"%>
 <!DOCTYPE html>
 <html>
     <%
-        ArrayList<News> news = (ArrayList<News>) request.getSession().getAttribute("news");
+        ArrayList<Coche> coches = (ArrayList<Coche>) request.getSession().getAttribute("coches");
         User usuario = (User) session.getAttribute("usuario");
-        String path = request.getContextPath();
     %>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <title>Noticias</title>
+        <title>Añadir Coches</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-8">
         <link rel="stylesheet" href="../css/custom.css">
         <link rel="stylesheet" href="../css/all.min.css">
         <script src="../js/app.js"></script>
     </head>
-    <body>    
+    <body>
         <!--Header-->
         <div class="topnav" id="myTopnav">
-            <a class="logo" href="/web-formula1/Views/Noticias.jsp" style="padding: 10px">                   
+            <a class="logo" href="/web-formula1/Views/ResponsableEquipoPanel.jsp" style="padding: 10px">                   
                 <img class="image" src="../img/f1_logo.png" alt="logo">
             </a>  
             <div class="nav-element">
@@ -61,22 +57,29 @@
                 <i class="fa fa-bars"></i>
             </a>
         </div>
-
-        <!--News Section-->
-        <div class="section_title">Noticias</div>
-        <hr> 
-        <section class="cards">
-            <% for (News n : news) {%>
-            <a href="<%=n.getPermalink()%>" target="_blank" class="card">
-                <div class="card_image" style='background-image: url("<%=n.getImg()%>")'></div>
-                <div class="card_content">
-                    <div class="card_title"><%=n.getTitulo()%></div>
-                    <div class="card_article"><%=n.getTexto()%></div>
-                </div>
-            </a>
-            <%}%>
-        </section>
-
+        <!--Añadir coches-->
+        <div class="form-gp">
+            <form action="/web-formula1/CochesServlet?accion=insertar" method="post" enctype="multipart/form-data" ">
+                <table class="form-table-gp">
+                    <tr><td><label>Nombre</label></td></tr>
+                    <tr><td><input type="text" name="nombre" id="nombre" maxlength="100" width="400px"></td></tr>
+                    <tr><td><label>Código</label></td></tr>
+                    <tr><td><input type="text" name="codigo" id="codigo" maxlength="100" width="400px"></td></tr>          
+                    <tr><td><label>ERS-Curva Lenta</label></td></tr>
+                    <tr><td><input type="number" step="0.1" name="ersCL" id="ersCL" maxlength="100" width="400px"></td></tr>
+                    <tr><td><label>ERS-Curva Media</label></td></tr>
+                    <tr><td><input type="number" step="0.1" name="ersCM" id="ersCM" maxlength="100" width="400px"></td></tr>
+                    <tr><td><label>ERS-Curva Rápida</label></td></tr>
+                    <tr><td><input type="number" step="0.1" name="ersCR" id="ersCR" maxlength="100" width="400px"></td></tr>
+                    <tr><td><label>Consumo</label></td></tr>
+                    <tr><td><input type="number" step="0.1" name="consumo" id="consumo" maxlength="100" width="400px"></td></tr>
+                    <tr>
+                        <td><input type="submit" id="adicionar_coche" value="Adicionar" class="btn"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <!--Footer-->
         <footer class="footer">
             <div class="footer_div">
                 <div>
@@ -85,7 +88,5 @@
                 <p>2021 &copy</p>
             </div>
         </footer>
-
     </body>
 </html>
-

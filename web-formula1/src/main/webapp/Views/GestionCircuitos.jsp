@@ -23,78 +23,103 @@
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Gestión de Circuitos</title>
-
         <link rel="stylesheet" href="<%= path%>/css/custom.css">
         <link rel="stylesheet" href="<%= path%>/css/all.min.css">
         <script src="<%= path%>/js/validaciones.js"></script>
+        <script src="../js/app.js"></script>
 
     </head>
     <body>
         <div class="page-container">
-            <header>
-                <nav class="nav">
-                    <div class="logo">
-                        <a href="<%= path%>/Views/Noticias.jsp"> 
-                            <img class="image" src="<%= path%>/img/f1_logo.png">
-                        </a>
-                    </div>
-                    <ul class="nav-menu">
-                        <li class="nav-menu-item"><a href="/web-formula1/NoticiasServlet?accion=listar" class="nav-menu-link nav-link">Noticias</a></li>
-                        <li class="nav-menu-item"><a href="/web-formula1/EquiposServlet?accion=listar" class="nav-menu-link nav-link">Equipos</a></li>
-                        <li class="nav-menu-item"><a href="/web-formula1/VotacionesServlet?accion=listar" class="nav-menu-link nav-link">Votaciones</a></li>
-                        <li class="nav-menu-item"><a href="/web-formula1/CalendarioServlet?accion=listar_eventos" class="nav-menu-link nav-link">Calendario</a></li>
-                    </ul> 
+            <!--Header-->
+            <div class="topnav" id="myTopnav">
+                <a class="logo" href="/web-formula1/Views/AdminPanel.jsp" style="padding: 10px">                   
+                    <img class="image" src="../img/f1_logo.png" alt="logo">
+                </a>  
+                <div class="nav-element">
+                    <a href="/web-formula1/NoticiasServlet?accion=listar">Noticias</a>                    
+                    <a href="/web-formula1/EquiposServlet?accion=listar">Equipos</a>
+                    <a href="/web-formula1/VotacionesServlet?accion=listar">Votaciones</a>
+                    <a href="/web-formula1/CalendarioServlet?accion=listar_eventos">Calendario</a>
+                </div>
+                <%if (usuario != null) {%>
+                <a href="/web-formula1/Views/AdminPanel.jsp" class="avatar-name">
+                    <img class="avatar" src="../img/Diez.png" alt="Avatar"> <%=usuario.getName()%>
+                </a>
 
-                    <%
-                        if (usuario != null) {%>
-                    <div class="admin">
-                        <img class="avatar" src="<%= path%>/img/Diez.png" alt="Avatar">
-                        <a href="<%= path%>/Views/AdminPanel.jsp" class="nav-menu-item"><%=usuario.getName()%></a>
-                    </div>
-                    <a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
-                        <%if (request.getParameter("logout") != null) {
-                                session.removeAttribute("name");
-                                response.sendRedirect("Noticias.jsp");
-                            }
-                        } else {%>
+                <a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
+                    <%if (request.getParameter("logout") != null) {
+                            session.removeAttribute("usuario");
+                            response.sendRedirect("Noticias.jsp");
+                        }
+                    } else {%>
 
-                    <ul class="nav-menu">
-                        <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="InicioSesion.jsp">Iniciar sesión</a></li>
-                        <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="CrearCuenta.jsp">Crear cuenta</a></li>    
-                    </ul> 
-                    <%}%>     
-                </nav>
-            </header>
-            <!--Añadir circuitos-->
-            <div class="section_title">Gestión de circuitos</div>
-            <hr> 
-            <div class="circuitos-form-container">
-                <form class="circuitos-form" action="/web-formula1/CircuitosServlet?accion=insertar" method="post" enctype="multipart/form-data" ">
-                    <table>
-                        <tr><td><label>Nombre</label></td></tr>
-                        <tr><td><input type="text" name="nombre" id="nombre" maxlength="100" width="400px"></td></tr>
-                        <tr><td><label>Ciudad</label></td></tr>
-                        <tr><td><input type="text" name="ciudad" id="ciudad" maxlength="100" width="400px"></td></tr>
-                        <tr><td><label>País</label></td></tr>
-                        <tr><td><input type="text" name="pais" id="pais" maxlength="100" width="400px"></td></tr>
-                        <tr><td><label>Numero de vueltas</label></td></tr>
-                        <tr><td><input type="number" name="numeroDeVueltas" id="numeroDeVueltas" maxlength="100" width="400px"></td></tr>
-                        <tr><td><label>Longitud</label></td></tr>
-                        <tr><td><input type="number" name="longitud" id="longitud" maxlength="100" width="400px"></td></tr>
-                        <tr><td><label>Curvas Lentas</label></td></tr>
-                        <tr><td><input type="number" name="curvasLentas" id="curvasLentas" maxlength="100" width="400px"></td></tr>
-                        <tr><td><label>Curvas Media</label></td></tr>
-                        <tr><td><input type="number" name="curvasMedia" id="curvasMedia" maxlength="100" width="400px"></td></tr>
-                        <tr><td><label>Curvas Rápidas</label></td></tr>
-                        <tr><td><input type="number" name="curvasRapidas" id="curvasRapidas" maxlength="100" width="400px"></td></tr>
-                        <tr>
-                            <td><input type="file" id="trazado" name="file" onchange="validarImagen(this)"></td>
+                <ul class="nav-menu">
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="InicioSesion.jsp">Iniciar sesión</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="CrearCuenta.jsp">Crear cuenta</a></li>    
+                </ul> 
+                <%}%>
+                <!--responsive-->
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+            
+            <div class="content-gp">
+                <!--Añadir-->          
+                <div>
+                    <button class="btn">
+                        <a href="/web-formula1/Views/AnadirCircuitos.jsp">Añadir un circuito <i class="fas fa-plus"></i></a>
+                    </button>
+                </div>
+                <!--Delete-->
+                <div class="container-table-gp">
+                    <table class="table-gp">
+                        <tr class="table-header tr-gp">
+                            <td>Circuito</td>
+                            <td>Borrar</td>                            
+                            <td colspan="3"><strong>Añadir el circuito como evento en el calendario</strong></td>
+                            <td>
+                                <%
+                                    String evento_adicionado = (String) request.getAttribute("adicionado");
+                                    String evento_existe = (String) request.getAttribute("existe");
+                                    if (evento_adicionado != null) {%>
+                                <p style="color: green">El evento fue adicionado al calendario correctamente</p>
+                                <%}
+                            if (evento_existe != null) {%>
+                                <p style="color: red">Ya este evento existe para ese día</p>
+                                <%}%>
+                            </td>
                         </tr>
+                        <% for (Circuito c : circuitos) {%>
                         <tr>
-                            <td><input type="submit" id="adicionar_circuito" value="Adicionar"></td>
+                            <td class="td-noticias"><%=c.getNombre()%></td>
+                            <td class="td-icons">
+                                <button class="trash-button">
+                                    <a href="/web-formula1/CircuitosServlet?accion=eliminar&nombre=<%=c.getNombre()%>">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </button>
+                            </td>
+                        <form action="/web-formula1/CalendarioServlet?accion=adicionar_evento&nombre=<%=c.getNombre()%>" method="post" onsubmit="return validarFechaVacia();">
+                            <td>
+                                <input type="datetime-local" id="date" name="date">
+                            </td>
+                            <td class="td-icons">
+                                <button class="edit-button" type="submit">
+                                    <!--<a href="/web-formula1/CalendarioServlet?accion=adicionar_evento&nombre=<%=c.getNombre()%>" >
+                                        <i class="fas fa-check-square"></i>
+                                    </a>-->
+                                    <a href="#">
+                                        <i class="fas fa-check-square"></i>
+                                    </a>
+                                </button>
+                            </td>
+                        </form>
                         </tr>
+                        <%}%>
                     </table>
-                </form>
+                </div>
             </div>
             <!--Edit/Delete-->
             <table>
@@ -144,6 +169,7 @@
                 <%}%>
             </table>
 
+            <!--Footer-->
             <footer class="footer">
                 <div class="footer_div">
                     <div>
@@ -152,6 +178,7 @@
                     <p>2021 &copy</p>
                 </div>
             </footer>
+
         </div>
     </body>
 </html>

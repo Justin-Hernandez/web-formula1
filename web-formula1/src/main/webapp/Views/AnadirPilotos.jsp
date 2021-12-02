@@ -1,36 +1,33 @@
 <%-- 
-    Document   : index
-    Created on : Oct 28, 2021, 6:37:14 PM
-    Author     : Justin Hernández
+    Document   : AnadirPilotos
+    Created on : 30 nov. 2021, 22:27:43
+    Author     : Nasr
 --%>
 
-<%@page import="java.io.File"%>
 <%@page import="Models.User"%>
-<%@page import="java.util.Base64"%>
+<%@page import="Models.Piloto"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="Models.News"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="Models.ModeloDatos"%>
 <%@page session="true" %>
+<%@page import="Models.ModeloDatos"%>
 <!DOCTYPE html>
 <html>
     <%
-        ArrayList<News> news = (ArrayList<News>) request.getSession().getAttribute("news");
+        ArrayList<Piloto> pilotos = (ArrayList<Piloto>) request.getSession().getAttribute("pilotos");
         User usuario = (User) session.getAttribute("usuario");
-        String path = request.getContextPath();
     %>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <title>Noticias</title>
+        <title>Añadir Pilotos</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-8">
         <link rel="stylesheet" href="../css/custom.css">
         <link rel="stylesheet" href="../css/all.min.css">
         <script src="../js/app.js"></script>
     </head>
-    <body>    
+    <body>
+        <!--Header-->
         <!--Header-->
         <div class="topnav" id="myTopnav">
-            <a class="logo" href="/web-formula1/Views/Noticias.jsp" style="padding: 10px">                   
+            <a class="logo" href="/web-formula1/Views/ResponsableEquipoPanel.jsp" style="padding: 10px">                   
                 <img class="image" src="../img/f1_logo.png" alt="logo">
             </a>  
             <div class="nav-element">
@@ -62,22 +59,35 @@
             </a>
         </div>
 
-        <!--News Section-->
-        <div class="section_title">Noticias</div>
-        <hr> 
-        <section class="cards">
-            <% for (News n : news) {%>
-            <a href="<%=n.getPermalink()%>" target="_blank" class="card">
-                <div class="card_image" style='background-image: url("<%=n.getImg()%>")'></div>
-                <div class="card_content">
-                    <div class="card_title"><%=n.getTitulo()%></div>
-                    <div class="card_article"><%=n.getTexto()%></div>
-                </div>
-            </a>
-            <%}%>
-        </section>
-
-        <footer class="footer">
+        <!--Form-->
+        <div class="form-gp">
+            <form action="/web-formula1/PilotosServlet?accion=insertar" method="post" enctype="multipart/form-data" ">
+                <table class="form-table-gp">
+                    <tr><td><label>Nombre</label></td></tr>
+                    <tr><td><input type="text" name="nombre" id="nombre" maxlength="100"></td></tr>
+                    <tr><td><label>Apellidos</label></td></tr>
+                    <tr><td><input type="text" name="apellidos" id="apellidos" maxlength="100" width="400px"></td></tr>          
+                    <tr><td><label>Siglas</label></td></tr>
+                    <tr><td><input type="text" name="siglas" id="siglas" maxlength="100" width="400px"></td></tr>
+                    <tr><td><label>Dorsal</label></td></tr>
+                    <tr><td><input type="text" name="dorsal" id="dorsal" maxlength="100" width="400px"></td></tr>
+                    <tr><td><label>País</label></td></tr>
+                    <tr><td><input type="text" name="pais" id="pais" maxlength="100" width="400px"></td></tr>
+                    <tr><td><label>Equipo</label></td></tr>
+                    <tr><td><input type="text" name="equipoV" id="equipoV" maxlength="100" width="400px"></td></tr>
+                    <tr><td><label>Twitter</label></td></tr>
+                    <tr><td><input type="text" name="twitter" id="twitter" maxlength="100" width="400px"></td></tr>
+                    <tr>
+                        <td><input type="file" id="foto" name="file" onchange="validarImagen(this)"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" id="adicionar_piloto" value="Adicionar" class="btn"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <!--Footer-->
+        <footer class="footer-gp">
             <div class="footer_div">
                 <div>
                     Encuentra nuestro proyecto en <a href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i><br>
@@ -88,4 +98,3 @@
 
     </body>
 </html>
-
