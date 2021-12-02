@@ -35,10 +35,15 @@ header {
     display: flex;
 }
 
+.nav-menu li a{
+    padding: 10px;
+    font-size: 15px;
+    font-weight: normal;
+}
+
 .nav-menu-item{
     font-size: 15px;
     margin: 0 10px;
-    line-height: 80px;
     text-transform: uppercase;
     width: max-content;
 }
@@ -60,12 +65,14 @@ header {
 }
 
 .image{
-    height: 30px;
+    height: 50px;
 }
 
 .avatar{
     border-radius: 50%;
     height: 35px;
+    margin-left: 30px;
+    margin-right: 10px;
 }
 
 .footer {
@@ -433,7 +440,7 @@ hr {
 
 .tr-gp:nth-child(2n+1) {
     background-color: white;
-    
+
 }
 
 .td-gp {
@@ -459,7 +466,7 @@ hr {
     background-color: rgb(236, 235, 235);
 }
 
-/*Form*/
+/*---Form---*/
 
 .form-gp {
     display: flex;
@@ -476,3 +483,116 @@ input[type="text"], input[type="number"] {
     height: 35px;
 }
 
+/*---NavBar---*/
+
+.topnav a {
+    color: #000;
+    text-decoration: none;
+    font-size: 17px;
+    margin: 0;
+    padding: 0;
+}
+
+.topnav a:hover {
+    color: #ff4742;
+}
+
+.topnav a.active {
+    background-color: #828282;
+    color: white;
+}
+
+.topnav .icon {
+    display: none;
+}
+
+.avatar-name {
+    display: flex; 
+    align-items: center; 
+    flex-wrap: nowrap; 
+    margin: 0; 
+    padding: 0; 
+    margin-right: 30px
+}
+
+.logo {
+    padding-right: 30px;
+}
+
+@media screen and (min-width:850px) {
+    .topnav {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: nowrap;
+        align-items: center;
+        overflow: hidden;
+        background-color: #D3D3D3;
+    }
+
+    .nav-element a:not(:last-child) {
+        margin-right: 25px;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .topnav {
+        width: 100vw;
+        overflow: hidden;
+        background-color: #D3D3D3;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+    }
+
+    .topnav a:not(:first-child) {
+        display: none;
+    }
+
+    .nav-element a {
+        display: none
+    }
+
+    .topnav a.icon {
+        float: right;
+        display: block;
+        padding: 20px;
+    }
+
+    .topnav.responsive {
+        position: relative;
+        display: block;
+    }
+
+    .topnav.responsive .icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .logo {
+        padding: 10px;
+    }
+
+    .topnav.responsive a {
+        float: none;
+        display: block;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .avatar-name {
+        visibility: hidden;
+    }
+
+    .image {
+        height: 40px;
+    }
+    
+    .nav-element a {
+        margin-right: 0px;
+    }
+
+}
