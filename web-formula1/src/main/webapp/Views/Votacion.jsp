@@ -88,7 +88,7 @@
                                     <input style="float: left" type="radio" name="piloto" value="<%=piloto.getId()%>" style="margin-bottom: 5px; width: 92px; height: 59px">
                                 </td>
                                 <td>
-                                    <img style="float: left" src="../img/Diez.png" >
+                                    <img style="float: left" src="<%=piloto.getFoto()%>" >
                                 </td>
                                 <td>
                                     <p><strong><%= piloto.getSiglas()%></strong></p>

@@ -18,9 +18,7 @@ import org.apache.commons.io.FilenameUtils;
  */
 @MultipartConfig
 public class PilotosServlet extends HttpServlet {
-
-    private String pathFiles = "/Users/macbook/Documents/GitHub/web-formula1/web-formula1/src/main/webapp/img";
-    private File uploads = new File(pathFiles);
+    
     private ModeloDatos modelo;
 
     @Override
@@ -65,7 +63,7 @@ public class PilotosServlet extends HttpServlet {
         String siglas = req.getParameter("siglas");
         int dorsal = Integer.parseInt(req.getParameter("dorsal"));
         Part part = req.getPart("file");
-        String foto = guardarFoto(part, uploads);
+        
         String pais = req.getParameter("pais");
         String twitter = req.getParameter("twitter");
         String equipoV = req.getParameter("equipoV");
@@ -73,15 +71,21 @@ public class PilotosServlet extends HttpServlet {
         User usuario = (User) req.getSession().getAttribute("usuario");
         Equipo equipoUser = modelo.findEquipoByIdEquipo(usuario.getEquipo());
 
-        modelo.insertPiloto(nombre, apellidos, siglas, dorsal, foto, pais, twitter, equipoUser.getId(), equipoV);
+        String pathFiles = req.getContextPath();
+        String pathFiles2 = req.getServletContext().getRealPath("/img");
+        
+        File uploads = new File(pathFiles2);
+        
+        String fotoFileName = guardarFoto(part, uploads);
+        
+        modelo.insertPiloto(nombre, apellidos, siglas, dorsal, pathFiles + "/img/" + fotoFileName, pais, twitter, equipoUser.getId(), equipoV);
 
         res.sendRedirect("/web-formula1/PilotosServlet?accion=listar");
     }
 
     //guardar fotos
     private String guardarFoto(Part part, File pathUploads) throws IOException {
-        String absolutePath = "";
-
+        String modifiedName = "";
         Path path = Paths.get(part.getSubmittedFileName());
         String fileName = path.getFileName().toString();
         InputStream inputStream = part.getInputStream();
@@ -89,17 +93,18 @@ public class PilotosServlet extends HttpServlet {
             File file = new File(pathUploads, fileName);
             if (!file.exists()) {
                 Files.copy(inputStream, file.toPath());
-                absolutePath = file.getAbsolutePath();
+                modifiedName = fileName;
+
             } else {
                 String nombreSolamente = FilenameUtils.removeExtension(fileName);
                 String extension = FilenameUtils.getExtension(fileName);
                 String fileNameModificado = nombreSolamente + "-" + Math.random() + "." + extension;
                 File tmp = new File(pathUploads, fileNameModificado);
                 Files.copy(inputStream, tmp.toPath());
-                absolutePath = tmp.getAbsolutePath();
+                modifiedName = fileNameModificado;
             }
         }
-        return absolutePath;
+        return modifiedName;
     }
 
     //eliminar piloto
