@@ -15,6 +15,8 @@
     <%
         ArrayList<Circuito> circuitos = (ArrayList<Circuito>) request.getSession().getAttribute("circuitos");
         User usuario = (User) session.getAttribute("usuario");
+        String evento_adicionado = (String) request.getAttribute("adicionado");
+        String evento_existe = (String) request.getAttribute("existe");
     %>
     <head>
         <%
@@ -64,7 +66,7 @@
                     <i class="fa fa-bars"></i>
                 </a>
             </div>
-            
+
             <div class="content-gp">
                 <!--Añadir-->          
                 <div>
@@ -81,12 +83,11 @@
                             <td colspan="3"><strong>Añadir el circuito como evento en el calendario</strong></td>
                             <td>
                                 <%
-                                    String evento_adicionado = (String) request.getAttribute("adicionado");
-                                    String evento_existe = (String) request.getAttribute("existe");
+
                                     if (evento_adicionado != null) {%>
                                 <p style="color: green">El evento fue adicionado al calendario correctamente</p>
                                 <%}
-                            if (evento_existe != null) {%>
+                                    if (evento_existe != null) {%>
                                 <p style="color: red">Ya este evento existe para ese día</p>
                                 <%}%>
                             </td>
@@ -130,8 +131,7 @@
                     <td colspan="2"><strong>Añadir el circuito como evento en el calendario</strong></td>
                     <td>
                         <%
-                            String evento_adicionado = (String) request.getAttribute("adicionado");
-                            String evento_existe = (String) request.getAttribute("existe");
+
                             if (evento_adicionado != null) {%>
                         <h3 style="color: green">  ===> El evento fue adicionado al calendario correctamente</h3>
                         <%}

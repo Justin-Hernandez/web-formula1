@@ -15,13 +15,10 @@ import javax.servlet.http.*;
  *
  * @author Nasr
  */
-
 @MultipartConfig
 @WebServlet(name = "CircuitosServlet", urlPatterns = {"/CircuitosServlet"})
 public class CircuitosServlet extends HttpServlet {
 
-    private String pathFiles = "C:\\Users\\DELL\\Documents\\NetBeansProjects\\web-formula1\\web-formula1\\src\\main\\webapp\\img";
-    private File uploads = new File(pathFiles);
     private ModeloDatos modelo;
 
     @Override
@@ -61,17 +58,22 @@ public class CircuitosServlet extends HttpServlet {
         String ciudad = req.getParameter("ciudad");
         String pais = req.getParameter("pais");
         Part part = req.getPart("file");
-        String trazado = guardarFoto(part, uploads);
+
+        String pathFiles = req.getContextPath();
+        String pathFiles2 = req.getServletContext().getRealPath("/img");
+
+        File uploads = new File(pathFiles2);
+        
+        String fotoFileName = guardarFoto(part, uploads);
         int numeroDeVueltas = Integer.parseInt(req.getParameter("numeroDeVueltas"));
         int longitud = Integer.parseInt(req.getParameter("longitud"));
         int curvasLentas = Integer.parseInt(req.getParameter("curvasLentas"));
         int curvasMedia = Integer.parseInt(req.getParameter("curvasMedia"));
         int curvasRapidas = Integer.parseInt(req.getParameter("curvasRapidas"));
-        
-        modelo.insertCircuito(nombre, ciudad, pais, trazado, numeroDeVueltas, longitud, curvasLentas, curvasMedia, curvasRapidas);
+
+        modelo.insertCircuito(nombre, ciudad, pais, pathFiles + "/img/" + fotoFileName, numeroDeVueltas, longitud, curvasLentas, curvasMedia, curvasRapidas);
         res.sendRedirect("/web-formula1/CircuitosServlet?accion=listar");
     }
-    
     //eliminar circuito
     private void eliminarCircuito(HttpServletRequest req, HttpServletResponse res) throws IOException {
         String nombre = req.getParameter("nombre");
@@ -81,8 +83,7 @@ public class CircuitosServlet extends HttpServlet {
 
     //guardar fotos
     private String guardarFoto(Part part, File pathUploads) throws IOException {
-        String absolutePath = "";
-
+        String modifiedName = "";
         Path path = Paths.get(part.getSubmittedFileName());
         String fileName = path.getFileName().toString();
         InputStream inputStream = part.getInputStream();
@@ -90,17 +91,18 @@ public class CircuitosServlet extends HttpServlet {
             File file = new File(pathUploads, fileName);
             if (!file.exists()) {
                 Files.copy(inputStream, file.toPath());
-                absolutePath = file.getAbsolutePath();
+                modifiedName = fileName;
+
             } else {
                 String nombreSolamente = FilenameUtils.removeExtension(fileName);
                 String extension = FilenameUtils.getExtension(fileName);
                 String fileNameModificado = nombreSolamente + "-" + Math.random() + "." + extension;
                 File tmp = new File(pathUploads, fileNameModificado);
                 Files.copy(inputStream, tmp.toPath());
-                absolutePath = tmp.getAbsolutePath();
+                modifiedName = fileNameModificado;
             }
         }
-        return absolutePath;
+        return modifiedName;
     }
 
     @Override
@@ -108,5 +110,5 @@ public class CircuitosServlet extends HttpServlet {
         modelo.cerrarConexion();
         super.destroy();
     }
-    
+
 }
