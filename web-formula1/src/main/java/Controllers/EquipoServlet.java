@@ -17,9 +17,6 @@ import javax.servlet.http.*;
 @WebServlet(name = "EquipoServlet", urlPatterns = {"/EquipoServlet"})
 public class EquipoServlet extends HttpServlet {
     
-    private String pathFiles = "/Users/laura/Documents/GitHub/web-formula1/web-formula1/src/main/webapp/img";
-    //private String pathFiles = "";
-    private File uploads = new File(pathFiles);
     private ModeloDatos modelo;
     
     private Equipo equipoNew;
@@ -80,19 +77,20 @@ public class EquipoServlet extends HttpServlet {
     private void addEquipo(HttpServletRequest req, HttpServletResponse res, User user) throws IOException, ServletException {
         
         
-        String e2 = req.getServletContext().getRealPath("src/main/webapp/store/img");
-        String pathFiles2 = Paths.get("src//main//webapp//store//img").toString();
+        //String e2 = req.getServletContext().getRealPath("src/main/webapp/store/img");
+        //String pathFiles2 = Paths.get("src//main//webapp//store//img").toString();
         //String pathFiles = req.getServletContext().getRealPath("/store/img");
 
-        File uploads = new File(pathFiles);
-
-        
         String nombre = req.getParameter("nombre");
         String twitter = req.getParameter("twitter");
         Part part = req.getPart("file");
         
-        String foto = guardarFoto(part, uploads);
-        foto=foto.isEmpty()?null:foto;
+        String pathFiles = req.getContextPath();
+        String pathFiles2 = req.getServletContext().getRealPath("/img");
+        File uploads = new File(pathFiles2);
+        
+        String fotoFileName = guardarFoto(part, uploads);
+        fotoFileName=fotoFileName.isEmpty()?null:fotoFileName;
 
         //String foto2 = guardarFoto(part, ue);
         /*/////NO BORRAAAAAAR
@@ -101,7 +99,7 @@ public class EquipoServlet extends HttpServlet {
         
 
         //String foto = guardarFoto(part, uploads);
-        Equipo equipo = new Equipo(nombre,foto,twitter);
+        Equipo equipo = new Equipo(nombre, pathFiles + "/img/" + fotoFileName,twitter);
         modelo.addEquipo(equipo, user);
         setEquipo(equipo);
 
@@ -117,26 +115,26 @@ public class EquipoServlet extends HttpServlet {
     }
 
     private String guardarFoto(Part part, File pathUploads) throws IOException {
-        String absolutePath = "";
-
+        String modifiedName = "";
         Path path = Paths.get(part.getSubmittedFileName());
         String fileName = path.getFileName().toString();
         InputStream inputStream = part.getInputStream();
-        if (inputStream != null && fileName!=null && !fileName.isEmpty()) {
+        if (inputStream != null) {
             File file = new File(pathUploads, fileName);
             if (!file.exists()) {
                 Files.copy(inputStream, file.toPath());
-                absolutePath = file.getAbsolutePath();
+                modifiedName = fileName;
+
             } else {
                 String nombreSolamente = FilenameUtils.removeExtension(fileName);
                 String extension = FilenameUtils.getExtension(fileName);
                 String fileNameModificado = nombreSolamente + "-" + Math.random() + "." + extension;
                 File tmp = new File(pathUploads, fileNameModificado);
                 Files.copy(inputStream, tmp.toPath());
-                absolutePath = tmp.getAbsolutePath();
+                modifiedName = fileNameModificado;
             }
         }
-        return absolutePath;
+        return modifiedName;
     }
     
     private Equipo viewEquipo(HttpServletRequest req, HttpServletResponse res){
