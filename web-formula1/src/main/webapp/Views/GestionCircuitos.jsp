@@ -122,52 +122,7 @@
                     </table>
                 </div>
             </div>
-            <!--Edit/Delete-->
-            <table>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td colspan="2"><strong>Añadir el circuito como evento en el calendario</strong></td>
-                    <td>
-                        <%
-
-                            if (evento_adicionado != null) {%>
-                        <h3 style="color: green">  ===> El evento fue adicionado al calendario correctamente</h3>
-                        <%}
-                            if (evento_existe != null) {%>
-                        <h3 style="color: red">  ===> Ya este evento existe para ese día</h3>
-                        <%}%>
-                    </td>
-                </tr>
-                <% for (Circuito c : circuitos) {%>
-                <tr>
-                    <td class="td-noticias"><%=c.getNombre()%></td>
-                    <td class="td-icons">
-                        <button class="trash-button">
-                            <a href="/web-formula1/CircuitosServlet?accion=eliminar&nombre=<%=c.getNombre()%>">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </button>
-                    </td>
-                <form action="/web-formula1/CalendarioServlet?accion=adicionar_evento&nombre=<%=c.getNombre()%>" method="post" onsubmit="return validarFechaEvento();">
-                    <td>
-                        <input type="datetime-local" id="dateEvent" name="dateEvent">
-                    </td>
-                    <td class="td-icons">
-                        <button class="edit-button" type="submit">
-                            <!--<a href="/web-formula1/CalendarioServlet?accion=adicionar_evento&nombre=<%=c.getNombre()%>" >
-                                <i class="fas fa-check-square"></i>
-                            </a>-->
-                            <a href="#">
-                                <i class="fas fa-check-square"></i>
-                            </a>
-                        </button>
-                    </td>
-                </form>
-                </tr>
-                <%}%>
-            </table>
+            
 
             <!--Footer-->
             <footer class="footer">
