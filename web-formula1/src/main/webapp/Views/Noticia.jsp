@@ -71,7 +71,7 @@
             <div class="noticia-card">
                 <section class="cards">
                     <a href="" class="card">
-                        <div class="card_image" style="background-image: url('../img/img2.jpg')"></div>
+                        <div class="card_image" style='background-image: url("<%=noticia.getImg()%>")'></div>
                         <div class="card_content">
                             <div class="card_title"><%=noticia.getTitulo()%></div>
                             <div class="card_article"><%=noticia.getTexto()%></div>
@@ -79,7 +79,7 @@
                     </a>
                 </section>
             </div>            
-            <footer class="footer">
+            <footer class="footer-gp">
                 <div class="footer_div">
                     <div>
                         Encuentra nuestro proyecto en <a href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i><br>
