@@ -45,6 +45,7 @@ public class NoticiaServlet extends HttpServlet {
             res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/Noticia.jsp"));
         }else {
             //Página de error esa noticia no existe
+            res.sendRedirect(res.encodeRedirectURL("/web-formula1/NoticiasServlet?accion=listar"));
         }
     }
 

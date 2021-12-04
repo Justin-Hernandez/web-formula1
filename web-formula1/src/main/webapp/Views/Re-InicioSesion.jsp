@@ -10,6 +10,8 @@
 <html>
     <%
         User usuario = (User) session.getAttribute("usuario");
+        
+        String msgError = (String) session.getAttribute("msgError");
     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -30,7 +32,11 @@
             </form>
             <br>
             <div class="err-msg">
-                <%if (usuario == null) {%>
+                <%if (msgError != null) {
+                    session.removeAttribute("msgError");
+                %>
+                <p><%=msgError%></p>
+                <%}else{%>
                 <p>Nombre de usuario o Contraseña son incorrectos</p>
                 <%}%>
             </div>

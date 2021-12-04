@@ -22,6 +22,8 @@ public class GestionResponsablesServlet extends HttpServlet {
 
         HttpSession s = req.getSession(true);
         
+        User responsable = (User) req.getSession().getAttribute("usuario");
+        
         if(req.getParameter("accion") != null)
         {
             String[] aux = req.getParameter("accion").split(";");
@@ -31,15 +33,13 @@ public class GestionResponsablesServlet extends HttpServlet {
             
             if(accion.equals("add"))
             {
-                modelo.updateUserEquipo(usuario, "testEquipo");
+                modelo.updateUserEquipo(usuario, responsable.getEquipo());
             }else {
                 modelo.updateUserEquipo(usuario, "null");
             }
         }
-
-        User responsable = (User) req.getSession().getAttribute("usuario");
+        
         ArrayList<User> listaUsers = modelo.getAllUsers();
-
         ArrayList<User> conEquipo = new ArrayList<>();
         ArrayList<User> sinEquipo = new ArrayList<>();
 
