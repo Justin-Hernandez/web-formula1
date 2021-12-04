@@ -50,9 +50,15 @@ public class NoticiasServlet extends HttpServlet {
                     res.sendRedirect("/web-formula1/Views/GestionNoticias.jsp");
                     break;
                 default:
-
+                    s.setAttribute("news", modelo.getAllNews());
+                    // Llamada a la página jsp 
+                    res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/Noticias.jsp"));
                     break;
             }
+        } else {
+            s.setAttribute("news", modelo.getAllNews());
+            // Llamada a la página jsp 
+            res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/Noticias.jsp"));
         }
     }
 
@@ -62,15 +68,15 @@ public class NoticiasServlet extends HttpServlet {
         String titulo = req.getParameter("title");
         Part part = req.getPart("file");
         //String fotoFileName = part.getSubmittedFileName();
-        
+
         String pathFiles = req.getContextPath();
         String pathFiles2 = req.getServletContext().getRealPath("/img");
-        
+
         File uploads = new File(pathFiles2);
 
         String fotoFileName = guardarFoto(part, uploads);
 
-        modelo.insertNews("http://localhost:8080/web-formula1/Noticia?id=", titulo, pathFiles + "/img/" + fotoFileName, noticia);
+        modelo.insertNews("/web-formula1/Noticia?id=", titulo, pathFiles + "/img/" + fotoFileName, noticia);
 
     }
 

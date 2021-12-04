@@ -72,7 +72,7 @@
         <div class="page-container">
             <!--Header-->
             <div class="topnav" id="myTopnav">
-                <a class="logo" href="/web-formula1/Views/AdminPanel.jsp" style="padding: 10px">                   
+                <a class="logo" href="/web-formula1/Views/ResponsableEquipoPanel.jsp" style="padding: 10px">                   
                     <img class="image" src="../img/f1_logo.png" alt="logo">
                 </a>  
                 <div class="nav-element">
@@ -82,7 +82,7 @@
                     <a href="/web-formula1/CalendarioServlet?accion=listar_eventos">Calendario</a>
                 </div>
                 <%if (usuario != null) {%>
-                <a href="/web-formula1/Views/AdminPanel.jsp" class="avatar-name">
+                <a href="/web-formula1/Views/ResponsableEquipoPanel.jsp" class="avatar-name">
                     <img class="avatar" src="../img/Diez.png" alt="Avatar"> <%=usuario.getName()%>
                 </a>
 
@@ -105,57 +105,70 @@
             </div>
 
             <h1 class="h1">Solicitudes</h1>
-            <table class="table">
-                <tr>
-                    <th class="th">Nombre</th>
-                    <th class="th">Nombre de usuario</th>
-                    <th class="th">Correo</th>
-                    <th class="th">Aprobar/Denegar</th>
-                </tr>
-                <% for (User user : sinRol) {%>
-                <tr>
-                    <td class="td"><%=user.getName()%></td>
-                    <td class="td"><%=user.getUser()%></td>
-                    <td class="td"><%=user.getEmail()%></td>
-                    <td class="td">
-                        <form action="/web-formula1/GestionUsuarios">
-                            <select name="rol" style="font-size: 1em; background-color: #ecebeb; box-sizing: border-box">
-                                <option value="Administrador">Administrador</option>
-                                <option value="Responsable de Equipo">Responsable de Equipo</option>
-                            </select>
-                            <button class="buttonAprobar" type="submit" name="accion" value="aprobar;<%=user.getUser()%>">✔</button>
-                            <button class="buttonDenegar" type="submit" name="accion" value="denegar;<%=user.getUser()%>">✘</button>
-                        </form>
-                    </td>
-                </tr>
-                <%}%>
-            </table>
+            <%if (sinRol.size() == 0) {%>
+            <h3 class="h1">--No hay Solicitudes--</h3>
+
+            <%} else {%>
+            <div class="content-gp">
+                <div class="container-table-gp">
+                    <table class="table-gp">
+                        <tr class="table-header tr-gp">
+                            <th>Nombre</th>
+                            <th>Nombre de usuario</th>
+                            <th>Correo</th>
+                            <th>Aprobar/Denegar</th>
+                        </tr>
+                        <% for (User user : sinRol) {%>
+                        <tr class="tr-gp">
+                            <td class="td-gp"><%=user.getName()%></td>
+                            <td class="td-gp"><%=user.getUser()%></td>
+                            <td class="td-gp"><%=user.getEmail()%></td>
+                            <td class="td-gp">
+                                <form action="/web-formula1/GestionUsuarios">
+                                    <select name="rol" style="font-size: 1em; background-color: #ecebeb; box-sizing: border-box">
+                                        <option value="Administrador">Administrador</option>
+                                        <option value="Responsable de Equipo">Responsable de Equipo</option>
+                                    </select>
+                                    <button class="buttonAprobar" type="submit" name="accion" value="aprobar;<%=user.getUser()%>">✔</button>
+                                    <button class="buttonDenegar" type="submit" name="accion" value="denegar;<%=user.getUser()%>">✘</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <%}%>
+                    </table>
+                </div>
+            </div>
+            <%}%>
 
             <hr style="border: 1px solid #dddddd; width: 60%; margin-left: auto; margin-right: auto; margin-top: 50px; margin-bottom: 30px">
 
             <h1 class="h1">Usuarios</h1>
-            <table class="table">
-                <tr>
-                    <th class="th">Nombre</th>
-                    <th class="th">Nombre de usuario</th>
-                    <th class="th">Correo</th>
-                    <th class="th">Rol</th>
-                    <th class="th">Eliminar</th>
-                </tr>
-                <% for (User user : conRol) {%>
-                <tr>
-                    <td class="td"><%=user.getName()%></td>
-                    <td class="td"><%=user.getUser()%></td>
-                    <td class="td"><%=user.getEmail()%></td>
-                    <td class="td"><%=user.getRol()%></td>
-                    <td class="td">
-                        <form action="/web-formula1/GestionUsuarios">
-                            <button class="buttonDenegar" type="submit" name="accion" value="eliminar;<%=user.getUser()%>">✘</button>
-                        </form>
-                    </td>
-                </tr>
-                <%}%>
-            </table>
+            <div class="content-gp">
+                <div class="container-table-gp">
+                    <table class="table-gp">
+                        <tr class="table-header tr-gp">
+                            <th>Nombre</th>
+                            <th>Nombre de usuario</th>
+                            <th>Correo</th>
+                            <th>Rol</th>
+                            <th>Eliminar</th>
+                        </tr>
+                        <% for (User user : conRol) {%>
+                        <tr class="tr-gp">
+                            <td class="td-gp"><%=user.getName()%></td>
+                            <td class="td-gp"><%=user.getUser()%></td>
+                            <td class="td-gp"><%=user.getEmail()%></td>
+                            <td class="td-gp"><%=user.getRol()%></td>
+                            <td class="td-icons-gp">
+                                <a href="/web-formula1/GestionUsuarios?accion=eliminar;<%=user.getUser()%>">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <%}%>
+                    </table>
+                </div>
+            </div>
 
             <footer class="footer-gp">
                 <div class="footer_div">
