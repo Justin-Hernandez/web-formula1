@@ -70,13 +70,14 @@
                 <div class="card_image" style='background-image: url("<%=n.getImg()%>")'></div>
                 <div class="card_content">
                     <div class="card_title"><%=n.getTitulo()%></div>
-                    <div class="card_article"><%=n.getTexto()%></div>
+                    <div class="card_article_noticias"><%=n.getTexto()%></div>
+                    <!--<div class="card_article_noticias">Haz clic aquí para leer más</div>-->
                 </div>
             </a>
             <%}%>
         </section>
 
-        <footer class="footer">
+        <footer class="footer-gp">
             <div class="footer_div">
                 <div>
                     Encuentra nuestro proyecto en <a href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i><br>
