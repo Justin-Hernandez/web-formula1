@@ -18,7 +18,7 @@
     %>
     <head>
         <title>Añadir Coches</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="../css/custom.css">
         <link rel="stylesheet" href="../css/all.min.css">
         <script src="../js/app.js"></script>

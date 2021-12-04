@@ -64,7 +64,13 @@ public class LoginServlet extends HttpServlet {
                 
                 session.setAttribute("equipo", usuario.getEquipo());
                 res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/ResponsableEquipoPanel.jsp"));
-            }            
+                
+            //si usuario no tiene rol definido (pendiente de aceptacion por parte de un administrador) 
+            }else
+            {
+                session.setAttribute("msgError", "Usuario pendiente de verificacion por parte de un administrador");
+                res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/Re-InicioSesion.jsp"));
+            }
         } else {
             //si usuario no existe, muestra el mensaje de error
             res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/Re-InicioSesion.jsp"));

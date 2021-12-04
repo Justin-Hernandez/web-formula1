@@ -16,9 +16,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <title>Noticias</title>
+        <title>Noticia</title>
         <link rel="stylesheet" href="../css/custom.css">
         <link rel="stylesheet" href="../css/all.min.css">
+        <script src="../js/app.js"></script>
+        <style>
+            .center {
+                text-align: center;
+                margin: 0 auto;
+                width: 70%;
+                overflow-wrap: break-word;
+            }
+            .p {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+        </style>
     </head>
     <body>
         <div class="page-container">
@@ -65,8 +78,8 @@
                         </div>
                     </a>
                 </section>
-            </div>
-            <footer class="footer-gp">
+            </div>            
+            <footer class="footer">
                 <div class="footer_div">
                     <div>
                         Encuentra nuestro proyecto en <a href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i><br>
