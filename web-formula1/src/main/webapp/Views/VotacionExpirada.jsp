@@ -59,7 +59,7 @@
                         for (Piloto piloto : votacion.getListaPilotos()) {%>
                     <tr>
                         <td>
-                            <img style="float: left" src="../img/Diez.png" >
+                            <img style="float: left; width: 100px; height: 100px" src="<%=piloto.getFoto()%>" >
                         </td>
                         <td>
                             <p><strong><%= piloto.getSiglas()%></strong></p>

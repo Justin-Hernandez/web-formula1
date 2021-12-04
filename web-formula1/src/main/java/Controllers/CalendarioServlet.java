@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -31,32 +32,32 @@ public class CalendarioServlet extends HttpServlet {
     }
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+    protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        HttpSession s = req.getSession(true);
         String accion = req.getParameter("accion");
 
         if (accion != null) {
             switch (accion) {
                 case "listar_eventos":
-                //Accion de listar en el calendario  
+                    //Accion de listar en el calendario  
                     req.setAttribute("lista_eventos", modeloDatos.getAllEvents());
-                    req.getRequestDispatcher("/Views/Calendario.jsp").forward(req, resp);
+                    req.getRequestDispatcher("/Views/Calendario.jsp").forward(req, res);
                     //resp.sendRedirect("/web-formula1/Views/Calendario.jsp");
                     break;
                 case "adicionar_evento":
-                    if (!checkIfExistEventOnDate(req, resp)) {
-                        addEvent(req, resp);
-                        req.setAttribute("adicionado", req.getParameter("nombre"));
+                    if (!checkIfExistEventOnDate(req, res)) {
+                        addEvent(req, res);
+                        s.setAttribute("adicionado", req.getParameter("nombre"));
                         //resp.sendRedirect("/web-formula1/Views/GestionCircuitos.jsp");
-                    }else{
-                        req.setAttribute("existe", "Ya existe un evento ese día en el calendario");
+                    } else {
+                        s.setAttribute("existe", "Ya existe un evento ese día en el calendario");
                         //resp.sendRedirect("/web-formula1/Views/GestionCircuitos.jsp");
-                    }  
-                    req.getRequestDispatcher("/Views/GestionCircuitos.jsp").forward(req, resp);
+                    }
+                    res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionCircuitos.jsp"));
+                    //req.getRequestDispatcher("/Views/GestionCircuitos.jsp").forward(req, resp);
                     break;
             }
         }
-        
 
     }
 

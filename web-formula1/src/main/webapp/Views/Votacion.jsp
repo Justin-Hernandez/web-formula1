@@ -109,7 +109,7 @@
                     </div>
 
                     <div style="text-align: center">
-                        <input class="boton-rojo" type="submit" value="Votar">
+                        <input class="btn" type="submit" value="Votar">
                     </div>
                 </div>
             </form>

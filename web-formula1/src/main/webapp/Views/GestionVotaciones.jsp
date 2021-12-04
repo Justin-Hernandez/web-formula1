@@ -82,25 +82,25 @@
                     <tr><td><label>Fecha límite</label></td></tr>
                     <tr><td><input type="datetime-local" id="date" name="fecha"></td></tr>
                     <tr><td>
-                            <input class="boton-rojo" style="float: right; margin-top: 10px" 
+                            <input class="btn" style="float: right; margin-top: 10px" 
                                    type="submit" id="crear_votacion" value="Crear votación">
                         </td>
                     </tr>
                 </table>
 
                 <div style="float: left; margin-left: 20px; width: 50%">
-                    <table>
+                    <table class="table-gp">
                         <tr>
                             <td colspan="3"><h3>Listado de pilotos disponibles para una votación:</h3></td>
                         </tr>                    
-                        <tr>
+                        <tr class="table-header tr-gp">
                             <td style="text-align: center"><strong>Siglas</strong></td>
                             <td style="text-align: center"><strong>Nombre y apellidos</strong></td>
                             <td style="text-align: center"><strong>País</strong></td>
                             <td style="text-align: center"><strong>Seleccione</strong></td>
                         </tr>
                         <% for (Piloto p : pilotos) {%>
-                        <tr>           
+                        <tr class="tr-gp">           
                             
                             <td class="td-noticias" style="text-align: center"><label><%=p.getSiglas()%></label></td>
                             <td class="td-noticias" style="text-align: center"><label><%=p.getNombre() + " " + p.getApellidos()%></label></td>
@@ -114,21 +114,22 @@
                     </table>
                 </div>
                 <div style="float: left; margin-left: 50px; width: 40%">
-                    <table>
+                    <table class="table-gp">
                         <tr>
                             <td colspan="3"><h3>Listado de votaciones activas en el sistema:</h3></td>                  
                         </tr>                    
-                        <tr>
+                        <tr class="table-header tr-gp">
                             <td style="text-align: center"><strong>Título</strong></td>
                             <td style="text-align: center"><strong>Descripción</strong></td>
                             <td style="text-align: center"><strong>Fecha Límite</strong></td>
+                            <td style="text-align: center"><strong>Borrar</strong></td>
                         </tr>
                         <% for (Votacion v : votaciones) {%>
-                        <tr>                            
+                        <tr class="tr-gp">                            
                             <td class="td-noticias" style="text-align: center"><label><%=v.getTitulo()%></label></td>
                             <td class="td-noticias" style="text-align: center"><label><%=v.getDescripcion()%></label></td>
                             <td class="td-noticias" style="text-align: center"><label><%=v.getFechaLimite()%></label></td>                        
-                            <td class="td-noticias" class="td-icons">
+                            <td style="text-align: center" class="td-noticias" class="td-icons">
                                 <a class="trash-button" href="/web-formula1/VotacionesServlet?accion=eliminar&titulo=<%=v.getTitulo()%>">
                                     <i class="fas fa-trash"></i>
                                 </a>

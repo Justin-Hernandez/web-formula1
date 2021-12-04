@@ -15,19 +15,16 @@
     <%
         ArrayList<Circuito> circuitos = (ArrayList<Circuito>) request.getSession().getAttribute("circuitos");
         User usuario = (User) session.getAttribute("usuario");
-        String evento_adicionado = (String) request.getAttribute("adicionado");
-        String evento_existe = (String) request.getAttribute("existe");
+        String evento_adicionado = (String) request.getSession().getAttribute("adicionado");
+        String evento_existe = (String) request.getSession().getAttribute("existe");
     %>
     <head>
-        <%
-            String path = request.getContextPath();
-        %>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Gestión de Circuitos</title>
-        <link rel="stylesheet" href="<%= path%>/css/custom.css">
-        <link rel="stylesheet" href="<%= path%>/css/all.min.css">
-        <script src="<%= path%>/js/validaciones.js"></script>
+        <link rel="stylesheet" href="../css/custom.css">
+        <link rel="stylesheet" href="../css/all.min.css">
+        <script src="../js/validaciones.js"></script>
         <script src="../js/app.js"></script>
 
     </head>
@@ -74,28 +71,33 @@
                         <a href="/web-formula1/Views/AnadirCircuitos.jsp">Añadir un circuito <i class="fas fa-plus"></i></a>
                     </button>
                 </div>
+
+                <%
+                if (evento_adicionado != null) {%>
+                <p style="color: green; text-align: center; margin-top: 2px; margin-bottom: 2px">El evento fue adicionado al calendario correctamente</p>
+                <%
+                        session.removeAttribute("adicionado");
+                    }
+                    if (evento_existe != null) {%>
+                <p style="color: red; text-align: center; margin-top: 2px; margin-bottom: 2px">Ya ese evento existe para ese día</p>
+                <%
+                        session.removeAttribute("existe");
+                    }
+                %>
+
                 <!--Delete-->
                 <div class="container-table-gp">
                     <table class="table-gp">
                         <tr class="table-header tr-gp">
-                            <td>Circuito</td>
-                            <td>Borrar</td>                            
-                            <td colspan="3"><strong>Añadir el circuito como evento en el calendario</strong></td>
-                            <td>
-                                <%
+                            <th>Circuito</th>
+                            <th>Borrar</th>                            
+                            <th colspan="3">Añadir el circuito como evento en el calendario</th>
 
-                                    if (evento_adicionado != null) {%>
-                                <p style="color: green">El evento fue adicionado al calendario correctamente</p>
-                                <%}
-                                    if (evento_existe != null) {%>
-                                <p style="color: red">Ya este evento existe para ese día</p>
-                                <%}%>
-                            </td>
                         </tr>
                         <% for (Circuito c : circuitos) {%>
                         <tr>
                             <td class="td-noticias"><%=c.getNombre()%></td>
-                            <td class="td-icons">
+                            <td style="text-align: center" class="td-icons">
                                 <button class="trash-button">
                                     <a href="/web-formula1/CircuitosServlet?accion=eliminar&nombre=<%=c.getNombre()%>">
                                         <i class="fas fa-trash"></i>
@@ -104,7 +106,7 @@
                             </td>
                         <form action="/web-formula1/CalendarioServlet?accion=adicionar_evento&nombre=<%=c.getNombre()%>" method="post" onsubmit="return validarFechaVacia();">
                             <td>
-                                <input type="datetime-local" id="date" name="date">
+                                <input type="datetime-local" id="dateEvent" name="dateEvent">
                             </td>
                             <td class="td-icons">
                                 <button class="edit-button" type="submit">
@@ -122,7 +124,7 @@
                     </table>
                 </div>
             </div>
-            
+
 
             <!--Footer-->
             <footer class="footer">
