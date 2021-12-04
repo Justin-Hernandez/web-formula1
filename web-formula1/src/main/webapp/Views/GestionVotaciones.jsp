@@ -29,44 +29,44 @@
         <link rel="stylesheet" href="<%= path%>/css/custom.css">
         <link rel="stylesheet" href="<%= path%>/css/all.min.css">
         <script src="<%= path%>/js/validaciones.js"></script>
+        <script src="../js/app.js"></script>
 
     </head>
     <body>
         <div class="page-container">
-            <header>
-                <nav class="nav">
-                    <div class="logo">
-                        <a href="<%= path%>/Views/Noticias.jsp"> 
-                            <img class="image" src="<%= path%>/img/f1_logo.png">
-                        </a>
-                    </div>
-                    <ul class="nav-menu">
-                        <li class="nav-menu-item"><a href="/web-formula1/NoticiasServlet?accion=listar" class="nav-menu-link nav-link">Noticias</a></li>
-                        <li class="nav-menu-item"><a href="/web-formula1/EquiposServlet?accion=listar" class="nav-menu-link nav-link">Equipos</a></li>
-                        <li class="nav-menu-item"><a href="/web-formula1/VotacionesServlet?accion=listar" class="nav-menu-link nav-link">Votaciones</a></li>
-                        <li class="nav-menu-item"><a href="/web-formula1/CalendarioServlet?accion=listar_eventos" class="nav-menu-link nav-link">Calendario</a></li>
-                    </ul> 
+            <!--Header-->
+            <div class="topnav" id="myTopnav">
+                <a class="logo" href="/web-formula1/Views/AdminPanel.jsp" style="padding: 10px">                   
+                    <img class="image" src="../img/f1_logo.png" alt="logo">
+                </a>  
+                <div class="nav-element">
+                    <a href="/web-formula1/NoticiasServlet?accion=listar">Noticias</a>                    
+                    <a href="/web-formula1/EquiposServlet?accion=listar">Equipos</a>
+                    <a href="/web-formula1/VotacionesServlet?accion=listar">Votaciones</a>
+                    <a href="/web-formula1/CalendarioServlet?accion=listar_eventos">Calendario</a>
+                </div>
+                <%if (usuario != null) {%>
+                <a href="/web-formula1/Views/AdminPanel.jsp" class="avatar-name">
+                    <img class="avatar" src="../img/Diez.png" alt="Avatar"> <%=usuario.getName()%>
+                </a>
 
-                    <%
-                        if (usuario != null) {%>
-                    <div class="admin">
-                        <img class="avatar" src="<%= path%>/img/Diez.png" alt="Avatar">
-                        <a href="<%= path%>/Views/AdminPanel.jsp" class="nav-menu-item"><%=usuario.getName()%></a>
-                    </div>
-                    <a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
-                        <%if (request.getParameter("logout") != null) {
-                                session.removeAttribute("name");
-                                response.sendRedirect("Noticias.jsp");
-                            }
-                        } else {%>
+                <a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
+                    <%if (request.getParameter("logout") != null) {
+                            session.removeAttribute("usuario");
+                            response.sendRedirect("Noticias.jsp");
+                        }
+                    } else {%>
 
-                    <ul class="nav-menu">
-                        <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="InicioSesion.jsp">Iniciar sesión</a></li>
-                        <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="CrearCuenta.jsp">Crear cuenta</a></li>    
-                    </ul> 
-                    <%}%>     
-                </nav>
-            </header>
+                <ul class="nav-menu">
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="InicioSesion.jsp">Iniciar sesión</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link custom-button" href="CrearCuenta.jsp">Crear cuenta</a></li>    
+                </ul> 
+                <%}%>
+                <!--responsive-->
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
 
             <!--Crear Votaciones-->
             <h1 style="margin-bottom: 20px; margin-left:20px">Crear Votaciones</h1>
@@ -101,7 +101,7 @@
                         </tr>
                         <% for (Piloto p : pilotos) {%>
                         <tr class="tr-gp">           
-                            
+
                             <td class="td-noticias" style="text-align: center"><label><%=p.getSiglas()%></label></td>
                             <td class="td-noticias" style="text-align: center"><label><%=p.getNombre() + " " + p.getApellidos()%></label></td>
                             <td class="td-noticias" style="text-align: center"><label><%=p.getPais()%></label></td>                        
@@ -140,10 +140,9 @@
                 </div>
             </form>
 
+                    <div class="clear"></div>
 
-
-
-            <footer class="footer">
+            <footer class="footer-gp">
                 <div class="footer_div">
                     <div>
                         Encuentra nuestro proyecto en <a href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i><br>

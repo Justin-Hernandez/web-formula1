@@ -519,6 +519,8 @@ input[type="text"], input[type="number"] {
     padding-right: 30px;
 }
 
+.clear { clear: both; height: 60px; }
+
 @media screen and (min-width:850px) {
     .topnav {
         display: flex;
