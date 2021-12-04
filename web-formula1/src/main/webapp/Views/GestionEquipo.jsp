@@ -29,16 +29,13 @@
         <link rel="stylesheet" href="../css/all.min.css">
         <script src="../js/validaciones.js"></script>
         <style>
-            .info-button {
-                border-style: none;
-                background-color: rgb(236, 235, 235);
-            }
             .titulo {
                 margin-left: 30px;
             }
+            
             .datos{
                 margin: 20px;
-                margin-left: 40px;
+                margin-left: 70px;
             }
             .label{
                 margin-top: 10px;
@@ -70,22 +67,39 @@
                 margin-left: 30px;
                 margin-top: 10px;
             }
-            .divtable{
-                align-content: center;
-                width:300px;
-                height: 300px;
-                overflow: auto;
-            }
             .columnas {
-                width: 25%;
+                width: 23%;
                 height: 60%;
                 float: left;
+                margin-top: 10px;
+                margin:5px
+            }
+            .imgRedonda {
+                width:150px;
+                height:150px;
+                border-radius:150px;
+                border:3px solid #dddddd;
+            }
+            .form-equipo-admin{
+                margin-left: 30px;
+            }
+            .detalles{
+                margin-left: 50px;
+            }
+            .form-table-gp
+            input[type="text"], input[type="number"] {
+                width:200px;
+            }
+            .container-table-gp{
+                height: 500px;
+                overflow: auto;
             }
 
 
         </style>
     </head>
     <body>
+        <div class="page-container">
         <header class="header">
             <nav class="nav">
                 <img class="image" src="../img/f1_logo.png">
@@ -114,21 +128,23 @@
         <div>
             <%if (equipoUser == null) {%>
             <h1 class="titulo">Añadir Equipo</h1>
-            <form class="datos" action="/web-formula1/EquipoServlet?accion=insertar" method="post" enctype="multipart/form-data" onsubmit="return validarEquipo();">
-                <table>
-                    <tr><td><label class="label">Nombre</label></td></tr>
-                    <tr><td><input class="input" type="text" name="nombre" id="nombre" maxlength="100" width="400px"></td></tr>
-                    <tr><td><label class="label">Twitter</label></td></tr>
-                    <tr><td><input class="input" type="text" name="twitter" id="twitter" maxlength="50" width="400px"></td></tr>
-                    <tr><td><label class="label">Logo</label></td></tr>
-                    <tr>
-                        <td><input class="input" type="file" id="imagen_noticia" name="file" onchange="validarImagen(this)"></td>
-                    </tr>
-                    <tr>
-                        <td><input class="label" type="submit" id="add_equipo" value="Añadir"></td>
-                    </tr>
-                </table>
-            </form>
+            <div class="form-gp">
+                <form action="/web-formula1/EquipoServlet?accion=insertar" method="post" enctype="multipart/form-data" onsubmit="return validarEquipo();">
+                    <table class="form-table-gp">
+                        <tr><td><label class="label">Nombre</label></td></tr>
+                        <tr><td><input class="input" type="text" name="nombre" id="nombre" maxlength="100" width="400px"></td></tr>
+                        <tr><td><label class="label">Twitter</label></td></tr>
+                        <tr><td><input class="input" type="text" name="twitter" id="twitter" maxlength="50" width="400px" value="@"></td></tr>
+                        <tr><td><label class="label">Logo</label></td></tr>
+                        <tr>
+                            <td><input class="input" type="file" id="imagen_noticia" name="file" onchange="validarImagen(this)"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="submit" id="addequipo" value="Añadir" class="btn"></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
             <%
                 String mensaje = (String) request.getSession().getAttribute("mensaje");
 
@@ -138,87 +154,106 @@
             </div>
             <%}%> 
             <%} else {%> 
-            <div>
-                <h1 class="titulo">Detalles Equipo</h1>
+            <div class="content-gp">
+                <div class="section_title">Detalle Equipo</div>
+                <hr> 
                 <div>
-                    <div class="columnas">
-                        <form class="datos">
-                            <table>
-                                <tr><td><label class="label">Nombre</label></td></tr>
-                                <tr><td><input class="input" type="text" name="nombre" id="nombre" maxlength="100" width="400px" value="<%=equipoUser.getNombre()%>" disabled></td></tr>
-                                <tr><td><label class="label">Twitter</label></td></tr>
-                                <tr><td><input class="input" type="text" name="twitter" id="twitter" maxlength="50" width="400px" value="<%=equipoUser.getTwitter()%>" disabled ></td></tr>
-                                        <%if (equipoUser.getLogo() != null && !equipoUser.getLogo().isEmpty()) {%>
-                                <tr><td><label class="label" >Logo</label></td></tr>
-                                <tr><td><img class="imageEquipo" src="<%=equipoUser.getLogo()%>" width="400"></td></tr>
-                                        <%}%> 
-                            </table>
-                        </form>
+                    <%if (usuario.getRol() != null && !("Administrador").equals(usuario.getRol())) {%>
+                    <div class="form-gp">
+                            <form >
+                                <table class="form-table-gp">
+                                    <%if (equipoUser.getLogo() != null && !equipoUser.getLogo().isEmpty()) {%>
+                                    <tr><td><label class="label" >Logo</label></td></tr>
+                                    <tr><td><img class="imgRedonda" id="imgRedonda" src="<%=equipoUser.getLogo()%>" width="400"></td></tr>
+                                            <%}%> 
+                                    <tr><td><label class="label">Nombre</label></td></tr>
+                                    <tr><td><input class="input" type="text" name="nombre" id="nombre" maxlength="100" width="400px" value="<%=equipoUser.getNombre()%>" disabled></td></tr>
+                                    <tr><td><label class="label">Twitter</label></td></tr>
+                                    <tr><td><input class="input" type="text" name="twitter" id="twitter" maxlength="50" width="400px" value="@<%=equipoUser.getTwitter()%>" disabled></td></tr>
+                                </table>
+                            </form>
                     </div>
+                    <%}%> 
 
                     <%if (usuario.getRol() != null && ("Administrador").equals(usuario.getRol())) {%>
-                    <div class="columnas">
-                        <br/>
-                        <h3 class="titulo">Responsables del Equipo</h3>
-                        <div class="divtable">
-                            <table class="table">
-                                <tr>
-                                    <th class="th">Usuario</th>
-                                    <th class="th">Nombre</th>
-                                </tr>
-                                <% for (User r : responsables) {%>
-                                <tr class="fila">
-                                    <td class="td"><%=r.getUser()%></td>
-                                    <td class="td"><%=r.getName()%></td>
-                                </tr>
-                                <%}%>
-                            </table>
+                    <div class="detalles">
+                        <div class="columnas">
+                            <form >
+                                <table class="form-table-gp">
+                                    <%if (equipoUser.getLogo() != null && !equipoUser.getLogo().isEmpty()) {%>
+                                    <tr><td><label class="label" >Logo</label></td></tr>
+                                    <tr><td><img class="imgRedonda" id="imgRedonda" src="<%=equipoUser.getLogo()%>" width="400"></td></tr>
+                                            <%}%> 
+                                    <tr><td><label class="label">Nombre</label></td></tr>
+                                    <tr><td><input class="input" type="text" name="nombre" id="nombre" maxlength="100" width="400px" value="<%=equipoUser.getNombre()%>" disabled></td></tr>
+                                    <tr><td><label class="label">Twitter</label></td></tr>
+                                    <tr><td><input class="input" type="text" name="twitter" id="twitter" maxlength="50" width="400px" value="@<%=equipoUser.getTwitter()%>" disabled></td></tr>
+                                </table>
+                            </form>
                         </div>
-                    </div>
-                    <div class="columnas">
-                        <br/>
-                        <h3 class="titulo">Pilotos del Equipo</h3>
-                        <%if (pilotos != null && !pilotos.isEmpty()) {%>
-                        <div class="divtable">
-                            <table class="table">
-                                <tr>
-                                    <th class="th">Nombre</th>
-                                    <th class="th">Apellidos</th>
-                                </tr>
-                                <% for (Piloto p : pilotos) {%>
-                                <tr class="fila">
-                                    <td class="td"><%=p.getNombre()%></td>
-                                    <td class="td"><%=p.getApellidos()%></td>
-                                </tr>
-                                <%}%>
-                            </table>
+                        <div class="columnas content-gp">
+                            <br/>
+                            <h3 class="titulo-resp">Responsables del Equipo</h3>
+                            <div class="container-table-gp">
+                                <table class="table-gp">
+                                    <tr class="table-header tr-gp">
+                                        <th class="th">Usuario</th>
+                                        <th class="th">Nombre</th>
+                                    </tr>
+                                    <% for (User r : responsables) {%>
+                                    <tr class="tr-gp">
+                                        <td class="td-gp"><%=r.getUser()%></td>
+                                        <td class="td-gp"><%=r.getName()%></td>
+                                    </tr>
+                                    <%}%>
+                                </table>
+                            </div>
                         </div>
-                        <%} else {%> 
-                        <span class="frase"> Este equipo no tiene níngún piloto.</span>
-                        <%}%>
-                    </div>
-                    <div class="columnas">
-                        <br/>
-                        <h3 class="titulo">Coches del Equipo</h3>
-                        <%if (coches != null && !coches.isEmpty()) {%>
-                        <div class="divtable">
-                            <table class="table">
-                                <tr>
-                                    <th class="th">Nombre</th>
-                                    <th class="th">Código</th>
-                                </tr>
-                                <% for (Coche c : coches) {%>
-                                <tr class="fila">
-                                    <td class="td"><%=c.getNombre()%></td>
-                                    <td class="td"><%=c.getCodigo()%></td>
-                                </tr>
-                                <%}%>
-                            </table>
+                        <div class="columnas content-gp">
+                            <br/>
+                            <h3 class="titulo-piloto">Pilotos del Equipo</h3>
+                            <%if (pilotos != null && !pilotos.isEmpty()) {%>
+                            <div class="container-table-gp">
+                                <table class="table-gp">
+                                    <tr class="table-header tr-gp">
+                                        <th class="th">Nombre</th>
+                                        <th class="th">Apellidos</th>
+                                    </tr>
+                                    <% for (Piloto p : pilotos) {%>
+                                    <tr class="tr-gp">
+                                        <td class="td-gp"><%=p.getNombre()%></td>
+                                        <td class="td-gp"><%=p.getApellidos()%></td>
+                                    </tr>
+                                    <%}%>
+                                </table>
+                            </div>
+                            <%} else {%> 
+                            <span class="frase"> Este equipo no tiene níngún piloto.</span>
+                            <%}%>
                         </div>
-                        <%} else {%> 
-                        <span class="frase"> Este equipo no tiene níngún coche.</span>
-                        <%}%>
-                        <br/>
+                        <div class="columnas content-gp">
+                            <br/>
+                            <h3 class="titulo titulo-coche">Coches del Equipo</h3>
+                            <%if (coches != null && !coches.isEmpty()) {%>
+                            <div class="container-table-gp">
+                                <table class="table-gp">
+                                    <tr class="table-header tr-gp">
+                                        <th class="th">Nombre</th>
+                                        <th class="th">Código</th>
+                                    </tr>
+                                    <% for (Coche c : coches) {%>
+                                    <tr class="tr-gp">
+                                        <td class="td-gp"><%=c.getNombre()%></td>
+                                        <td class="td-gp"><%=c.getCodigo()%></td>
+                                    </tr>
+                                    <%}%>
+                                </table>
+                            </div>
+                            <%} else {%> 
+                            <span class="frase"> Este equipo no tiene níngún coche.</span>
+                            <%}%>
+                            <br/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -226,7 +261,7 @@
             <%}%> 
         </div>
 
-        <footer class="footer">
+        <footer class="footer-gp">
             <div class="footer_div">
                 <div>
                     Encuentra nuestro proyecto en <a href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i><br>
@@ -234,6 +269,7 @@
                 <p>2021 &copy</p>
             </div>
         </footer>
+        </div>
     </body>
 
 </html>
