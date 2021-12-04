@@ -125,9 +125,9 @@
                 <%}%>
             </nav>
         </header>
-        <div>
+        <div class="content-gp">
             <%if (equipoUser == null) {%>
-            <h1 class="titulo">Añadir Equipo</h1>
+            <h1 class="section_title">Añadir Equipo</h1>
             <div class="form-gp">
                 <form action="/web-formula1/EquipoServlet?accion=insertar" method="post" enctype="multipart/form-data" onsubmit="return validarEquipo();">
                     <table class="form-table-gp">
@@ -169,7 +169,7 @@
                                     <tr><td><label class="label">Nombre</label></td></tr>
                                     <tr><td><input class="input" type="text" name="nombre" id="nombre" maxlength="100" width="400px" value="<%=equipoUser.getNombre()%>" disabled></td></tr>
                                     <tr><td><label class="label">Twitter</label></td></tr>
-                                    <tr><td><input class="input" type="text" name="twitter" id="twitter" maxlength="50" width="400px" value="@<%=equipoUser.getTwitter()%>" disabled></td></tr>
+                                    <tr><td><input class="input" type="text" name="twitter" id="twitter" maxlength="50" width="400px" value="<%=equipoUser.getTwitter()%>" disabled></td></tr>
                                 </table>
                             </form>
                     </div>
@@ -187,7 +187,7 @@
                                     <tr><td><label class="label">Nombre</label></td></tr>
                                     <tr><td><input class="input" type="text" name="nombre" id="nombre" maxlength="100" width="400px" value="<%=equipoUser.getNombre()%>" disabled></td></tr>
                                     <tr><td><label class="label">Twitter</label></td></tr>
-                                    <tr><td><input class="input" type="text" name="twitter" id="twitter" maxlength="50" width="400px" value="@<%=equipoUser.getTwitter()%>" disabled></td></tr>
+                                    <tr><td><input class="input" type="text" name="twitter" id="twitter" maxlength="50" width="400px" value="<%=equipoUser.getTwitter()%>" disabled></td></tr>
                                 </table>
                             </form>
                         </div>
