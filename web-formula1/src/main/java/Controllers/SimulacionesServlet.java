@@ -23,7 +23,7 @@ public class SimulacionesServlet extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+        req.setCharacterEncoding("UTF-8");
         HttpSession s = req.getSession(true);
 
         User responsable = (User) req.getSession().getAttribute("usuario");

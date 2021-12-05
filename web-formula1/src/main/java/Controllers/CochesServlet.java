@@ -25,12 +25,12 @@ public class CochesServlet extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+        req.setCharacterEncoding("UTF-8");
         String accion = req.getParameter("accion");
         HttpSession s = req.getSession(true);
         User usuario = (User) req.getSession().getAttribute("usuario");
         Equipo equipoUser = modelo.findEquipoByIdEquipo(usuario.getEquipo());
-        
+
         if (accion != null) {
             switch (accion) {
                 case "listar":
@@ -62,7 +62,7 @@ public class CochesServlet extends HttpServlet {
         float ersCM = Float.parseFloat(req.getParameter("ersCM"));
         float ersCR = Float.parseFloat(req.getParameter("ersCR"));
         float consumo = Float.parseFloat(req.getParameter("consumo"));
-        
+
         User usuario = (User) req.getSession().getAttribute("usuario");
         Equipo equipoUser = modelo.findEquipoByIdEquipo(usuario.getEquipo());
 
@@ -72,8 +72,8 @@ public class CochesServlet extends HttpServlet {
 
     //eliminar coche
     private void eliminarCoche(HttpServletRequest req, HttpServletResponse res) {
-           String codigo = req.getParameter("codigo");
-           modelo.deleteCar(codigo);
+        String codigo = req.getParameter("codigo");
+        modelo.deleteCar(codigo);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class NoticiaServlet extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+        req.setCharacterEncoding("UTF-8");
         HttpSession s = req.getSession(true);  
         
         //id de la noticia como parámetro en el permalink

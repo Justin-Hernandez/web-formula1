@@ -33,6 +33,7 @@ public class CalendarioServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         HttpSession s = req.getSession(true);
         String accion = req.getParameter("accion");
 

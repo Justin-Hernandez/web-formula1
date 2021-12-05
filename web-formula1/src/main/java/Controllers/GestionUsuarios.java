@@ -19,7 +19,7 @@ public class GestionUsuarios extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+        req.setCharacterEncoding("UTF-8");
         HttpSession s = req.getSession(true);
         
         if(req.getParameter("accion") != null)

@@ -37,7 +37,7 @@ public class RegistroUsuarioServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        request.setCharacterEncoding("UTF-8");
         String user = request.getParameter("user");
         String email = request.getParameter("email");
         if(!modeloDatos.existsUserNameOnly(user)){

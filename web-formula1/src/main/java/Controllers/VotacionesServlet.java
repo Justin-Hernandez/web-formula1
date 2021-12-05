@@ -33,6 +33,7 @@ public class VotacionesServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         String accion = req.getParameter("accion");
         HttpSession s = req.getSession(true);
         switch (accion) {

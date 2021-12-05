@@ -59,7 +59,7 @@
                     <i class="fa fa-bars"></i>
                 </a>
             </div>
-            
+
             <!--Content-->
 
             <h1 style="margin-bottom: 20px; margin-left:20px">Crear Noticias</h1>

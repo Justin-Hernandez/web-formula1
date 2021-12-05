@@ -5,9 +5,9 @@
 --%>
 
 <%@page import="Models.User"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Models.Coche"%>
 <%@page import="java.util.ArrayList"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page session="true" %>
 <!DOCTYPE html>
 <html>

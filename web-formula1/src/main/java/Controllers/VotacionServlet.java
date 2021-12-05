@@ -34,7 +34,7 @@ public class VotacionServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+        req.setCharacterEncoding("UTF-8");
         HttpSession s = req.getSession(true);
         int idVotacion = Integer.parseInt(req.getParameter("id"));
 

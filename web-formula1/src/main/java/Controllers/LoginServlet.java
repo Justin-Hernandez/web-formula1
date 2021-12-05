@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+        req.setCharacterEncoding("UTF-8");
         HttpSession session = req.getSession(true);
 
         String user = req.getParameter("user");
