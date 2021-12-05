@@ -69,7 +69,7 @@
             <hr> 
             <section class="cards">
                 <% for (News n : news) {%>
-                <a href="<%=n.getPermalink()%>" target="_blank" class="card">
+                <a href="<%=n.getPermalink()%>" class="card">
                     <div class="card_image" style='background-image: url("<%=n.getImg()%>")'></div>
                     <div class="card_content">
                         <div class="card_title"><%=n.getTitulo()%></div>
