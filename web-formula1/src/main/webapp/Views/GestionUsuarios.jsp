@@ -120,10 +120,10 @@
                         </tr>
                         <% for (User user : sinRol) {%>
                         <tr class="tr-gp">
-                            <td class="td-gp"><%=user.getName()%></td>
-                            <td class="td-gp"><%=user.getUser()%></td>
-                            <td class="td-gp"><%=user.getEmail()%></td>
-                            <td class="td-gp">
+                            <td class="td-gp2"><%=user.getName()%></td>
+                            <td class="td-gp2"><%=user.getUser()%></td>
+                            <td class="td-gp2"><%=user.getEmail()%></td>
+                            <td class="td-gp2">
                                 <form action="/web-formula1/GestionUsuarios">
                                     <select name="rol" style="font-size: 1em; background-color: #ecebeb; box-sizing: border-box">
                                         <option value="Administrador">Administrador</option>
@@ -155,10 +155,10 @@
                         </tr>
                         <% for (User user : conRol) {%>
                         <tr class="tr-gp">
-                            <td class="td-gp"><%=user.getName()%></td>
-                            <td class="td-gp"><%=user.getUser()%></td>
-                            <td class="td-gp"><%=user.getEmail()%></td>
-                            <td class="td-gp"><%=user.getRol()%></td>
+                            <td class="td-gp2"><%=user.getName()%></td>
+                            <td class="td-gp2"><%=user.getUser()%></td>
+                            <td class="td-gp2"><%=user.getEmail()%></td>
+                            <td class="td-gp2"><%=user.getRol()%></td>
                             <td class="td-icons-gp">
                                 <a href="/web-formula1/GestionUsuarios?accion=eliminar;<%=user.getUser()%>">
                                     <i class="fas fa-trash"></i>
@@ -170,7 +170,7 @@
                 </div>
             </div>
 
-            <footer class="footer-gp">
+            <footer class="footer">
                 <div class="footer_div">
                     <div>
                         Encuentra nuestro proyecto en <a href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i><br>

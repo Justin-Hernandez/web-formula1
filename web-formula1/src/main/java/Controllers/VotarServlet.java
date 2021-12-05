@@ -60,5 +60,4 @@ public class VotarServlet extends HttpServlet {
         modeloDatos.cerrarConexion();
         super.destroy();
     }
-
 }

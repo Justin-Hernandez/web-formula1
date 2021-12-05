@@ -142,7 +142,7 @@
 
                     <div class="clear"></div>
 
-            <footer class="footer-gp">
+            <footer class="footer">
                 <div class="footer_div">
                     <div>
                         Encuentra nuestro proyecto en <a href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i><br>
