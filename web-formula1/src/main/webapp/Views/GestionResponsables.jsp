@@ -20,61 +20,14 @@
         <link rel="stylesheet" href="../css/custom.css">
         <link rel="stylesheet" href="../css/all.min.css">
         <title>Gestión de Responsables de Equipo</title>
-        <script src="../js/app.js"></script>
         <style>
             .h1 {
                 text-align: center; 
                 margin-bottom: 10px;
-            }
-
-            .th {
-                border: 2px solid #dddddd;
-            }
-
-            .td {
-                text-align:center; 
-                padding: 10px 0; 
-                border: 2px solid #dddddd;
-            }
-
-            .th2 {
-                border: 2px solid #ecebeb;
-                border-bottom: 2px solid #dddddd;
-            }
-
-            .table {
-                border-spacing: 25px; 
-                border-collapse: collapse;
-                width: 60%; 
-                margin-left: auto; 
-                margin-right: auto;
-            }
-
-            .buttonAprobar {
-                border: 1px solid #4CAF50;
-                width: 70px;
-                transition-duration: 250ms;
-            }
-
-            .buttonAprobar:hover {
-                background-color: #4CAF50;
-                color: #ecebeb
-            }
-
-            .buttonDenegar {
-                border: 1px solid #FF2E2E;
-                width: 70px;
-                transition-duration: 250ms;
-            }
-
-            .buttonDenegar:hover {
-                background-color: #FF2E2E;
-                color: #ecebeb
-            }            
+            }           
         </style>
     </head>
     <body>
-        <div class="page-container">
             <!--Header-->
             <div class="topnav" id="myTopnav">
                 <a class="logo" href="/web-formula1/Views/ResponsableEquipoPanel.jsp" style="padding: 10px">                   
@@ -123,11 +76,11 @@
                         </tr>
                         <% for (User user : conEquipo) {%>
                         <tr class="tr-gp">
-                            <td class="td-gp"><%=user.getName()%></td>
-                            <td class="td-gp"><%=user.getUser()%></td>
-                            <td class="td-gp"><%=user.getEmail()%></td>
-                            <td class="td-gp"><%=user.getRol()%></td>
-                            <td class="td-gp"><%=user.getEquipo()%></td>
+                            <td class="td-gp2"><%=user.getName()%></td>
+                            <td class="td-gp2"><%=user.getUser()%></td>
+                            <td class="td-gp2"><%=user.getEmail()%></td>
+                            <td class="td-gp2"><%=user.getRol()%></td>
+                            <td class="td-gp2"><%=user.getEquipo()%></td>
                             <td class="td-icons-gp">
                                 <a href="/web-formula1/GestionResponsables?accion=remove;<%=user.getUser()%>">
                                     <i class="fas fa-trash"></i>
@@ -158,13 +111,13 @@
                         </tr>
                         <% for (User user : sinEquipo) {%>
                         <tr class="tr-gp">
-                            <td class="td-gp"><%=user.getName()%></td>
-                            <td class="td-gp"><%=user.getUser()%></td>
-                            <td class="td-gp"><%=user.getEmail()%></td>
-                            <td class="td-gp"><%=user.getRol()%></td>
-                            <td class="td-gp">
+                            <td class="td-gp2"><%=user.getName()%></td>
+                            <td class="td-gp2"><%=user.getUser()%></td>
+                            <td class="td-gp2"><%=user.getEmail()%></td>
+                            <td class="td-gp2"><%=user.getRol()%></td>
+                            <td class="td-gp2">
                                 <form action="/web-formula1/GestionResponsables">
-                                    <button class="buttonAprobar" type="submit" name="accion" value="add;<%=user.getUser()%>">Añadir</button>
+                                    <button class="btn" type="submit" name="accion" value="add;<%=user.getUser()%>">Añadir</button>
                                 </form>
                             </td>
                         </tr>
@@ -182,7 +135,5 @@
                     <p>2021 &copy</p>
                 </div>
             </footer>
-            
-        </div>
     </body>
 </html>

@@ -35,6 +35,8 @@ public class SimulacionesServlet extends HttpServlet {
 
         //solo los coches del equipo del usuario con el que se ha inciado la sesión
         ArrayList<Coche> cochesEquipo = new ArrayList<Coche>();
+        
+        eliminarAtributos(s);
 
         for (Coche c : listaCoches) {
             Equipo equipoCoche = null;
@@ -58,7 +60,7 @@ public class SimulacionesServlet extends HttpServlet {
                 }
             }
         }
-        
+
         if (req.getParameter("equipo") != null) {
             s.setAttribute("equipo", req.getParameter("equipo"));
         }
@@ -180,6 +182,20 @@ public class SimulacionesServlet extends HttpServlet {
         }
 
         return nuevoValor;
+    }
+    
+    public void eliminarAtributos(HttpSession session)
+    {
+        session.removeAttribute("cocheErs");
+        session.removeAttribute("circuitoErs");
+        session.removeAttribute("tipoConduccion");
+        session.removeAttribute("gananciaVuelta");
+        session.removeAttribute("vueltasNecesariasErs");
+        
+        session.removeAttribute("cocheCombustible");
+        session.removeAttribute("circuitoCombustible");
+        session.removeAttribute("consumoVuelta");
+        session.removeAttribute("consumoTotal");
     }
 
     @Override

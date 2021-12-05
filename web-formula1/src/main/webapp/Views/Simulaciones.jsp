@@ -40,7 +40,6 @@
         <title>Panel de Administración</title>
         <link rel="stylesheet" href="../css/custom.css">
         <link rel="stylesheet" href="../css/all.min.css">
-        <script src="../js/app.js"></script>
         <style>
             .h1 {
                 text-align: center; 
@@ -58,7 +57,6 @@
         </style>
     </head>
     <body>
-        <div class="page-container">
             <!--Header-->
             <div class="topnav" id="myTopnav">
                 <a class="logo" href="/web-formula1/Views/ResponsableEquipoPanel.jsp" style="padding: 10px">                   
@@ -94,7 +92,7 @@
             </div>
 
             <h1 class="h1">Gasto de combustible</h1>
-            <br><br>
+            <br>
             <div class="form">
                 <form action="/web-formula1/SimulacionesServlet">
 
@@ -122,36 +120,40 @@
                     <br><br><br>
 
                     <div style="text-align: center;">
-                        <button class="button" type="submit" style="font-size: 1em;">Calcular</button>
+                        <button class="btn" type="submit" style="font-size: 1em;">Calcular</button>
                     </div>
                 </form>
             </div>
 
-            <br><br><br>
+            <br>
             <% if (consumoVuelta != null && consumoTotal != null && cocheCombustible != null && circuitoCombustible != null) {%>
             <h3 class="h1"><%="Coche '" + cocheCombustible.getNombre() + "' en el circuito '" + circuitoCombustible.getNombre() + "'"%></h3>
-            <table class="table">
-                <tr>
-                    <th class="th">Consumo (L/100KM)</th>
-                    <th class="th">Longitud (M)</th>
-                    <th class="th">Vueltas</th>
-                    <th class="th">Consumo por vuelta (L)</th>
-                    <th class="th">Consumo total (L)</th>
-                </tr>
-                <tr>
-                    <td class="td"><%=cocheCombustible.getConsumo()%></td>
-                    <td class="td"><%=circuitoCombustible.getLongitud()%></td>
-                    <td class="td"><%=circuitoCombustible.getNumeroDeVueltas()%></td>
-                    <td class="td"><%=consumoVuelta%></td>
-                    <td class="td"><%=consumoTotal%></td>
-                </tr>
-            </table>
+            <div class="content-gp">
+                <div class="container-table-gp">
+                    <table class="table-gp">
+                        <tr class="table-header tr-gp">
+                            <th>Consumo (L/100KM)</th>
+                            <th>Longitud (M)</th>
+                            <th>Vueltas</th>
+                            <th>Consumo por vuelta (L)</th>
+                            <th>Consumo total (L)</th>
+                        </tr>
+                        <tr class="tr-gp">
+                            <td class="td-gp2"><%=cocheCombustible.getConsumo()%></td>
+                            <td class="td-gp2"><%=circuitoCombustible.getLongitud()%></td>
+                            <td class="td-gp2"><%=circuitoCombustible.getNumeroDeVueltas()%></td>
+                            <td class="td-gp2"><%=consumoVuelta%></td>
+                            <td class="td-gp2"><%=consumoTotal%></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
             <%}%>
 
             <hr style="border: 1px solid #dddddd; width: 60%; margin-left: auto; margin-right: auto; margin-top: 50px; margin-bottom: 30px">
 
             <h1 class="h1">ERS</h1>
-            <br><br>
+            <br>
             <div class="form">
                 <form action="/web-formula1/SimulacionesServlet">
 
@@ -187,39 +189,43 @@
                     </div>
                     <br><br><br>
                     <div style="text-align: center;">
-                        <button class="button" type="submit" style="font-size: 1em;">Calcular</button>
+                        <button class="btn" type="submit" style="font-size: 1em;">Calcular</button>
                     </div>
                 </form>
             </div>
 
-            <br><br><br>
+            <br>
             <% if (gananciaVuelta != null && vueltasNecesariasErs != null && tipoConduccion != null && cocheErs != null && circuitoErs != null) {%>
             <h3 class="h1"><%="Coche '" + cocheErs.getNombre() + "' en el circuito '" + circuitoErs.getNombre() + "' con tipo de conducción '" + tipoConduccion + "'"%></h3>
-            <table class="table">
-                <tr>
-                    <th class="th">Ganacia Vuelta Lenta</th>
-                    <th class="th">Ganacia Vuelta Media</th>
-                    <th class="th">Ganacia Vuelta Rapida</th>
-                    <th class="th">Curvas Lentas</th>
-                    <th class="th">Curvas Medias</th>
-                    <th class="th">Curvas Rapidas</th>
-                    <th class="th">Ganancia por vuelta (kW)</th>
-                    <th class="th">Vueltas necesarias para generar 120 kW</th>
-                </tr>
-                <tr>
-                    <td class="td"><%=cocheErs.getErsCL()%></td>
-                    <td class="td"><%=cocheErs.getErsCM()%></td>
-                    <td class="td"><%=cocheErs.getErsCR()%></td>
-                    <td class="td"><%=circuitoErs.getCurvasLentas()%></td>
-                    <td class="td"><%=circuitoErs.getCurvasMedia()%></td>
-                    <td class="td"><%=circuitoErs.getCurvasRapidas()%></td>
-                    <td class="td"><%=gananciaVuelta%></td>
-                    <td class="td"><%=vueltasNecesariasErs%></td>
-                </tr>
-            </table>
+            <div class="content-gp">
+                <div class="container-table-gp">
+                    <table class="table-gp">
+                        <tr class="table-header tr-gp">
+                            <th>Ganacia Vuelta Lenta</th>
+                            <th>Ganacia Vuelta Media</th>
+                            <th>Ganacia Vuelta Rapida</th>
+                            <th>Curvas Lentas</th>
+                            <th>Curvas Medias</th>
+                            <th>Curvas Rapidas</th>
+                            <th>Ganancia por vuelta (kW)</th>
+                            <th>Vueltas necesarias para generar 120 kW</th>
+                        </tr>
+                        <tr class="tr-gp">
+                            <td class="td-gp2"><%=cocheErs.getErsCL()%></td>
+                            <td class="td-gp2"><%=cocheErs.getErsCM()%></td>
+                            <td class="td-gp2"><%=cocheErs.getErsCR()%></td>
+                            <td class="td-gp2"><%=circuitoErs.getCurvasLentas()%></td>
+                            <td class="td-gp2"><%=circuitoErs.getCurvasMedia()%></td>
+                            <td class="td-gp2"><%=circuitoErs.getCurvasRapidas()%></td>
+                            <td class="td-gp2"><%=gananciaVuelta%></td>
+                            <td class="td-gp2"><%=vueltasNecesariasErs%></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
             <%}%>
 
-            <footer class="footer-gp">
+            <footer class="footer">
                 <div class="footer_div">
                     <div>
                         Encuentra nuestro proyecto en <a href="https://github.com/Justin-Hernandez/web-formula1" target="_blank"><strong>Github </strong></a><i class="fab fa-github-square"></i><br>
@@ -227,6 +233,5 @@
                     <p>2021 &copy</p>
                 </div>
             </footer>
-        </div>
     </body>
 </html>
