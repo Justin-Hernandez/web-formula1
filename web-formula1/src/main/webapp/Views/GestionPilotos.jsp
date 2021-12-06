@@ -6,6 +6,7 @@
 
 <%@page import="Models.User"%>
 <%@page import="Models.Piloto"%>
+<%@page import="Models.Votacion"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page session="true" %>
@@ -14,6 +15,7 @@
     <%
         ArrayList<Piloto> pilotos = (ArrayList<Piloto>) request.getSession().getAttribute("pilotos");
         User usuario = (User) session.getAttribute("usuario");
+        ArrayList<Integer> listaPilotos = (ArrayList<Integer>) request.getSession().getAttribute("listaP");
     %>
     <head>
         <title>Gestion de pilotos</title>
@@ -74,16 +76,37 @@
                                 Nombre y Apellido
                             </th>
                             <th>
+                                N° de Votaciones
+                            </th>
+                            <th>
                                 Borrar
                             </th>
                         </tr>
-                        <% for (Piloto p : pilotos) {%>
+                        <%
+                            for (Piloto p : pilotos) {
+                        %>
                         <tr class="tr-gp">
                             <td class="td-gp"><%=p.getNombre()%> <%=p.getApellidos()%></td>
-                            <td class="td-icons-gp">
-                                <a href="/web-formula1/PilotosServlet?accion=eliminar&siglas=<%=p.getSiglas()%>">
+                            <td class="td-gp">
+                                <%
+                                    int j = 0;
+                                    for (Integer i : listaPilotos) {
+                                        if (p.getId() == i) {
+                                            j++;
+                                        }
+                                    }
+                                %>
+                                <%=j%>
+                            </td>
+                            <td class="td-icons-gp">                                  
+                                <% if (j != 0) {%>
+                                <i class="fas fa-minus-circle" style="color: gray"></i>
+                                <% } else {%> 
+                                <a href="/web-formula1/PilotosServlet?accion=eliminar&siglas=<%=p.getSiglas()%>"> 
                                     <i class="fas fa-trash"></i>
                                 </a>
+                                <% }%> 
+                            </td>
                             </td>
                         </tr>
                         <%}%>

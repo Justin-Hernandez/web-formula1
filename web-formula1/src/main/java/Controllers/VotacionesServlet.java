@@ -6,10 +6,13 @@
 package Controllers;
 
 import Models.ModeloDatos;
+import Models.Piloto;
+import Models.Votacion;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -43,7 +46,7 @@ public class VotacionesServlet extends HttpServlet {
                 break;
             case "votaciones":
                 s.setAttribute("pilotos", modeloDatos.getAllPilotos());
-                s.setAttribute("votaciones", modeloDatos.getAllVotaciones());
+                s.setAttribute("votaciones", modeloDatos.getAllVotaciones());                
                 res.sendRedirect("/web-formula1/Views/GestionVotaciones.jsp");
                 break;
             case "crear_votacion":
@@ -61,7 +64,7 @@ public class VotacionesServlet extends HttpServlet {
 
                 break;
         }
-
+                                                                                
     }
 
     private void crearVotacion(HttpServletRequest req, HttpServletResponse res) {
@@ -91,6 +94,8 @@ public class VotacionesServlet extends HttpServlet {
         String titulo = req.getParameter("titulo");
         modeloDatos.deleteVotacion(titulo);
     }
+    
+    
 
     @Override
     public void destroy() {

@@ -1056,4 +1056,27 @@ public class ModeloDatos {
         return eliminado;
     }
     
+    
+    //lista con los ids de los pilotos que participan en una votacion 
+    public ArrayList<Integer> getAllPilotosById() {
+
+        ArrayList<Integer> listaP = new ArrayList<>();
+        Statement stmt;
+
+        try {
+            stmt = conection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM pilotos_votaciones");
+
+            while (rs.next()) {
+                listaP.add(
+                        rs.getInt("id_pilotos")                                                                                                
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.toString());
+        }
+
+        return listaP;
+    }
+    
 }
