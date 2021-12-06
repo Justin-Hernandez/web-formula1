@@ -72,7 +72,7 @@
         <div class="page-container">
             <!--Header-->
             <div class="topnav" id="myTopnav">
-                <a class="logo" href="/web-formula1/Views/ResponsableEquipoPanel.jsp" style="padding: 10px">                   
+                <a class="logo" href="/web-formula1/Views/AdminPanel.jsp" style="padding: 10px">                   
                     <img class="image" src="../img/f1_logo.png" alt="logo">
                 </a>  
                 <div class="nav-element">
@@ -82,7 +82,7 @@
                     <a href="/web-formula1/CalendarioServlet?accion=listar_eventos">Calendario</a>
                 </div>
                 <%if (usuario != null) {%>
-                <a href="/web-formula1/Views/ResponsableEquipoPanel.jsp" class="avatar-name">
+                <a href="/web-formula1/Views/AdminPanel.jsp" class="avatar-name">
                     <img class="avatar" src="../img/Diez.png" alt="Avatar"> <%=usuario.getName()%>
                 </a>
 

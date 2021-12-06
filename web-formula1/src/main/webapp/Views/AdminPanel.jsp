@@ -23,7 +23,7 @@
         <div class="topnav" id="myTopnav">
             <a class="logo" href="/web-formula1/Views/AdminPanel.jsp" style="padding: 10px">                   
                 <img class="image" src="../img/f1_logo.png" alt="logo">
-            </a>  
+            </a> 
             <div class="nav-element">
                 <a href="/web-formula1/NoticiasServlet?accion=listar">Noticias</a>                    
                 <a href="/web-formula1/EquiposServlet?accion=listar">Equipos</a>
