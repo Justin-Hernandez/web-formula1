@@ -110,7 +110,7 @@
                             <%if (e.getTwitter() != null && !e.getTwitter().isEmpty()) {%>
                             <h6 class="top"><%=e.getTwitter()%></h6>
                             <%}%> 
-                            <% if (pilotos.get(e.getId()) != null && pilotos.get(e.getId()).size() > 5) {%>
+                            <% if (pilotos.get(e.getId()) != null && pilotos.get(e.getId()).size() > 0) {%>
                             <div class="pilotos5">
                                 <b>Pilotos:</b><br>
                                 <div class="pilotos5_content">
