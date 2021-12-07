@@ -29,15 +29,15 @@
             <!--Header-->
             <div class="topnav" id="myTopnav">
                 <%if (usuario != null) {%>
-                    <%if (("Administrador").equals(usuario.getRol())) {%>
-                    <a href="/web-formula1/Views/AdminPanel.jsp" style="padding: 10px">
-                        <img class="image" src="../img/f1_logo.png" alt="logo">
-                    </a>
-                    <%} else {%>
-                    <a href="/web-formula1/Views/ResponsableEquipoPanel.jsp" style="padding: 10px">
-                        <img class="image" src="../img/f1_logo.png" alt="logo">
-                    </a>
-                    <%}%>
+                <%if (("Administrador").equals(usuario.getRol())) {%>
+                <a href="/web-formula1/Views/AdminPanel.jsp" style="padding: 10px">
+                    <img class="image" src="../img/f1_logo.png" alt="logo">
+                </a>
+                <%} else {%>
+                <a href="/web-formula1/Views/ResponsableEquipoPanel.jsp" style="padding: 10px">
+                    <img class="image" src="../img/f1_logo.png" alt="logo">
+                </a>
+                <%}%>
                 <%} else {%>
                 <a href="/web-formula1/Views/Noticias.jsp" style="padding: 10px">
                     <img class="image" src="../img/f1_logo.png" alt="logo">
@@ -51,14 +51,14 @@
                 </div>
                 <%if (usuario != null) {%>
                 <%if (("Administrador").equals(usuario.getRol())) {%>
-                    <a href="/web-formula1/Views/AdminPanel.jsp" class="avatar-name">
-                        <img class="avatar" src="../img/Diez.png" alt="Avatar"> <%=usuario.getName()%>
-                    </a>
-                    <%} else {%>
-                    <a href="/web-formula1/Views/ResponsableEquipoPanel.jsp" class="avatar-name">
-                        <img class="avatar" src="../img/Diez.png" alt="Avatar"> <%=usuario.getName()%>
-                    </a>
-                    <%}%>
+                <a href="/web-formula1/Views/AdminPanel.jsp" class="avatar-name">
+                    <img class="avatar" src="../img/Diez.png" alt="Avatar"> <%=usuario.getName()%>
+                </a>
+                <%} else {%>
+                <a href="/web-formula1/Views/ResponsableEquipoPanel.jsp" class="avatar-name">
+                    <img class="avatar" src="../img/Diez.png" alt="Avatar"> <%=usuario.getName()%>
+                </a>
+                <%}%>
 
                 <a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
                     <%if (request.getParameter("logout") != null) {

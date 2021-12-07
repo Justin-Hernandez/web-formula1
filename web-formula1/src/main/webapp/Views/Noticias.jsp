@@ -79,8 +79,6 @@
                 </a>
             </div>
 
-
-
             <!--News Section-->
             <div class="section_title">Noticias</div>
             <hr> 

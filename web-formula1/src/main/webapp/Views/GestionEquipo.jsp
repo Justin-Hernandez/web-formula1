@@ -103,15 +103,15 @@
             <!--Header-->
             <div class="topnav" id="myTopnav">
                 <%if (usuario != null) {%>
-                    <%if (("Administrador").equals(usuario.getRol())) {%>
-                    <a href="/web-formula1/Views/AdminPanel.jsp" style="padding: 10px">
-                        <img class="image" src="../img/f1_logo.png" alt="logo">
-                    </a>
-                    <%} else {%>
-                    <a href="/web-formula1/Views/ResponsableEquipoPanel.jsp" style="padding: 10px">
-                        <img class="image" src="../img/f1_logo.png" alt="logo">
-                    </a>
-                    <%}%>
+                <%if (("Administrador").equals(usuario.getRol())) {%>
+                <a href="/web-formula1/Views/AdminPanel.jsp" style="padding: 10px">
+                    <img class="image" src="../img/f1_logo.png" alt="logo">
+                </a>
+                <%} else {%>
+                <a href="/web-formula1/Views/ResponsableEquipoPanel.jsp" style="padding: 10px">
+                    <img class="image" src="../img/f1_logo.png" alt="logo">
+                </a>
+                <%}%>
                 <%} else {%>
                 <a href="/web-formula1/Views/Noticias.jsp" style="padding: 10px">
                     <img class="image" src="../img/f1_logo.png" alt="logo">

@@ -566,6 +566,7 @@ input[type="text"], input[type="number"] {
     padding-right: 30px;
 }
 
+/* Blank div to adjust the footer */
 .clear { clear: both; height: 60px; }
 
 @media screen and (min-width:850px) {

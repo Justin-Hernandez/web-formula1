@@ -25,7 +25,7 @@
         <script src="../js/validaciones.js"></script>
         <script src="../js/app.js"></script>
         <style>
-            
+
             .table{
                 border-spacing: 25px;
                 border-collapse: collapse;
@@ -53,9 +53,21 @@
         <div class="page-container">
             <!--Header-->
             <div class="topnav" id="myTopnav">
-                <a class="logo" href="/web-formula1/Views/AdminPanel.jsp" style="padding: 10px">                   
+                <%if (usuario != null) {%>
+                <%if (("Administrador").equals(usuario.getRol())) {%>
+                <a href="/web-formula1/Views/AdminPanel.jsp" style="padding: 10px">
                     <img class="image" src="../img/f1_logo.png" alt="logo">
-                </a>  
+                </a>
+                <%} else {%>
+                <a href="/web-formula1/Views/ResponsableEquipoPanel.jsp" style="padding: 10px">
+                    <img class="image" src="../img/f1_logo.png" alt="logo">
+                </a>
+                <%}%>
+                <%} else {%>
+                <a href="/web-formula1/Views/Noticias.jsp" style="padding: 10px">
+                    <img class="image" src="../img/f1_logo.png" alt="logo">
+                </a>
+                <%}%> 
                 <div class="nav-element">
                     <a href="/web-formula1/NoticiasServlet?accion=listar">Noticias</a>                    
                     <a href="/web-formula1/EquiposServlet?accion=listar">Equipos</a>
@@ -63,10 +75,15 @@
                     <a href="/web-formula1/CalendarioServlet?accion=listar_eventos">Calendario</a>
                 </div>
                 <%if (usuario != null) {%>
+                <%if (("Administrador").equals(usuario.getRol())) {%>
                 <a href="/web-formula1/Views/AdminPanel.jsp" class="avatar-name">
                     <img class="avatar" src="../img/Diez.png" alt="Avatar"> <%=usuario.getName()%>
                 </a>
-
+                <%} else {%>
+                <a href="/web-formula1/Views/ResponsableEquipoPanel.jsp" class="avatar-name">
+                    <img class="avatar" src="../img/Diez.png" alt="Avatar"> <%=usuario.getName()%>
+                </a>
+                <%}%>
                 <a class="down" href="Noticias.jsp?logout=1"><i class="fas fa-door-open"></i></a>
                     <%if (request.getParameter("logout") != null) {
                             session.removeAttribute("usuario");
@@ -100,12 +117,12 @@
                             <td class="td-gp"><%=e.getNombre()%></td>
                             <td class="td-icons-gp">
                                 <a href="/web-formula1/EquipoServlet?accion=view&id=<%=e.getId()%>">
-                                        <i title="Información del Equipo" class="fas fa-info-circle"></i>
+                                    <i title="Información del Equipo" class="fas fa-info-circle"></i>
                                 </a>
                             </td>
                             <td class="td-icons-gp">
                                 <a href="/web-formula1/SimulacionesServlet?equipo=<%=e.getNombre()%>">
-                                        <i title="Simulaciones" class="fas fa-tools"></i>
+                                    <i title="Simulaciones" class="fas fa-tools"></i>
                                 </a>
                             </td>
                         </tr>
