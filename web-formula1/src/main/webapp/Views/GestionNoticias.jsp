@@ -108,7 +108,7 @@
                 <% for (News n : news) {%>
                 <tr class="tr-gp">
                     <td class="td-noticias"><%=n.getTitulo()%></td>
-                    <td class="td-icons" style="text-align: center"><a href="/web-formula1/NoticiasServlet?accion=eliminar&titulo=<%=n.getTitulo()%>"><i class="fas fa-trash"></i></a></td>
+                    <td class="td-icons-gp" style="text-align: center"><a href="/web-formula1/NoticiasServlet?accion=eliminar&titulo=<%=n.getTitulo()%>"><i class="fas fa-trash"></i></a></td>
                 </tr>
                 <%}%>
             </table>

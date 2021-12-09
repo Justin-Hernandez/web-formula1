@@ -70,6 +70,7 @@
             </a>
         </div>
 
+        <h1 style="margin-bottom: 20px; margin-left:20px">Panel de Administración</h1>
         <section class="section">
             <ul>
                 <%if (!usuario.getEquipo().equals("null")) {%>

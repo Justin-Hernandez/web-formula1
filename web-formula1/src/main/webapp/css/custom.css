@@ -226,6 +226,23 @@ input[type="email"]::placeholder
     margin: 1rem;
 }
 
+.card1 {
+    display:flex;
+    flex-direction:column;
+/*    flex:1 0 300px;*/
+    width:400px;
+    max-height: auto;
+    overflow:hidden;
+    background:#fff;
+    color:#000;
+    box-shadow:3px 2px 14px hsla(0,0%,100%,.2);
+    text-decoration:none;
+    font-size:1rem;
+    transition:all .2s ease-in-out;
+    margin: 1rem;
+    
+}
+
 .cards-noticias {
     display:flex;
     flex-wrap:wrap;

@@ -69,7 +69,8 @@
                 <i class="fa fa-bars"></i>
             </a>
         </div>
-            
+        <!--Content-->
+        <h1 style="margin-bottom: 20px; margin-left:20px">Panel de Administración</h1>
         <section class="section">
             <ul>
                 <li class="section-item"><a href="/web-formula1/NoticiasServlet?accion=gestion-noticias"><i class="fas fa-newspaper"></i> Gestión de noticias</a></li>
@@ -80,6 +81,39 @@
             </ul>
         </section>
 
+        <!--        <section class="cards">                
+                    <a href="/web-formula1/NoticiasServlet?accion=gestion-noticias" class="card1">                    
+                        <div class="card_content">
+                            <div class="card_title">Gestión de noticias</div>                        
+                            <div class="card_article_noticias"><i class="fas fa-newspaper"></i></div>
+                        </div>
+                    </a>
+                    <a href="/web-formula1/NoticiasServlet?accion=gestion-noticias" class="card1">                    
+                        <div class="card_content">
+                            <div class="card_title">Gestión de noticias</div>                        
+                            <div class="card_article_noticias"><i class="fas fa-newspaper"></i></div>
+                        </div>
+                    </a>
+                    <a href="/web-formula1/NoticiasServlet?accion=gestion-noticias" class="card1">                    
+                        <div class="card_content">
+                            <div class="card_title">Gestión de noticias</div>                        
+                            <div class="card_article_noticias"><i class="fas fa-newspaper"></i></div>
+                        </div>
+                    </a>
+                    <a href="/web-formula1/NoticiasServlet?accion=gestion-noticias" class="card1">                    
+                        <div class="card_content">
+                            <div class="card_title">Gestión de noticias</div>                        
+                            <div class="card_article_noticias"><i class="fas fa-newspaper"></i></div>
+                        </div>
+                    </a>
+                    <a href="/web-formula1/NoticiasServlet?accion=gestion-noticias" class="card1">                    
+                        <div class="card_content">
+                            <div class="card_title">Gestión de noticias</div>                        
+                            <div class="card_article_noticias"><i class="fas fa-newspaper"></i></div>
+                        </div>
+                    </a>
+                </section>-->
+        <!--Footer-->
         <footer class="footer">
             <div class="footer_div">
                 <div>
@@ -88,6 +122,5 @@
                 <p>2021 &copy</p>
             </div>
         </footer>
-
     </body>
 </html>
