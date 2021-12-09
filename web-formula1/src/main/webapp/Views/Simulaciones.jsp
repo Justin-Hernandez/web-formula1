@@ -225,7 +225,7 @@
                         <th>Curvas Medias</th>
                         <th>Curvas Rapidas</th>
                         <th>Ganancia por vuelta (kW)</th>
-                        <th>Vueltas necesarias para generar 120 kW</th>
+                        <th>Vueltas necesarias para generar 1.2 kW</th>
                     </tr>
                     <tr class="tr-gp">
                         <td class="td-gp2"><%=cocheErs.getErsCL()%></td>

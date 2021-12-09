@@ -70,7 +70,7 @@
             </a>
         </div>
         <!--Content-->
-        <h1 style="margin-bottom: 20px; margin-left:20px">Panel de Administración</h1>
+        <h1 style="margin-bottom: 20px; margin-left:20px; text-align:center">Panel de Administración</h1>
         <section class="section">
             <ul>
                 <li class="section-item"><a href="/web-formula1/NoticiasServlet?accion=gestion-noticias"><i class="fas fa-newspaper"></i> Gestión de noticias</a></li>

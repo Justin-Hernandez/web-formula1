@@ -163,7 +163,7 @@ public class SimulacionesServlet extends HttpServlet {
 
         double ers = Double.parseDouble(ersVuelta.replace(',', '.'));
 
-        return String.valueOf((int) Math.ceil(120 / ers));
+        return String.valueOf((int) Math.ceil(1.2 / ers));
     }
 
     public double modificacionSegunTipo(Double valor, String tipo) {

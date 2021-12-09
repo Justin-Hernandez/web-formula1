@@ -62,6 +62,8 @@ public class ModeloDatos {
             while (rs.next()) {
                 listaNews.add(new News(rs.getInt("id"), rs.getString("permalink"), rs.getString("title"), rs.getString("image"), rs.getString("text")));
             }
+            
+            stmt.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -84,11 +86,13 @@ public class ModeloDatos {
             while (rs.next()) {
                 u = new User(rs.getString("name"), rs.getString("user"), rs.getString("email"), rs.getString("password"), rs.getString("role"), rs.getString("equipo"));
             }
+            
+            stmt.close();
 
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
-
+        
         return u;
     }
 
@@ -106,6 +110,8 @@ public class ModeloDatos {
                     existe = true;
                 }
             }
+            
+            preparedStatement.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -127,6 +133,8 @@ public class ModeloDatos {
                     existe = true;
                 }
             }
+            
+            preparedStatement.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -148,6 +156,8 @@ public class ModeloDatos {
             preparedStatement.setString(6, user.getEquipo());
 
             preparedStatement.execute();
+            
+            preparedStatement.close();
 
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
@@ -170,7 +180,8 @@ public class ModeloDatos {
             while (rs.next()) {
                 nextId = String.valueOf(rs.getInt("id") + 1);
             }
-
+            
+            stmt.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -191,7 +202,8 @@ public class ModeloDatos {
 
             //true si se ha insertado correctamente, de lo contrario false
             insertado = pstmt.execute();
-
+            
+            pstmt.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -212,6 +224,8 @@ public class ModeloDatos {
 
             //true si se ha eliminado correctamente, de lo contrario false
             eliminado = pstmt.execute();
+            
+            pstmt.close();
 
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
@@ -233,6 +247,8 @@ public class ModeloDatos {
             while (rs.next()) {
                 listaUsers.add(new User(rs.getString("name"), rs.getString("user"), rs.getString("email"), rs.getString("password"), rs.getString("role"), rs.getString("equipo")));
             }
+            
+            stmt.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -252,7 +268,8 @@ public class ModeloDatos {
 
             //true si se ha eliminado correctamente, de lo contrario false
             eliminado = pstmt.execute();
-
+            
+            pstmt.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -273,6 +290,8 @@ public class ModeloDatos {
 
             //true si se ha actualizado correctamente, de lo contrario false
             actualizado = pstmt.execute();
+            
+            pstmt.close();
 
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
@@ -294,6 +313,8 @@ public class ModeloDatos {
 
             //true si se ha actualizado correctamente, de lo contrario false
             actualizado = pstmt.execute();
+            
+            pstmt.close();
 
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
@@ -325,6 +346,8 @@ public class ModeloDatos {
                         rs.getInt("curvasRapidas")
                 ));
             }
+            
+            stmt.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -360,6 +383,8 @@ public class ModeloDatos {
 
             //true si se ha insertado correctamente, de lo contrario false
             insertado = pstmt.execute();
+            
+            pstmt.close();
 
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
@@ -380,6 +405,8 @@ public class ModeloDatos {
 
             //true si se ha eliminado correctamente, de lo contrario false
             eliminado = pstmt.execute();
+            
+            pstmt.close();
 
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
@@ -408,6 +435,8 @@ public class ModeloDatos {
                         rs.getInt("equipo")
                 ));
             }
+            
+            stmt.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -438,7 +467,8 @@ public class ModeloDatos {
 
             //true si se ha insertado correctamente, de lo contrario false
             insertado = pstmt.execute();
-
+            
+            pstmt.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -457,7 +487,8 @@ public class ModeloDatos {
 
             //true si se ha eliminado correctamente, de lo contrario false
             eliminado = pstmt.execute();
-
+            
+            pstmt.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -477,7 +508,8 @@ public class ModeloDatos {
 
             //true si se ha eliminado correctamente, de lo contrario false
             eliminado = pstmt.execute();
-
+            
+            pstmt.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -499,6 +531,8 @@ public class ModeloDatos {
                 preparedStatement2.setTimestamp(2, timestamp);
                 evento = preparedStatement2.execute();
             }
+            
+            preparedStatement.close();
         } catch (Exception e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -520,6 +554,8 @@ public class ModeloDatos {
                 System.out.println("Existe ese evento");
                 exist = true;
             }
+            
+            preparedStatement.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -541,6 +577,8 @@ public class ModeloDatos {
                         rs.getInt("numeroDevueltas"), rs.getInt("longitud"), rs.getInt("curvasLentas"),
                         rs.getInt("curvasMedia"), rs.getInt("curvasRapidas"), rs.getTimestamp("fecha_evento")));
             }
+            
+            stmt.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -573,6 +611,8 @@ public class ModeloDatos {
                         rs.getString("equipoV")
                 ));
             }
+            
+            stmt.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -608,7 +648,8 @@ public class ModeloDatos {
 
             //true si se ha insertado correctamente, de lo contrario false
             insertado = pstmt.execute();
-
+            
+            pstmt.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -638,6 +679,8 @@ public class ModeloDatos {
                 Equipo e =new Equipo(rs.getInt("id"), rs.getString("nombre"), logo, rs.getString("twitter"));
                 listaEquipos.add(e);
             }
+            
+            stmt.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -657,7 +700,8 @@ public class ModeloDatos {
 
             preparedStatement.execute();
             updateUserEquipo(user.getUser(), equipo.getNombre());
-
+            
+            preparedStatement.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -687,6 +731,8 @@ public class ModeloDatos {
 
                 u = new Equipo(Integer.parseInt(rs.getString("id")), rs.getString("nombre"), logo, rs.getString("twitter"));
             }
+            
+            stmt.close();
 
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
@@ -718,7 +764,8 @@ public class ModeloDatos {
                 }
                 u = new Equipo(Integer.parseInt(rs.getString("id")), rs.getString("nombre"), logo, rs.getString("twitter"));
             }
-
+            
+            stmt.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -741,6 +788,8 @@ public class ModeloDatos {
             while (rs.next()) {
                 u = new User(rs.getString("name"), rs.getString("user"), rs.getString("email"), rs.getString("password"), rs.getString("role"), rs.getString("equipo"));
             }
+            
+            stmt.close();
 
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
@@ -763,6 +812,8 @@ public class ModeloDatos {
                     existe = true;
                 }
             }
+            
+            preparedStatement.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -787,6 +838,8 @@ public class ModeloDatos {
                         rs.getString("pais"), rs.getString("twitter")
                 ));
             }
+            
+            stmt.close();
 
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
@@ -808,6 +861,8 @@ public class ModeloDatos {
             while (rs.next()) {
                 coches.add(new Coche(rs.getString("nombre"), rs.getString("codigo")));
             }
+            
+            stmt.close();
 
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
@@ -830,6 +885,8 @@ public class ModeloDatos {
                 responsables.add(new User(rs.getString("name"), rs.getString("user"), rs.getString("email"),
                         rs.getString("password"), rs.getString("role"), rs.getString("equipo")));
             }
+            
+            stmt.close();
 
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
@@ -856,6 +913,8 @@ public class ModeloDatos {
                         rs.getTimestamp("fecha_limite")
                 ));
             }
+            
+            stmt.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
@@ -915,6 +974,12 @@ public class ModeloDatos {
                     preparedStatement3.execute();
                 }
             }
+            
+            preparedStatement.close();
+            preparedStatement2.close();
+            preparedStatement3.close();
+            preparedStatement4.close();
+            preparedStatement5.close();
 
         } catch (SQLException ex) {
             System.out.println("SQL ERROR: " + ex.toString());
@@ -938,6 +1003,8 @@ public class ModeloDatos {
                         resultSet.getString("apellidos"), resultSet.getString("siglas"), resultSet.getInt("dorsal"),
                         resultSet.getString("foto"), resultSet.getString("pais"), resultSet.getString("twitter"), resultSet.getString("equipo")));
             }
+            
+            preparedStatement.close();
         } catch (SQLException ex) {
             System.out.println("SQL ERROR: " + ex.toString());
         }
@@ -961,6 +1028,8 @@ public class ModeloDatos {
             while (resultSet.next()) {
                 exist = true;
             }
+            
+            preparedStatement.close();
         } catch (SQLException ex) {
             System.out.println("SQL ERROR: " + ex.toString());
         }
@@ -994,6 +1063,9 @@ public class ModeloDatos {
             preparedStatement2.setInt(2, id_votante);
             preparedStatement2.setInt(3, id_piloto);
             preparedStatement2.execute();
+            
+            preparedStatement1.close();
+            preparedStatement2.close();
 
         } catch (SQLException ex) {
             System.out.println("SQL ERROR: " + ex.toString());
@@ -1011,6 +1083,8 @@ public class ModeloDatos {
             while (resultSet.next()) {
                 exist = true;
             }
+            
+            preparedStatement.close();
         } catch (SQLException ex) {
             System.out.println("SQL ERROR: " + ex.toString());
         }
@@ -1031,6 +1105,8 @@ public class ModeloDatos {
                     votos.add(resultSet.getInt("cantidad_votantes"));
                 }
             }
+            
+            preparedStatement.close();
         } catch (SQLException ex) {
             System.out.println("SQL ERROR: " + ex.toString());
         }
@@ -1049,6 +1125,8 @@ public class ModeloDatos {
 
             //true si se ha eliminado correctamente, de lo contrario false
             eliminado = pstmt.execute();
+            
+            pstmt.close();
 
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
@@ -1072,6 +1150,8 @@ public class ModeloDatos {
                         rs.getInt("id_pilotos")                                                                                                
                 );
             }
+            
+            stmt.close();
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.toString());
         }
