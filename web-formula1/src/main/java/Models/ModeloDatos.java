@@ -22,9 +22,9 @@ import java.util.LinkedList;
 public class ModeloDatos {
 
     static String driver = "com.mysql.jdbc.Driver";
-    static String url = "jdbc:mysql://sql11.freesqldatabase.com:3306/sql11446947";
-    static String user = "sql11446947";
-    static String password = "pSLHMf2Dy9";
+    static String url = "jdbc:mysql://0.tcp.ngrok.io:16496/formula1";
+    static String user = "root";
+    static String password = "root";
 
     protected Connection conection;
 
