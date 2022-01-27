@@ -22,7 +22,7 @@ import java.util.LinkedList;
 public class ModeloDatos {
 
     static String driver = "com.mysql.jdbc.Driver";
-    static String url = "jdbc:mysql://0.tcp.ngrok.io:16496/formula1";
+    static String url = "jdbc:mysql://0.tcp.ngrok.io:16496/formula1?useSSL=false";
     static String user = "root";
     static String password = "root";
 
@@ -194,7 +194,7 @@ public class ModeloDatos {
 
         try {
             pstmt = conection.prepareStatement("INSERT INTO news (permalink, title, image, text) VALUES (?, ?, ?, ?)");
-
+            
             pstmt.setString(1, permalink);
             pstmt.setString(2, titulo);
             pstmt.setString(3, imagen);
