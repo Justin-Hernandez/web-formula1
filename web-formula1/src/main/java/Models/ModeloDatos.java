@@ -22,7 +22,7 @@ import java.util.LinkedList;
 public class ModeloDatos {
 
     static String driver = "com.mysql.jdbc.Driver";
-    static String url = "jdbc:mysql://0.tcp.ngrok.io:16496/formula1?useSSL=false";
+    static String url = "jdbc:mysql://2.tcp.ngrok.io:18241/formula1?useSSL=false";
     static String user = "root";
     static String password = "root";
 

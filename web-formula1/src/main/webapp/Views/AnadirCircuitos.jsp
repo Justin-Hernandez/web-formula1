@@ -132,11 +132,13 @@
                                 <input type="number" name="curvasRapidas" id="curvasRapidas" maxlength="100" width="400px">
                             </td>
                         </tr>
+                        <!--
                         <tr>
                             <td>
                                 <input type="file" id="trazado" name="file" onchange="validarImagen(this)">
                             </td>
                         </tr>
+                        -->
                         <tr>
                             <td>
                                 <input type="submit" id="adicionar_circuito" value="Adicionar" class="btn">
