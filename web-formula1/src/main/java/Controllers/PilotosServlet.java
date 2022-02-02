@@ -37,9 +37,8 @@ public class PilotosServlet extends HttpServlet {
                 case "listar":
                     User usuario = (User) req.getSession().getAttribute("usuario");
                     Equipo equipoUser = modelo.findEquipoByIdEquipo(usuario.getEquipo());
-                    //s.setAttribute("pilotos", modelo.findPilotosByIdEquipo(equipoUser.getId()));
+                    s.setAttribute("pilotos", modelo.findPilotosByIdEquipo(equipoUser.getId()));
                     s.setAttribute("listaP", modelo.getAllPilotosById());
-                    s.setAttribute("pilotos", modelo.getAllPilotos());
                     res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionPilotos.jsp"));
                     break;
                 case "insertar":
