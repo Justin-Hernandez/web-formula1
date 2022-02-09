@@ -355,21 +355,13 @@ public class ModeloDatos {
     }
 
     //inserta nuevo circuito
-    public boolean insertCircuito(
-            String nombre,
-            String ciudad,
-            String pais,
-            String trazado,
-            int numeroDeVueltas,
-            int longitud,
-            int curvasLentas,
-            int curvasMedia,
-            int curvasRapidas
-    ) {
+    public boolean insertCircuito(String nombre, String ciudad, String pais, String trazado,
+            int numeroDeVueltas, int longitud, int curvasLentas, int curvasMedia, int curvasRapidas) {
         boolean insertado = true;
         PreparedStatement pstmt;
         try {
-            pstmt = conection.prepareStatement("INSERT INTO circuitos (nombre, ciudad, pais, trazado, numeroDeVueltas, longitud, curvasLentas, curvasMedia, curvasRapidas) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            pstmt = conection.prepareStatement("INSERT INTO circuitos (nombre, ciudad, pais, trazado, "
+                    + "numeroDeVueltas, longitud, curvasLentas, curvasMedia, curvasRapidas) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             pstmt.setString(1, nombre);
             pstmt.setString(2, ciudad);
@@ -933,12 +925,6 @@ public class ModeloDatos {
         String sql5 = "UPDATE votaciones SET permalink = ?, titulo = ?, descripcion = ?, fecha_limite = ? where id_votaciones = ? ";
 
         try {
-            /*
-            PreparedStatement preparedStatement = conection.prepareStatement(sql2);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                idPermalink = String.valueOf(resultSet.getInt("id_votaciones") + 1);
-            }*/
 
             PreparedStatement preparedStatement = conection.prepareStatement(sql3);
             preparedStatement.setString(1, permalink + idPermalink);
