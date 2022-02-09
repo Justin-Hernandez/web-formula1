@@ -57,30 +57,6 @@ public class EquiposServlet extends HttpServlet {
         s.setAttribute("equipos", modelo.getAllEquipos());
     }
 
-
-    private String guardarFoto(Part part, File pathUploads) throws IOException {
-        String absolutePath = "";
-
-        Path path = Paths.get(part.getSubmittedFileName());
-        String fileName = path.getFileName().toString();
-        InputStream inputStream = part.getInputStream();
-        if (inputStream != null) {
-            File file = new File(pathUploads, fileName);
-            if (!file.exists()) {
-                Files.copy(inputStream, file.toPath());
-                absolutePath = file.getAbsolutePath();
-            } else {
-                String nombreSolamente = FilenameUtils.removeExtension(fileName);
-                String extension = FilenameUtils.getExtension(fileName);
-                String fileNameModificado = nombreSolamente + "-" + Math.random() + "." + extension;
-                File tmp = new File(pathUploads, fileNameModificado);
-                Files.copy(inputStream, tmp.toPath());
-                absolutePath = tmp.getAbsolutePath();
-            }
-        }
-        return absolutePath;
-    }
-
     @Override
     public void destroy() {
         modelo.cerrarConexion();

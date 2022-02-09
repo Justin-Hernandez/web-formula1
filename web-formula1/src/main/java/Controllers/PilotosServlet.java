@@ -32,11 +32,11 @@ public class PilotosServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         String accion = req.getParameter("accion");
         HttpSession s = req.getSession(true);
+        User usuario = (User) req.getSession().getAttribute("usuario");
+        Equipo equipoUser = modelo.findEquipoByIdEquipo(usuario.getEquipo());
         if (accion != null) {
             switch (accion) {
                 case "listar":
-                    User usuario = (User) req.getSession().getAttribute("usuario");
-                    Equipo equipoUser = modelo.findEquipoByIdEquipo(usuario.getEquipo());
                     s.setAttribute("pilotos", modelo.findPilotosByIdEquipo(equipoUser.getId()));
                     s.setAttribute("listaP", modelo.getAllPilotosById());
                     res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionPilotos.jsp"));
@@ -47,7 +47,7 @@ public class PilotosServlet extends HttpServlet {
                 case "eliminar":
                     eliminarPiloto(req, res);
                     s.setAttribute("listaP", modelo.getAllPilotosById());
-                    s.setAttribute("pilotos", modelo.getAllPilotos());
+                    s.setAttribute("pilotos", modelo.findPilotosByIdEquipo(equipoUser.getId()));
                     res.sendRedirect(res.encodeRedirectURL("/web-formula1/Views/GestionPilotos.jsp"));
                     break;
                 default:
@@ -67,10 +67,10 @@ public class PilotosServlet extends HttpServlet {
         
         String pais = req.getParameter("pais");
         String twitter = req.getParameter("twitter");
-        String equipoV = req.getParameter("equipoV");
 
         User usuario = (User) req.getSession().getAttribute("usuario");
         Equipo equipoUser = modelo.findEquipoByIdEquipo(usuario.getEquipo());
+        String equipoV = equipoUser.getNombre();
 
         String pathFiles = req.getContextPath();
         String pathFiles2 = req.getServletContext().getRealPath("/img");

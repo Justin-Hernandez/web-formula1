@@ -89,8 +89,6 @@
                     <tr><td><input type="text" name="dorsal" id="dorsal" maxlength="100" width="400px"></td></tr>
                     <tr><td><label>País</label></td></tr>
                     <tr><td><input type="text" name="pais" id="pais" maxlength="100" width="400px"></td></tr>
-                    <tr><td><label>Equipo</label></td></tr>
-                    <tr><td><input type="text" name="equipoV" id="equipoV" maxlength="100" width="400px"></td></tr>
                     <tr><td><label>Twitter</label></td></tr>
                     <tr><td><input type="text" name="twitter" id="twitter" maxlength="100" width="400px"></td></tr>
                     <tr>
